@@ -48,34 +48,51 @@
 
     <!-- JavaScript to strictly block new tabs/windows across platforms -->
     <script>
-        // Strictly override window.open to prevent any new tabs or windows
+        // Detect iOS to apply platform-specific overrides
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+        // Override window.open to prevent any new tabs or windows
         window.open = function() {
-            console.warn("Attempted pop-up blocked and redirected to the current tab");
-            return window.location.href; // Redirect any open attempt to the current tab
+            console.warn("Pop-up attempt blocked.");
+            return null; // Prevent opening a new window or tab
         };
 
-        // Intercept all anchor links with target="_blank" and force them to open in the current tab
-        document.addEventListener('click', function(event) {
-            if (event.target.tagName === 'A' && event.target.target === '_blank') {
-                event.preventDefault();
-                window.location.href = event.target.href; // Redirect within the same tab
-                console.warn("External link redirected to stay in the current tab");
-            }
-        });
+        // Disable target="_blank" for all links on page load to prevent new tabs
+        function disableExternalLinks() {
+            const links = document.querySelectorAll('a[target="_blank"]');
+            links.forEach(link => {
+                link.removeAttribute('target'); // Remove target="_blank" to enforce same-tab behavior
+            });
+        }
 
-        // Mobile support: handle touch events for links to prevent new tabs
-        document.addEventListener('touchstart', function(event) {
-            if (event.target.tagName === 'A' && event.target.target === '_blank') {
-                event.preventDefault();
-                window.location.href = event.target.href; // Redirect within the same tab on touch devices
-                console.warn("External link redirected to stay in the current tab (touch event)");
-            }
-        });
+        // Apply link interception on click and touch events
+        function interceptLinkClicks() {
+            document.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A' && event.target.target === '_blank') {
+                    event.preventDefault();
+                    window.location.href = event.target.href;
+                    console.warn("Redirected link to open in the same tab.");
+                }
+            });
 
-        // Prevent page unload or navigation on all platforms
+            // For iOS: additional touch event handling
+            document.addEventListener('touchstart', function(event) {
+                if (event.target.tagName === 'A' && event.target.target === '_blank') {
+                    event.preventDefault();
+                    window.location.href = event.target.href;
+                    console.warn("Redirected link to open in the same tab (touch event).");
+                }
+            });
+        }
+
+        // Run the necessary functions on page load
+        disableExternalLinks(); // Remove target="_blank" attributes
+        interceptLinkClicks();   // Apply event listeners to enforce same-tab behavior
+
+        // Prevent page unload or navigation
         window.addEventListener("beforeunload", function(event) {
             event.preventDefault();
-            event.returnValue = ''; // Prevent accidental navigation away
+            event.returnValue = ''; // Trigger a confirmation dialog on navigation away
             return ''; // Required for some browsers to show a warning dialog
         });
     </script>
