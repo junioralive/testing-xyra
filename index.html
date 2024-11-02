@@ -46,7 +46,7 @@
         </iframe>
     </div>
 
-    <!-- JavaScript to strictly block new tabs/windows -->
+    <!-- JavaScript to strictly block new tabs/windows across platforms -->
     <script>
         // Strictly override window.open to prevent any new tabs or windows
         window.open = function() {
@@ -54,7 +54,7 @@
             return window.location.href; // Redirect any open attempt to the current tab
         };
 
-        // Ensure links that attempt to open in a new tab are locked to the current tab
+        // Intercept all anchor links with target="_blank" and force them to open in the current tab
         document.addEventListener('click', function(event) {
             if (event.target.tagName === 'A' && event.target.target === '_blank') {
                 event.preventDefault();
@@ -63,11 +63,20 @@
             }
         });
 
-        // Prevent unexpected navigations or page unloads
+        // Mobile support: handle touch events for links to prevent new tabs
+        document.addEventListener('touchstart', function(event) {
+            if (event.target.tagName === 'A' && event.target.target === '_blank') {
+                event.preventDefault();
+                window.location.href = event.target.href; // Redirect within the same tab on touch devices
+                console.warn("External link redirected to stay in the current tab (touch event)");
+            }
+        });
+
+        // Prevent page unload or navigation on all platforms
         window.addEventListener("beforeunload", function(event) {
             event.preventDefault();
             event.returnValue = ''; // Prevent accidental navigation away
-            return '';
+            return ''; // Required for some browsers to show a warning dialog
         });
     </script>
 
