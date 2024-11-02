@@ -239,7 +239,6 @@
 
         /* General Responsive Adjustments */
         @media (max-width: 768px) {
-            /* Mobile adjustments while keeping the number of cards consistent */
             .title {
                 font-size: 1.5rem;
             }
@@ -294,6 +293,7 @@
             }
         }
 
+        /* Smaller screens like phones (iPhone 12 Pro Max) */
         @media (max-width: 480px) {
             .container {
                 width: 100%;
@@ -314,17 +314,33 @@
                 font-size: 0.9rem;
             }
 
+            /* Ensure one card per row */
             .suggestions-container {
                 grid-template-columns: 1fr;
                 gap: 10px;
             }
 
-            .suggestion-image {
-                height: 150px;
+            /* Set card width and height to prevent overlap */
+            .suggestion-card {
+                max-width: 100%;
+                padding-bottom: 10px;
             }
 
+            /* Adjust image height for mobile */
+            .suggestion-image {
+                width: 100%;
+                height: 200px; /* Adjusted for a better mobile view */
+            }
+
+            /* Title and Subtitle adjustments for better visibility */
             .suggestion-title {
-                font-size: 0.8rem;
+                font-size: 0.85rem;
+                margin-top: 6px;
+            }
+            .suggestion-subtitle {
+                font-size: 0.75rem;
+                color: #BBBBBB;
+                margin-top: 2px;
             }
         }
     </style>
