@@ -36,6 +36,18 @@
             height: 100%;
             background-color: black;
         }
+        .overlay-play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 80px;
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         .controls {
             position: absolute;
             bottom: 0;
@@ -203,24 +215,44 @@
         .overlay-icon.show {
             opacity: 1;
         }
-        
         /* Branding */
         .branding {
             position: absolute;
-            top: 30px; /* Increased space from top */
-            right: 30px; /* Increased space from right */
+            top: 30px;
+            right: 30px;
             z-index: 2;
             display: flex;
             align-items: center;
         }
         .branding img {
-            width: 40px; /* Adjust as needed */
+            width: 40px;
             height: auto;
             cursor: pointer;
         }
         /* Adjustments for control buttons */
         .control-button.icon {
             font-size: 24px;
+        }
+        .seek-arrow {
+            position: absolute;
+            top: 50%;
+            font-size: 60px;
+            color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-50%);
+            cursor: pointer;
+            user-select: none;
+            z-index: 2;
+        }
+
+        /* Adjusted arrow positioning to bring further inside */
+        .left-arrow {
+            left: 350px;
+        }
+        .right-arrow {
+            right: 350px;
+        }
+        .seek-arrow:hover {
+            color: rgba(255, 255, 255, 0.6); /* Highlight on hover */
         }
         /* Responsive adjustments */
         @media screen and (max-width: 600px) {
@@ -233,57 +265,69 @@
             .branding img {
                 width: 30px;
             }
+        /* Adjusted arrow positioning to bring further inside */
+        .left-arrow {
+            left: 50px;
         }
+        .right-arrow {
+            right: 50px;
+        }
+    }
+
     </style>
 </head>
 <body>
 
-<div class="player-container" id="playerContainer">
-    <video id="video" crossorigin="anonymous"></video>
-    <div class="overlay-icon" id="overlayIcon">▶</div>
-    <!-- Branding -->
-    <div class="branding">
-        <a href="https://xyrastream.live/" target="_blank">
-            <img src="https://raw.githubusercontent.com/junioralive/Xyra/refs/heads/main/assets/xyra.png" alt="XyraStream Logo">
-        </a>
-    </div>
-    <!-- Controls -->
-    <div class="controls" id="controls">
-        <div class="seek-bar-container">
-            <span id="currentTime">00:00:00</span>
-            <div class="seek-bar-wrapper">
-                <input type="range" id="seek" class="seek-bar" value="0">
-                <div id="tooltip" class="tooltip">00:00:00</div>
-            </div>
-            <span id="duration">00:00:00</span>
+    <div class="player-container" id="playerContainer">
+        <video id="video" crossorigin="anonymous"></video>
+        <div class="overlay-icon" id="overlayIcon">▶</div>
+        <!-- Branding -->
+        <div class="branding">
+            <a href="https://xyrastream.live/" target="_blank">
+                <img src="https://raw.githubusercontent.com/junioralive/Xyra/refs/heads/main/assets/xyra.png" alt="XyraStream Logo">
+            </a>
         </div>
-        <div class="controls-container">
-            <button id="playPause" class="control-button icon">▶</button>
-            <div class="volume-control">
-                <button id="volumeIcon" class="control-button icon">🔊</button>
-                <input type="range" id="volume" class="volume-slider" min="0" max="1" step="0.1" value="1">
-            </div>
-            <div class="dropdown">
-                <button class="control-button icon" id="qualityButton">📺</button>
-                <div class="dropdown-content" id="qualityOptions"></div>
-            </div>
-            <div class="dropdown">
-                <button class="control-button icon" id="speedButton">⏱️</button>
-                <div class="dropdown-content" id="speedOptions">
-                    <button data-speed="0.5">0.5x</button>
-                    <button data-speed="1">1x</button>
-                    <button data-speed="1.5">1.5x</button>
-                    <button data-speed="2">2x</button>
+        <!-- Left and Right Seek Arrows -->
+        <div class="overlay-play-icon" id="overlayPlayPause">▶</div>
+        <div class="seek-arrow left-arrow" id="leftArrow">⤣</div>
+        <div class="seek-arrow right-arrow" id="rightArrow">⤤</div>
+        <!-- Controls -->
+        <div class="controls" id="controls">
+            <div class="seek-bar-container">
+                <span id="currentTime">00:00:00</span>
+                <div class="seek-bar-wrapper">
+                    <input type="range" id="seek" class="seek-bar" value="0">
+                    <div id="tooltip" class="tooltip">00:00:00</div>
                 </div>
+                <span id="duration">00:00:00</span>
             </div>
-            <div class="dropdown">
-                <button class="control-button icon" id="subtitleButton">🄰</button>
-                <div class="dropdown-content" id="subtitleOptions"></div>
+            <div class="controls-container">
+                <button id="playPause" class="control-button icon">▶</button>
+                <div class="volume-control">
+                    <button id="volumeIcon" class="control-button icon">🔊</button>
+                    <input type="range" id="volume" class="volume-slider" min="0" max="1" step="0.1" value="1">
+                </div>
+                <div class="dropdown">
+                    <button class="control-button icon" id="qualityButton">📺</button>
+                    <div class="dropdown-content" id="qualityOptions"></div>
+                </div>
+                <div class="dropdown">
+                    <button class="control-button icon" id="speedButton">⏱️</button>
+                    <div class="dropdown-content" id="speedOptions">
+                        <button data-speed="0.5">0.5x</button>
+                        <button data-speed="1">1x</button>
+                        <button data-speed="1.5">1.5x</button>
+                        <button data-speed="2">2x</button>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="control-button icon" id="subtitleButton">🄰</button>
+                    <div class="dropdown-content" id="subtitleOptions"></div>
+                </div>
+                <button id="fullscreenButton" class="control-button icon">⛶</button>
             </div>
-            <button id="fullscreenButton" class="control-button icon">⛶</button>
         </div>
     </div>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
@@ -306,6 +350,16 @@
     const subtitleButton = document.getElementById('subtitleButton');
     const tooltip = document.getElementById('tooltip');
     const seekBarWrapper = document.querySelector('.seek-bar-wrapper');
+    const overlayPlayPause = document.getElementById('overlayPlayPause');
+    // Add left and right arrow elements
+    const leftArrow = document.createElement('div');
+    const rightArrow = document.createElement('div');
+    leftArrow.className = 'seek-arrow left-arrow';
+    rightArrow.className = 'seek-arrow right-arrow';
+    leftArrow.innerHTML = '⤣';
+    rightArrow.innerHTML = '⤤';
+    playerContainer.appendChild(leftArrow);
+    playerContainer.appendChild(rightArrow);
     
     let hls;
     let currentSubtitleUrl = null;
@@ -313,7 +367,6 @@
     let currentSubtitleButton = null;
     let hideControlsTimeout;
     
-    // Function to parse URL parameters
     function getQueryParams() {
         const params = {};
         window.location.search.substring(1).split("&").forEach(function(part) {
@@ -322,7 +375,7 @@
         });
         return params;
     }
-
+    
     async function fetchData() {
         const params = getQueryParams();
         const id = params['id'];
@@ -330,22 +383,20 @@
         const season = params['season'];
         const episode = params['episode'];
         let apiUrl;
-        
-        // Check if the required parameters are provided
+    
         if (!id || (route === 'show' && (!season || !episode))) {
             alert("Please provide a valid ID, season, and episode.");
-            return; // Exit function if required parameters are missing
+            return;
         }
-
+    
         if (route === 'movie') {
             apiUrl = `https://vidsrc-api-js-eosin.vercel.app/vidsrc/${id}`;
         } else if (route === 'show' && season && episode) {
             apiUrl = `https://vidsrc-api-js-eosin.vercel.app/vidsrc/${id}?s=${season}&e=${episode}`;
         } else {
-            // Default to movie route if no valid route is provided
             apiUrl = `https://vidsrc-api-js-eosin.vercel.app/vidsrc/${id}`;
         }
-
+    
         const response = await fetch(apiUrl);
         const data = await response.json();
         return data;
@@ -355,10 +406,8 @@
         const data = await fetchData();
         const { sources, subtitles } = data;
     
-        // Load default video quality
         loadVideo(sources[0].url);
     
-        // Populate quality options
         sources.forEach((source, index) => {
             const button = document.createElement("button");
             button.textContent = `${source.quality}p`;
@@ -372,7 +421,6 @@
             qualityOptions.appendChild(button);
         });
     
-        // Populate subtitle options
         subtitles.forEach((subtitle, index) => {
             const button = document.createElement("button");
             button.textContent = subtitle.lang;
@@ -386,7 +434,6 @@
             subtitleOptions.appendChild(button);
         });
     
-        // Populate speed options
         const speedButtons = speedOptions.querySelectorAll('button');
         speedButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -399,7 +446,7 @@
             }
         });
     }
-
+    
     function highlightSelectedOption(button, type) {
         if (type === 'quality') {
             if (currentQualityButton) {
@@ -418,7 +465,7 @@
         button.classList.add('selected');
         closeAllMenus();
     }
-
+    
     function loadVideo(source) {
         if (hls) hls.destroy();
         if (Hls.isSupported()) {
@@ -454,26 +501,24 @@
         } else {
             console.error("HLS is not supported in this browser");
         }
-
+    
         video.addEventListener('loadedmetadata', () => {
             durationDisplay.textContent = formatTime(video.duration);
             seekBar.max = video.duration;
         });
-
-        // Reload subtitles if any
+    
         if (currentSubtitleUrl) {
             loadSubtitles(currentSubtitleUrl);
         }
     }
-
+    
     function loadSubtitles(subtitleUrl) {
-        // Remove previous tracks
         const tracks = video.querySelectorAll('track');
         tracks.forEach(trackElement => {
             trackElement.track.mode = 'disabled';
             trackElement.parentNode.removeChild(trackElement);
         });
-
+    
         if (subtitleUrl) {
             const trackElement = document.createElement("track");
             trackElement.kind = "subtitles";
@@ -481,34 +526,40 @@
             trackElement.src = subtitleUrl;
             trackElement.default = true;
             video.appendChild(trackElement);
-
+    
             trackElement.addEventListener('load', () => {
                 trackElement.track.mode = 'showing';
             });
-
-            // For browsers that don't fire 'load' event
+    
             if (trackElement.track && trackElement.track.readyState === 2) {
                 trackElement.track.mode = 'showing';
             }
-
+    
             currentSubtitleUrl = subtitleUrl;
         } else {
             currentSubtitleUrl = null;
         }
     }
+    
+    overlayPlayPause.addEventListener('click', togglePlayPause);
 
     function togglePlayPause() {
         if (video.paused) {
             video.play();
             playPauseButton.innerHTML = "❚❚";
-            showOverlayIcon('❚❚');
+            overlayPlayPause.style.display = 'none'; // Hide overlay when playing
         } else {
             video.pause();
             playPauseButton.innerHTML = "▶";
-            showOverlayIcon('▶');
+            overlayPlayPause.style.display = 'flex'; // Show overlay when paused
         }
     }
 
+    // Ensure overlay is shown when video ends
+    video.addEventListener('ended', () => {
+        overlayPlayPause.style.display = 'flex';
+    });
+        
     function showOverlayIcon(icon) {
         overlayIcon.innerHTML = icon;
         overlayIcon.classList.add('show');
@@ -516,12 +567,12 @@
             overlayIcon.classList.remove('show');
         }, 500);
     }
-
+    
     function updateSeekBar() {
         seekBar.value = video.currentTime;
         currentTimeDisplay.textContent = formatTime(video.currentTime);
     }
-
+    
     function formatTime(seconds) {
         seconds = Math.floor(seconds);
         const hrs = Math.floor(seconds / 3600).toString().padStart(2, '0');
@@ -529,10 +580,9 @@
         const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
         return `${hrs}:${mins}:${secs}`;
     }
-
-    // Fullscreen functionality - activate only on button click, not on touch or screen taps
+    
     fullscreenButton.addEventListener('click', toggleFullscreen);
-
+    
     function toggleFullscreen() {
         if (!document.fullscreenElement) {
             playerContainer.requestFullscreen().catch(err => {
@@ -544,21 +594,19 @@
             fullscreenButton.textContent = "⛶";
         }
     }
-
-
-    // Update captions when controls toggle visibility
+    
     function showControls() {
         controls.classList.add('show');
-        updateCaptionsPosition(); // Update caption position when controls are shown
+        updateCaptionsPosition();
         clearTimeout(hideControlsTimeout);
-
+    
         hideControlsTimeout = setTimeout(() => {
             controls.classList.remove('show');
-            updateCaptionsPosition(); // Reset caption position when controls are hidden
-        }, 3000);
+            updateCaptionsPosition();
+        }, 3000); // 3 seconds timeout
     }
-
-    // Initial setup
+    
+    
     video.addEventListener('loadedmetadata', updateCaptionsPosition);
     playerContainer.addEventListener('mousemove', showControls);
     playerContainer.addEventListener('click', showControls);
@@ -566,32 +614,54 @@
     video.addEventListener('pause', showControls);
     window.addEventListener('resize', updateCaptionsPosition);
 
-    // Update captions position based on controls visibility
+    document.addEventListener('keydown', (event) => {
+        switch (event.key) {
+            case 'ArrowRight':
+                video.currentTime += 10; // Seek forward 10 seconds
+                showOverlayIcon('⤤ +10s');
+                break;
+            case 'ArrowLeft':
+                video.currentTime -= 10; // Seek backward 10 seconds
+                showOverlayIcon('⤣ -10s');
+                break;
+            case 'ArrowUp':
+                video.volume = Math.min(video.volume + 0.1, 1); // Increase volume
+                updateVolumeIcon();
+                break;
+            case 'ArrowDown':
+                video.volume = Math.max(video.volume - 0.1, 0); // Decrease volume
+                updateVolumeIcon();
+                break;
+            case ' ':
+                togglePlayPause(); // Spacebar to play/pause
+                break;
+            default:
+                break;
+        }
+    });
+
     function updateCaptionsPosition() {
         const tracks = video.textTracks;
         const isMobile = window.innerWidth <= 600;
-        const baseLine = isMobile ? -1 : -2; // Base position of captions
-        const controlsVisibleOffset = controls.classList.contains('show') ? -3 : baseLine; // Adjust position based on controls
-
+        const baseLine = isMobile ? -1 : -2;
+        const controlsVisibleOffset = controls.classList.contains('show') ? -3 : baseLine;
+    
         for (let i = 0; i < tracks.length; i++) {
             const cues = tracks[i].cues;
             if (cues) {
                 for (let j = 0; j < cues.length; j++) {
-                    cues[j].line = controlsVisibleOffset; // Dynamically set the caption line
+                    cues[j].line = controlsVisibleOffset;
                 }
             }
         }
     }
     
-
     controls.addEventListener('transitionend', updateCaptionsPosition);
-
-    // Seek functionality with seek bar
+    
     seekBar.addEventListener('input', () => {
         video.currentTime = seekBar.value;
     });
-
-    // Seek bar tooltip functionality
+    
     seekBar.addEventListener('mousemove', (e) => {
         const rect = seekBar.getBoundingClientRect();
         const percent = (e.clientX - rect.left) / rect.width;
@@ -600,85 +670,28 @@
         tooltip.style.left = `${e.clientX - rect.left}px`;
         tooltip.style.display = 'block';
     });
-
+    
     seekBar.addEventListener('mouseout', () => {
         tooltip.style.display = 'none';
     });
-
-    // Tap gestures for seeking
-    let lastTapTime = 0;
-    let tapTimeout;
-
-    video.addEventListener('click', (event) => {
-        const currentTime = new Date().getTime();
-        const tapGap = currentTime - lastTapTime;
-        const x = event.offsetX;
-        const width = video.clientWidth;
     
-        if (tapGap < 300 && tapGap > 0) {
-            // Double tap detected
-            if (x < width / 2) {
-                // Left side
-                video.currentTime -= 10; // Seek backward 10 seconds
-                showOverlayIcon('-10s');
-            } else {
-                // Right side
-                video.currentTime += 10; // Seek forward 10 seconds
-                showOverlayIcon('+10s');
-            }
-            lastTapTime = 0;
-        } else {
-            // Single tap
-            lastTapTime = currentTime;
-            clearTimeout(tapTimeout);
-            if (!isMobile) {
-                // Only toggle play/pause on single tap if not on mobile
-                tapTimeout = setTimeout(() => {
-                    togglePlayPause();
-                    lastTapTime = 0;
-                }, 300);
-            }
-        }
+    leftArrow.addEventListener('click', (event) => {
+        event.stopPropagation();
+        video.currentTime -= 10;
+        showOverlayIcon('⤣ -10s');
     });
     
-    video.addEventListener('touchend', (event) => {
-        const currentTime = new Date().getTime();
-        const touchGap = currentTime - lastTapTime;
-        const touch = event.changedTouches[0];
-        const x = touch.clientX - video.getBoundingClientRect().left;
-        const width = video.clientWidth;
-
-        if (touchGap < 300 && touchGap > 0) {
-            // Double tap detected
-            if (x < width / 2) {
-                // Left side
-                video.currentTime -= 10; // Seek backward 10 seconds
-                showOverlayIcon('-10s');
-            } else {
-                // Right side
-                video.currentTime += 10; // Seek forward 10 seconds
-                showOverlayIcon('+10s');
-            }
-            lastTapTime = 0;
-            event.preventDefault();
-        } else {
-            // Single tap
-            lastTapTime = currentTime;
-            clearTimeout(tapTimeout);
-            tapTimeout = setTimeout(() => {
-                // Single tap action (toggle play/pause)
-                togglePlayPause();
-                lastTapTime = 0;
-            }, 300);
-        }
+    rightArrow.addEventListener('click', (event) => {
+        event.stopPropagation();
+        video.currentTime += 10;
+        showOverlayIcon('⤤ +10s');
     });
-
-    // Volume control
+    
     volumeSlider.addEventListener('input', (event) => {
         video.volume = event.target.value;
         updateVolumeIcon();
     });
-
+    
     function updateVolumeIcon() {
         if (video.volume > 0.5) {
             volumeIcon.textContent = "🔊";
@@ -688,7 +701,7 @@
             volumeIcon.textContent = "🔇";
         }
     }
-
+    
     volumeIcon.addEventListener('click', () => {
         if (video.volume > 0) {
             video.volume = 0;
@@ -697,44 +710,39 @@
         }
         updateVolumeIcon();
     });
-
-    // Play/Pause functionality
+    
     playPauseButton.addEventListener('click', togglePlayPause);
-
-    // Update time and seek bar
+    
     video.addEventListener('timeupdate', updateSeekBar);
-
-    // Dropdown menus toggle
+    
     function toggleDropdown(event) {
         event.stopPropagation();
         const dropdownContent = event.currentTarget.nextElementSibling;
         dropdownContent.classList.toggle('show');
-        // Close other menus
         document.querySelectorAll('.dropdown-content').forEach(content => {
             if (content !== dropdownContent) {
                 content.classList.remove('show');
             }
         });
     }
-
+    
     qualityButton.addEventListener('click', toggleDropdown);
     speedButton.addEventListener('click', toggleDropdown);
     subtitleButton.addEventListener('click', toggleDropdown);
-
-    // Close menus when clicking outside
+    
     document.addEventListener('click', (event) => {
         if (!event.target.closest('.control-button') && !event.target.closest('.dropdown-content')) {
             closeAllMenus();
         }
     });
-
+    
     function closeAllMenus() {
         document.querySelectorAll('.dropdown-content').forEach(content => {
             content.classList.remove('show');
         });
     }
-
-    initializePlayer();
+    
+    initializePlayer();    
 </script>
 </body>
 </html>
