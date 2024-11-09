@@ -239,7 +239,7 @@
 <body>
 
 <div class="player-container" id="playerContainer">
-    <video id="video" crossorigin="anonymous" playsinline></video>
+    <video id="video" crossorigin="anonymous"></video>
     <div class="overlay-icon" id="overlayIcon">▶</div>
     <!-- Branding -->
     <div class="branding">
@@ -534,36 +534,17 @@
     fullscreenButton.addEventListener('click', toggleFullscreen);
 
     function toggleFullscreen() {
-        // Check if fullscreen is already enabled
         if (!document.fullscreenElement) {
-            // Try fullscreen on video element
-            if (video.requestFullscreen) {
-                video.requestFullscreen().catch(err => {
-                    alert(`Error attempting to enable full-screen mode: ${err.message}`);
-                });
-            } else if (video.webkitRequestFullscreen) { // Safari
-                video.webkitRequestFullscreen();
-            } else if (video.msRequestFullscreen) { // IE11
-                video.msRequestFullscreen();
-            } else if (video.mozRequestFullScreen) { // Firefox
-                video.mozRequestFullScreen();
-            }
-            fullscreenButton.textContent = "❐"; // Update button icon to exit fullscreen
+            playerContainer.requestFullscreen().catch(err => {
+                alert(`Error attempting to enable full-screen mode: ${err.message}`);
+            });
+            fullscreenButton.textContent = "❐";
         } else {
-            // Exit fullscreen
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) { // Safari
-                document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) { // IE11
-                document.msExitFullscreen();
-            } else if (document.mozCancelFullScreen) { // Firefox
-                document.mozCancelFullScreen();
-            }
-            fullscreenButton.textContent = "⛶"; // Update button icon to fullscreen
+            document.exitFullscreen();
+            fullscreenButton.textContent = "⛶";
         }
     }
-    
+
 
     // Update captions when controls toggle visibility
     function showControls() {
@@ -633,7 +614,7 @@
         const tapGap = currentTime - lastTapTime;
         const x = event.offsetX;
         const width = video.clientWidth;
-
+    
         if (tapGap < 300 && tapGap > 0) {
             // Double tap detected
             if (x < width / 2) {
@@ -650,14 +631,16 @@
             // Single tap
             lastTapTime = currentTime;
             clearTimeout(tapTimeout);
-            tapTimeout = setTimeout(() => {
-                // Single tap action (toggle play/pause)
-                togglePlayPause();
-                lastTapTime = 0;
-            }, 300);
+            if (!isMobile) {
+                // Only toggle play/pause on single tap if not on mobile
+                tapTimeout = setTimeout(() => {
+                    togglePlayPause();
+                    lastTapTime = 0;
+                }, 300);
+            }
         }
     });
-
+    
     video.addEventListener('touchend', (event) => {
         const currentTime = new Date().getTime();
         const touchGap = currentTime - lastTapTime;
