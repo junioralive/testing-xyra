@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Xyra - A place to discover movies and TV shows. Watch anytime, anywhere.">
     <meta name="keywords" content="Xyra streaming, Xyra Api, Xyra movies, Xyra TV shows, free movie streaming, free TV shows online, watch movies online, stream TV shows, online movie streaming, HD movies free, TV series streaming, Xyra free movies, Xyra stream movies, watch TV shows online, popular movies 2024, trending TV shows, best streaming platform, free movie site, watch free movies, Xyra media streaming, high-quality movie streaming, movie library online, binge-watch movies, latest movie releases, HD streaming movies, free series streaming, full episodes online">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Xyra - Discover, Watch, Enjoy Anytime, Anywhere">
+    <meta property="og:description" content="Xyra - A place to discover movies and TV shows. Watch anytime, anywhere.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/junioralive/Xyra/refs/heads/main/assets/xyra.png">
+    <meta property="og:url" content="https://xyrastream.live">
+    <meta property="og:type" content="website">
     <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/junioralive/Xyra/refs/heads/main/assets/xyra.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -528,14 +534,19 @@
     fullscreenButton.addEventListener('click', toggleFullscreen);
 
     function toggleFullscreen() {
-        if (!document.fullscreenElement) {
-            playerContainer.requestFullscreen().catch(err => {
-                alert(`Error attempting to enable full-screen mode: ${err.message}`);
-            });
-            fullscreenButton.textContent = "❐";
-        } else {
-            document.exitFullscreen();
-            fullscreenButton.textContent = "⛶";
+        // Check if the device is a mobile (touch device) and avoid fullscreen toggle
+        const isMobileDevice = 'ontouchstart' in document.documentElement;
+    
+        if (!isMobileDevice) { // Only allow fullscreen on non-mobile devices
+            if (!document.fullscreenElement) {
+                playerContainer.requestFullscreen().catch(err => {
+                    alert(`Error attempting to enable full-screen mode: ${err.message}`);
+                });
+                fullscreenButton.textContent = "❐";
+            } else {
+                document.exitFullscreen();
+                fullscreenButton.textContent = "⛶";
+            }
         }
     }
 
