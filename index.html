@@ -239,7 +239,7 @@
 <body>
 
 <div class="player-container" id="playerContainer">
-    <video id="video" crossorigin="anonymous"></video>
+    <video id="video" crossorigin="anonymous" playsinline></video>
     <div class="overlay-icon" id="overlayIcon">▶</div>
     <!-- Branding -->
     <div class="branding">
@@ -544,10 +544,6 @@
             fullscreenButton.textContent = "⛶";
         }
     }
-
-    // Remove event listeners that might accidentally toggle fullscreen on tap
-    video.removeEventListener('click', toggleFullscreen);
-    video.removeEventListener('touchend', toggleFullscreen);
 
     // Update captions when controls toggle visibility
     function showControls() {
