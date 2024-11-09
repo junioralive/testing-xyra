@@ -584,16 +584,27 @@
     fullscreenButton.addEventListener('click', toggleFullscreen);
     
     function toggleFullscreen() {
-        if (!document.fullscreenElement) {
-            playerContainer.requestFullscreen().catch(err => {
-                alert(`Error attempting to enable full-screen mode: ${err.message}`);
-            });
+        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+            // Attempt to use requestFullscreen if supported, otherwise use webkit for Safari
+            if (playerContainer.requestFullscreen) {
+                playerContainer.requestFullscreen().catch(err => {
+                    alert(`Error attempting to enable full-screen mode: ${err.message}`);
+                });
+            } else if (video.webkitEnterFullscreen) {
+                // Safari-specific fullscreen method for the video element
+                video.webkitEnterFullscreen();
+            }
             fullscreenButton.textContent = "❐";
         } else {
-            document.exitFullscreen();
+            // Exit fullscreen
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
             fullscreenButton.textContent = "⛶";
         }
-    }
+    }    
     
     function showControls() {
         controls.classList.add('show');
