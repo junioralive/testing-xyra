@@ -545,6 +545,10 @@
         }
     }
 
+    // Remove event listeners that might accidentally toggle fullscreen on tap
+    video.removeEventListener('click', toggleFullscreen);
+    video.removeEventListener('touchend', toggleFullscreen);
+
     // Update captions when controls toggle visibility
     function showControls() {
         controls.classList.add('show');
