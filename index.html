@@ -530,23 +530,18 @@
         return `${hrs}:${mins}:${secs}`;
     }
 
-    // Fullscreen functionality
+    // Fullscreen functionality - activate only on button click, not on touch or screen taps
     fullscreenButton.addEventListener('click', toggleFullscreen);
 
     function toggleFullscreen() {
-        // Check if the device is a mobile (touch device) and avoid fullscreen toggle
-        const isMobileDevice = 'ontouchstart' in document.documentElement;
-    
-        if (!isMobileDevice) { // Only allow fullscreen on non-mobile devices
-            if (!document.fullscreenElement) {
-                playerContainer.requestFullscreen().catch(err => {
-                    alert(`Error attempting to enable full-screen mode: ${err.message}`);
-                });
-                fullscreenButton.textContent = "❐";
-            } else {
-                document.exitFullscreen();
-                fullscreenButton.textContent = "⛶";
-            }
+        if (!document.fullscreenElement) {
+            playerContainer.requestFullscreen().catch(err => {
+                alert(`Error attempting to enable full-screen mode: ${err.message}`);
+            });
+            fullscreenButton.textContent = "❐";
+        } else {
+            document.exitFullscreen();
+            fullscreenButton.textContent = "⛶";
         }
     }
 
