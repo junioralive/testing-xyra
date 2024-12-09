@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch TMDb Trailer Data</title>
+</head>
+<body>
+  <script>
+    const fetchTrailerScrollerData = async () => {
+      const url = "https://www.themoviedb.org/remote/panel?panel=trailer_scroller&group=popular";
+
+      try {
+        // Fetch HTML content with custom headers
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.5",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Connection": "keep-alive"
+          },
+          mode: "cors" // Use CORS mode
+        });
+
+        if (!response.ok) throw new Error("Failed to fetch trailer scroller data");
+
+        const htmlText = await response.text();
+
+        // Parse the HTML content
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlText, "text/html");
+
+        // Extract data from each card
+        const cards = doc.querySelectorAll(".card.video.style_2");
+        const data = Array.from(cards).map(card => {
+          const titleElement = card.querySelector(".content h2 a");
+          const contentElement = card.querySelector(".content h3");
+          const backdropImage = card.getAttribute("data-bg-image");
+          const trailerId = card.querySelector(".image a.image.play_trailer").getAttribute("data-id");
+          const trailerUrl = `https://www.youtube.com/embed/${trailerId}`;
+
+          return {
+            title: titleElement ? titleElement.textContent.trim() : null,
+            id: trailerId,
+            content: contentElement ? contentElement.textContent.trim() : null,
+            backdrop: backdropImage,
+            trailerUrl
+          };
+        });
+
+        // Convert data to JSON
+        const resultJson = JSON.stringify(data, null, 2);
+        console.log(resultJson);
+
+        // Display JSON on the webpage
+        document.body.innerHTML = `<pre>${resultJson}</pre>`;
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        document.body.innerHTML = `<p>Error fetching data: ${error.message}</p>`;
+      }
+    };
+
+    // Fetch and process the trailer scroller data
+    fetchTrailerScrollerData();
+  </script>
+</body>
+</html>
