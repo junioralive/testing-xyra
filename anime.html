@@ -1,0 +1,2798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Xyra - Home</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-32x32.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Xyra - A place to discover movies and TV shows. Watch anytime, anywhere.">
+    <meta name="keywords" content="Xyra streaming, Xyra movies, Xyra TV shows, free movie streaming, free TV shows online, watch movies online, stream TV shows, online movie streaming, HD movies free, TV series streaming, Xyra free movies, Xyra stream movies, watch TV shows online, popular movies 2024, trending TV shows, best streaming platform, free movie site, watch free movies, Xyra media streaming, high-quality movie streaming, movie library online, binge-watch movies, latest movie releases, HD streaming movies, free series streaming, full episodes online">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Xyra - Discover, Watch, Enjoy Anytime, Anywhere">
+    <meta property="og:description" content="Xyra - A place to discover movies and TV shows. Watch anytime, anywhere.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/junioralive/Xyra/refs/heads/main/assets/xyra.png">
+    <meta property="og:url" content="https://xyrastream.live">
+    <meta property="og:type" content="website">
+    <meta name="author" content="JuniorAlive">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and General Styles */
+        html, body {
+            margin: 0;
+            padding: 0; 
+            background-color: #121212;
+            color: #E0E0E0;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+            overflow-y: auto; /* Allow vertical scrolling only if necessary */
+            scrollbar-width: none; /* Hide scrollbars in Firefox */
+            -ms-overflow-style: none; /* Hide scrollbars in IE/Edge */
+        }
+
+        /* Minimal scrollbar styles for WebKit-based browsers */
+        body, .search-results, .trending-slider {
+            scrollbar-width: none; /* Hide scrollbar for Firefox */
+        }
+
+        /* Header Styles */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(18, 18, 18, 0.5); /* Increased transparency */
+            padding: 3px 10px; /* Reduced padding for smaller size */
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); /* Softer shadow */
+            backdrop-filter: blur(5px); /* Subtle blur effect */
+            gap: 15px;
+        }
+
+        /* Ensure the entire logo and title are clickable */
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none; /* Remove underline from the link */
+            color: inherit; /* Keep the text color same */
+            gap: 5px;
+        }
+        
+        .title-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .title-icon {
+            height: 40px !important; /* Desired height */
+            width: 40px !important;  /* Desired width */
+        }
+
+        .title {
+            color: #FFF;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Icon and text visibility */
+        .nav-link img {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Navigation text for PC view */
+        .nav-link span {
+            display: inline; /* Show text in PC view */
+        }
+
+        .nav-link {
+            color: #BBB;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            display: flex; /* Ensure both text and icon are displayed */
+            align-items: center;
+        }
+        
+        .nav-link:hover {
+            color: #FFF;
+        }
+
+        .nav-link.current{
+            color: #FFD700; /* Gold color for active page */
+            font-weight: 700;
+        }
+
+        .logo-link.current {
+            color: #FFD700; /* Gold color for active page */
+            font-weight: 700;
+            text-decoration: underline ; /* Optional underline for emphasis */
+        }    
+
+        /* Search container styles */
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .search-icon {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            transition: transform 0.2s ease;
+        }
+
+        #closeIcon {
+            display: none; /* Initially hidden */
+        }
+
+        .search-icon:hover {
+            transform: scale(1.2);
+        }
+
+        .search-icon img {
+            object-fit: contain; /* Ensure the image scales proportionally */
+            width: 30px; /* Adjust size for better appearance */
+            height: 30px;
+        }
+
+        .search-input {
+            width: 0;
+            opacity: 0;
+            height: 35px;
+            font-size: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            outline: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: #FFF;
+            margin-left: 10px;
+        }
+
+        .search-input.show {
+            width: 300px; /* Bigger search bar */
+            opacity: 1;
+        }
+
+        .search-results {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            width: 280px;
+            background: rgba(18, 18, 18, 0.5); /* Match header transparency */
+            backdrop-filter: blur(5px); /* Subtle blur effect */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            padding: 5px 15px;
+            display: none;
+            z-index: 1000;
+            margin-right: 75px; /* Add space on the right side */
+        }
+
+        /* Individual result items */
+        .search-results .result-item {
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Reduced gap */
+            padding: 8px 0; /* Smaller padding */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .search-results .result-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Hover effect */
+        .search-results .result-item:hover {
+            background: rgba(255, 255, 255, 0.1); /* Transparent white hover effect */
+            transform: scale(1.0); /* Slightly scale up */
+            border-radius: 5px;
+        }
+
+        /* Image styles */
+        .search-results img {
+            width: 15%;
+            height: 15%; /* Smaller image height */
+            object-fit: cover;
+            border-radius: 3px; /* Slightly smaller radius */
+            margin-left: 15px; /* Add space on the right side */
+        }
+
+        .search-results .result-details {
+            flex-grow: 1;
+            color: #FFF;
+        }
+
+        .search-results .result-title {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .search-results .result-meta {
+            font-size: 0.8rem;
+            color: #BBB;
+        }
+
+        /* Bell icon styles */
+        .bell-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px; /* Ensure the container has a fixed size */
+            height: 30px; /* Match width for a square container */
+            cursor: pointer;
+            transition: transform 0.2s ease, color 0.3s ease;
+            margin-right: 50px; /* Adjust margin for better alignment */
+            position: relative; /* For positioning the notification count */
+            overflow: visible; /* Change from 'hidden' to 'visible' */
+            border-radius: 50%; /* Optional: Make it circular */
+        }
+
+
+        .bell-icon img {
+            width: 100%; /* Adjust the image to fit the container */
+            height: 100%; /* Maintain aspect ratio within the container */
+            object-fit: contain; /* Ensure the image scales proportionally */
+            border-radius: 50%; /* Optional: Match container shape */
+        }
+
+
+        .bell-icon:hover {
+            transform: scale(1.1); /* Slight zoom on hover */
+            color: #FFD700; /* Add gold tint on hover */
+        }
+
+        /* Notification count styles */
+        .notification-count {
+            position: absolute;
+            top: 0; /* Position the notification count at the top-right */
+            right: 0;
+            background: #FF0000;
+            color: #FFF;
+            font-size: 0.7rem; /* Adjust font size for smaller text */
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Add a shadow for emphasis */
+        }
+
+        /* Notification Center */
+        .notification-center {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 320px;
+            max-height: 60vh;
+            background: rgba(18, 18, 18, 0.95); /* Slightly darker background */
+            border-radius: 10px;
+            overflow-y: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none; /* Initially hidden */
+            flex-direction: column;
+            padding: 10px; /* Add padding for cleaner layout */
+            animation: fadeIn 0.3s ease-in-out; /* Smooth fade-in effect */
+            scrollbar-width: none; /* Hide scrollbar for Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        .notification-center::-webkit-scrollbar {
+            display: none; /* Hide scrollbar for Chrome, Safari, Opera */
+        }
+
+        /* Notification Header */
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(18, 18, 18, 0.9);
+            color: #FFD700; /* Gold for emphasis */
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        /* Notification List */
+        .notifications {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .notification-item {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+            align-items: center; /* Ensure vertical alignment */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .notification-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .notification-item img {
+            width: 50px;
+            height: 75px;
+            border-radius: 5px;
+            object-fit: cover;
+            flex-shrink: 0; /* Prevent image from resizing */
+        }
+
+        .notification-item div {
+            flex: 1; /* Allow details to grow */
+            display: flex;
+            flex-direction: column;
+            gap: 5px; /* Add spacing between details */
+        }
+
+        .notification-item h4 {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .notification-item p {
+            font-size: 0.8rem;
+            margin: 0;
+            color: #bbb; /* Softer text color */
+        }
+
+        .dismiss-button {
+            background: none;
+            border: none;
+            color: #FFF;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-left: auto;
+            transition: color 0.3s;
+        }
+
+        .dismiss-button:hover {
+            color: #FF0000; /* Red on hover */
+        }
+
+        .close-button-notification {
+            background: none;
+            border: none;
+            color: #ff0000;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .banner {
+            position: relative;
+            width: 100%;
+            height: 75vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: black;
+            overflow: hidden; /* Prevent video from overflowing */
+        }
+
+        .banner img,
+        .banner iframe {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            transform: scale(1.5);
+            pointer-events: none; /* Prevent interactions while not in hover state */
+        }
+        
+        .banner iframe:hover {
+            transform: scale(1.1); /* Zoom in the iframe */
+            z-index: 3; /* Bring it to the front */
+            pointer-events: auto; /* Enable interaction during hover */
+        }        
+
+        .banner img {
+            display: block;
+            filter: brightness(0.8);
+        }
+
+        .banner iframe {
+            display: none;
+        }
+
+        .banner-details {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            color: #FFFFFF;
+            z-index: 2;
+            max-width: 50%;
+        }
+
+        .banner-title {
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Space between elements */
+            color: #FFFFFF;
+            max-width: 60%; /* Adjust width */
+        }
+
+        /* Title Styling */
+        .banner-main-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        /* Rank Styling */
+        .banner-rank {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #FFD700; /* Gold color */
+            text-transform: uppercase;
+        }
+
+        /* Type Styling */
+        .banner-type {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #BBB;
+            text-transform: capitalize;
+            margin-top: 5px;
+        }
+
+        /* Description Styling */
+        .banner-description {
+            font-size: 1rem;
+            margin-top: 10px;
+            line-height: 1.5;
+            color: #DDD;
+        }
+
+        .type-year {
+            position: relative;
+            margin-top: 5px;
+            font-size: 0.8rem;
+            color: #FFF;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        /* Trending Section */
+        .trending-section {
+            position: relative;
+            padding: 20px;
+        }
+
+        .trending-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            margin-left: 90px;
+        }
+
+        .trending-slider-container {
+            position: relative;
+            overflow: visible;
+            padding: 0; /* Remove extra padding */
+            margin-top: -50px; /* Adjust to lift the slider above the iframe */
+            z-index: 2; /* Ensure it is above other elements */
+        }
+
+        /* Adjusted .trending-slider */
+        .trending-slider {
+            display: flex;
+            gap: 10px;
+            overflow-x: scroll; /* Changed from 'hidden' to 'auto' */
+            scroll-behavior: smooth;
+            position: relative;
+            padding: 20px 0;
+            padding-left: 50px; /* Added */
+            padding-right: 50px; /* Added */
+        }
+
+        .trending-item {
+            position: relative; /* Necessary for positioning child elements */
+            flex: 0 0 auto;
+            width: 150px;
+            background-color: #181818;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1;
+            transform-origin: center left; /* Added */
+        }     
+
+        .trending-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .trending-item:hover {
+            transform: scale(1.1); /* Scale on hover */
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+            z-index: 2; /* Ensure the hovered item appears above its neighbors */
+        }
+
+        .type-year {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%; /* Stretch across the width of the card */
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            color: #FFF;
+            font-size: 0.7rem; /* Small font size */
+            font-weight: 500;
+            text-align: center; /* Center the text */
+            padding: 2px 0; /* Minimal padding */
+            z-index: 2; /* Ensure it's above the image */
+            pointer-events: none; /* Avoid interaction */
+            border-radius: 0 0 10px 10px; /* Match card's rounded corners at the bottom */
+        }
+
+        .rank-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 215, 0, 0.9); /* Gold background */
+            color: #121212; /* Dark text */
+            font-size: 0.5rem;
+            font-weight: 700;
+            padding: 5px 5px;
+            border-radius: 5px;
+            z-index: 3; /* Ensure it stays above other elements */
+            pointer-events: none; /* Avoid interaction */
+            text-transform: uppercase;
+        }
+
+        /* Continue Watching Section */
+        .continue-watching-section {
+            position: relative;
+            padding: 10px;
+        }
+
+        .continue-watching-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            margin-left: 80px;
+        }
+
+        .continue-watching-slider-container {
+            position: relative;
+            overflow: visible;
+            padding: 10px;
+        }
+
+        .release-status {
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #FFD700; /* Gold color */
+            margin-top: 5px; /* Space between the card and the text */
+        }
+        
+        /* Popular and Top Rated Sections */
+        .popular-section, .top-rated-section {
+            position: relative;
+            padding: 10px;
+        }
+
+        .popular-title, .top-rated-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            margin-left: 80px;
+        }
+
+        .popular-slider-container, .top-rated-slider-container {
+            position: relative;
+            overflow: visible;
+            padding: 10px;
+        }
+
+        /* Arrow Buttons */
+        .arrow-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            z-index: 5; /* Increased from 2 to 5 */
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+        }
+
+        .arrow-button:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: black;
+        }
+
+        /* Optional: Adjust arrow positions if needed */
+        .arrow-left {
+            left: 10px; /* Adjusted */
+        }
+
+        .arrow-right {
+            right: 10px; /* Adjusted */
+        }
+
+        /* Add to List Styles */
+        .add-to-list {
+            position: absolute;
+            top: 10px; /* Switched from top */
+            right: 10px; /* Switched from right */
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .add-to-list img {
+            width: 24px;
+            height: 24px;
+            stroke: white; /* Outline color */
+            transition: stroke 0.3s ease-in-out;
+        }
+
+        .add-to-list:hover {
+            background: rgba(255, 255, 255, 0.8);
+            color: black;
+        }
+
+        /* Tooltip Styles */
+        .add-to-list:hover::after {
+            content: "Add to list"; /* Tooltip text */
+            position: absolute;
+            bottom: -25px;
+            left: 35%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            font-size: 0.5rem;
+            padding: 5px 8px;
+            border-radius: 5px;
+            white-space: nowrap;
+            z-index: 4;
+            opacity: 1;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .add-to-list::after {
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8); /* Slightly darker overlay */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        
+        .popup-card {
+            background: rgba(18, 18, 18, 0.8); /* Transparent card background */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 400px;
+            width: 90%;
+            color: #E0E0E0; /* Light text color */
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+            backdrop-filter: blur(10px); /* Add glassmorphism effect */
+        }
+        
+        .popup-card h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #FFD700; /* Gold color for headings */
+        }
+        
+        .popup-card p {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            color: #DDD; /* Softer text for paragraphs */
+        }
+        
+        .popup-card a {
+            color: #FFD700; /* Gold color for links */
+            text-decoration: none;
+        }
+        
+        .popup-card a:hover {
+            text-decoration: underline;
+        }
+        
+        .popup-card button {
+            background: rgba(255, 215, 0, 0.9); /* Gold button */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: #121212; /* Dark text for contrast */
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        
+        .popup-card button:hover {
+            background: #FFF; /* White background on hover */
+            color: #000;
+            transform: scale(1.05); /* Slight zoom effect */
+        }
+
+        /* Disabled button style */
+        #adCloseBtn.disabled {
+            background-color: #ccc; /* Grey background */
+            color: #666; /* Light grey text */
+            cursor: not-allowed; /* Show disabled cursor */
+            border: 1px solid #999; /* Subtle border */
+        }
+
+        /* Enabled button style */
+        #adCloseBtn.enabled {
+            background-color: #FFD700; /* Gold background */
+            color: #121212; /* Dark text */
+            cursor: pointer; /* Pointer cursor */
+            border: 1px solid #FFC300; /* Border matching the button */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Add hover effect for enabled button */
+        #adCloseBtn.enabled:hover {
+            background-color: #FFF; /* Bright white on hover */
+            color: #000; /* Dark text on hover */
+        }
+        
+        /* Notification styles */
+        .notification {
+            position: fixed;
+            display: flex; /* Center content */
+            justify-content: center; /* Center text horizontally */
+            align-items: center; /* Center text vertically */
+            top: 50%; /* Position at the vertical center */
+            left: 50%; /* Position at the horizontal center */
+            transform: translate(-50%, -50%); /* Center the notification using transform */
+            background: rgba(0, 0, 0, 0.8);
+            color: #FFF;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1rem;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .notification.visible {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1); /* Maintain centered position */
+        }
+
+        .notification.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: rgba(18, 18, 18, 0.5); /* Match the header transparency */
+            color: #AAA; /* Soft gray text color */
+            text-align: center; /* Center the content */
+            padding: 8px 15px; /* Compact padding for a sleek look */
+            font-size: 0.85em; /* Slightly smaller font size */
+            backdrop-filter: blur(5px); /* Add blur effect to match the header */
+            -webkit-backdrop-filter: blur(5px); /* Safari compatibility */
+            box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+        }
+        
+        .footer a {
+            color: #FFD700; /* Gold color for links */
+            text-decoration: none; /* Remove underline */
+            font-weight: 500; /* Medium emphasis */
+            transition: color 0.3s ease; /* Smooth hover effect */
+        }
+        
+        .footer a:hover {
+            color: #FFF; /* Brighten the link color on hover */
+            text-decoration: underline; /* Add underline on hover */
+        }
+        
+        .footer small {
+            display: block;
+            margin-top: 5px; /* Adjust spacing from the main footer text */
+            font-size: 0.75em; /* Smaller font size for the note */
+            line-height: 1.3; /* Improve readability */
+        }
+        
+        /* Style for disclaimer link */
+        .footer .disclaimer-link {
+            color: #FF5555; /* Red color for the disclaimer text */
+            font-size: 1em; /* Match the small text size */
+            font-weight: 400; /* Regular font weight */
+        }
+        
+        .footer .disclaimer-link:hover {
+            color: #FFF; /* Change to white on hover */
+            text-decoration: underline; /* Add underline on hover */
+        }
+
+        /* Mobile Menu */
+        /* Dropdown Menu */
+        .dropdown-menu {
+            position: absolute;
+            top: 50px; /* Adjust based on your header height */
+            width: 200px; /* Define the width of the dropdown */
+            background-color: rgba(18, 18, 18, 0.9); /* Transparent dark background */
+            border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+            opacity: 0; /* Initially hidden */
+            transform: translateY(-10px); /* Slide up effect */
+            pointer-events: none; /* Prevent interaction when hidden */
+            transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth animation */
+            z-index: 1000; /* Ensure it's above other elements */
+            overflow: hidden; /* Clip overflowing content */
+        }
+
+        .dropdown-menu.visible {
+            opacity: 1; /* Make visible */
+            transform: translateY(0); /* Reset position */
+            pointer-events: auto; /* Allow interaction */
+        }
+
+        /* Menu Items */
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 15px;
+            color: #E0E0E0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .dropdown-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #FFF;
+        }
+
+        /* Remove border from the last item */
+        .dropdown-menu a:last-child {
+            border-bottom: none;
+        }
+
+
+        /* Hamburger Menu Icon */
+        .menu-icon {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-right: 15px;
+        }
+
+        .menu-icon img {
+            width: 30px;
+            height: 30px;
+            object-fit: contain; /* Ensure the image scales proportionally */
+        }
+
+
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* Hide navigation links for mobile view */
+            }
+
+            .menu-icon {
+                display: block; /* Show hamburger menu */
+            }
+            /* Adjust search container */
+            .search-container {
+                flex: 0 0 auto; /* Do not allow to grow or shrink */
+                display: flex;
+                align-items: center;
+            }
+        
+            .search-icon {
+                display: none; /* Hide the search icon on mobile */
+            }
+        
+            .search-input {
+                width: 150px; /* Fixed width for the search bar */
+                opacity: 1; /* Always visible */
+                height: 30px;
+                font-size: 0.9rem;
+                padding: 5px 10px;
+                margin-right: 15px;
+                transition: none; /* Remove transitions for instant display */
+                display: block; /* Ensure it's displayed */
+            }
+        
+            /* Ensure the search input is always visible */
+            .search-input.show {
+                width: 150px;
+                opacity: 1;
+            }
+
+            .search-results {
+                margin-top: 10px;
+                margin-right: 40px; /* Reset margin */
+                margin-left: 40px; /* Reset margin */
+                text-align: center; /* Center align */
+                display: none; /* Ensure it's a block element for centering */
+            }
+
+            .bell-icon {
+                width: 30px;
+                height: 30px;
+                margin-right: 25px; /* Reduce margin */
+            }
+
+            .notification-count {
+                width: 15px; /* Smaller count bubble */
+                height: 15px;
+                font-size: 0.7rem; /* Smaller font */
+                top: -5px;
+                right: 15px;
+            }
+
+            .notification-center {
+                width: 90%;
+                max-width: 300px;
+                right: 10px;
+                left: 10px;
+                bottom: 30px;
+            }
+        
+            .notifications li {
+                gap: 8px;
+            }
+        
+            .notifications li img {
+                width: 40px;
+                height: 60px;
+            }
+        
+            .notification-center {
+                bottom: max(env(safe-area-inset-bottom, 0px), 30px);
+                left: 50%;
+                transform: translateX(-50%);
+                width: 95%;
+            }
+
+            .popular-title, .top-rated-title, .continue-watching-title  {
+                margin-left: 20px;
+            }
+
+            /* Adjust banner for mobile */
+            .banner {
+                height: 65vh;
+            }
+
+            .banner-details {
+                bottom: 20px;
+                left: 20px;
+                max-width: 90%;
+            }
+
+            .banner-main-title {
+                font-size: 1.5rem;
+                line-height: 1.2;
+            }
+
+            .banner-rank {
+                font-size: 1rem;
+            }
+
+            .banner-description {
+                font-size: 0.9rem;
+                margin-top: 5px;
+            }
+
+            .banner iframe {
+                transform: scale(3); /* Adjust zoom for portrait */
+                width: 100%; /* Stretch width to fit screen */
+                height: 100%; /* Stretch height to fill viewport */
+                object-fit: cover; /* Ensure the video fills the space proportionally */
+            }
+            
+            .footer {
+                padding: 8px 10px; /* Compact padding for smaller screens */
+                font-size: 0.75em; /* Smaller font size to save space */
+            }
+
+            .footer a {
+                font-size: 0.85em; /* Slightly larger font size for links */
+                display: inline-block; /* Make links stack vertically if needed */
+                word-break: break-word; /* Prevent long links from overflowing */
+            }
+
+            .footer small {
+                font-size: 0.7em; /* Smaller disclaimer text */
+                margin-top: 6px; /* Adjust spacing from the main footer text */
+            }
+
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.2); /* Light gray border */
+            border-top: 4px solid #FFD700; /* Gold top border */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto; /* Center horizontally */
+            display: none; /* Initially hidden */
+        }
+        
+        /* Spinner animation */
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        
+    </style>  
+</head>
+<body>
+    
+    <!-- Header -->
+        <div class="top-bar">
+            <div class="menu-icon" id="menuButton">
+                <img src="icons/burger-menu.svg" alt="Menu" />
+            </div>
+            <div id="dropdownMenu" class="dropdown-menu">
+                <a href="discover.html">Discover</a>
+                <a href="topic.html">Topics</a>
+                <a href="mylist.html">My List</a>
+            </div>   
+            <div class="title-container">
+                <a href="index.html" class="logo-link nav-link" id="homeLink">
+                    <img src="/icons/icon-192x192.png" alt="Xyra Logo" class="title-icon">
+                    <h1 class="title">yra</h1>
+                </a>
+            </div>
+         
+            <div class="nav-links">
+                <a href="discover.html" class="nav-link" id="discoverLink">
+                    <img src="icons/discover.svg" alt="Discover">
+                    <span>Discover</span>
+                </a>
+                <a href="topic.html" class="nav-link" id="topicLink">
+                    <img src="icons/topic.svg" alt="Topics">
+                    <span>Topics</span>
+                </a>
+                <a href="mylist.html" class="nav-link" id="mylistLink">
+                    <img src="icons/my-list.svg" alt="My List">
+                    <span>My List</span>
+                </a>
+            </div>
+             
+            <div class="search-container">
+                <button class="search-icon" id="searchButton">
+                    <img id="searchIcon" src="icons/search.svg" alt="Search Icon"/>
+                    <img id="closeIcon" src="icons/close.svg" alt="Close Icon" />
+                </button>                
+                <input type="text" class="search-input" placeholder="Search...">
+                <div id="searchResults" class="search-results"></div>
+                <div class="bell-icon" id="bellIcon">
+                    <img src="icons/bell-icon.svg" alt="Notification Bell Icon" />
+                    <span id="notificationCount" class="notification-count" style="display: none;">0</span>
+                </div>                
+            </div>
+        </div>
+
+    <div id="notification" class="notification hidden"></div>
+    
+    <!-- Banner -->
+    <div id="banner" class="banner">
+        <img id="bannerImage" src="" alt="Trending Banner">
+        <iframe id="bannerTrailer" frameborder="0" allow="autoplay; encrypted-media; fullscreen" playsinline></iframe>
+        <div class="banner-details">
+            <div id="bannerTitle" class="banner-title"></div>
+            <div id="bannerDescription" class="banner-description"></div>
+        </div>
+    </div>
+
+
+    <!-- Trending Section -->
+    <div class="trending-section">
+        <div id="trendingLoading" class="spinner"></div> <!-- Spinner -->
+        <div class="trending-slider-container">
+            <button class="arrow-button arrow-left" id="prevArrow">&#8249;</button>
+            <div id="trending" class="trending-slider"></div>
+            <button class="arrow-button arrow-right" id="nextArrow">&#8250;</button>
+        </div>
+    </div>    
+
+    <!-- Continue Watching Section -->
+    <div class="continue-watching-section">
+        <h2 class="continue-watching-title">| Continue Watching</h2>
+        <div class="continue-watching-slider-container">
+            <button class="arrow-button arrow-left" id="prevContinueWatchingArrow">&#8249;</button>
+            <div id="continueWatching" class="trending-slider"></div>
+            <button class="arrow-button arrow-right" id="nextContinueWatchingArrow">&#8250;</button>
+        </div>
+    </div>
+
+
+    <!-- Popular Movies and TV Shows -->
+    <div class="popular-section">
+        <h2 class="popular-title">| Popular</h2>
+        <div class="popular-slider-container">
+            <div id="popularLoading" class="spinner"></div> <!-- Spinner for Popular -->
+            <button class="arrow-button arrow-left" id="prevPopularArrow">&#8249;</button>
+            <div id="popular" class="trending-slider"></div>
+            <button class="arrow-button arrow-right" id="nextPopularArrow">&#8250;</button>
+        </div>
+    </div>
+
+    <!-- Top Rated Movies and TV Shows -->
+<!-- Top Rated Movies and TV Shows -->
+<div class="top-rated-section">
+    <h2 class="top-rated-title">| Top Rated</h2>
+    <div class="top-rated-slider-container">
+        <div id="topRatedLoading" class="spinner"></div> <!-- Spinner for Top Rated -->
+        <button class="arrow-button arrow-left" id="prevTopRatedArrow">&#8249;</button>
+        <div id="topRated" class="trending-slider"></div>
+        <button class="arrow-button arrow-right" id="nextTopRatedArrow">&#8250;</button>
+    </div>
+</div>
+        
+    <div id="bookmarkPopup" class="popup-overlay" style="display: none;">
+        <div class="popup-card">
+            <h2>Bookmark Xyra Stream</h2>
+            <p>
+                For quick access, bookmark our official website <strong>xyrastream.live</strong>!
+            </p>
+            <button id="bookmarkBtn">Next</button>
+        </div>
+    </div>
+    
+    <div id="popupOverlay" class="popup-overlay" style="display: none;">
+        <div id="popupCard" class="popup-card">
+            <div class="popup-content">
+                <h2>Welcome to Xyra Stream</h2>
+                <p>
+                    Xyra Stream is absolutely legal and contains only links to other sites on the Internet. 
+                    We do not host or upload any video, films, or media files (avi, mov, flv, mpg, mpeg, divx, 
+                    dvd rip, mp3, mp4, torrent, ipod, psp). Xyra is not responsible for the accuracy, compliance, 
+                    copyright, legality, decency, or any other aspect of the content of other linked sites. 
+                    <a href="about.html" target="_blank">Read more...</a>
+                </p>
+                <button id="popupNextBtn">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="supPopup" class="popup-overlay" style="display: none;">
+        <div class="popup-card">
+            <div class="popup-content">
+                <h2>Support Xyra Stream</h2>
+                <p>
+                    This ad helps us fund Xyra Stream to keep it free and accessible. Ads are shown only once per day. Thank you for your support!
+                </p>                
+                <div>
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : 'ffeec1627761e95b8e3e498b3a92e84b',
+                            'format' : 'iframe',
+                            'height' : 250,
+                            'width' : 300,
+                            'params' : {}
+                        };
+                    </script>
+                    <script type="text/javascript" src="//www.highperformanceformat.com/ffeec1627761e95b8e3e498b3a92e84b/invoke.js"></script>
+                </div>
+                <p id="adTimer" style="font-weight: bold; margin: 10px 0;"></p> <!-- Timer element -->
+                <button id="adCloseBtn">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="discordPopup" class="popup-overlay" style="display: none;">
+        <div class="popup-card">
+            <div class="popup-content">
+                <h2>Join Our Discord Community</h2>
+                <p>Connect with like-minded individuals and get updates about Xyra Stream. Join now!</p>
+                <button id="discordJoinBtn" onclick="window.open('https://discord.gg/cwDTVKyKJz', '_blank')">Join Discord</button>
+                <button id="popupCloseBtn">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="notificationCenter" class="notification-center">
+        <div class="notification-header">
+            <h4>Notifications</h4>
+            <button id="closeNotifications" class="close-button-notification">✕</button>
+        </div>
+        <ul id="notifications" class="notifications"></ul>
+    </div>
+    <script>
+        // ======================= Configuration =======================
+        const ANILIST_API_URL = "https://graphql.anilist.co";
+        const BASE_IMAGE_URL = 'https://image.tmdb.org/t/p/';
+        const PLACEHOLDER_IMAGE = 'https://via.placeholder.com/150x225?text=No+Image';
+        const YOUTUBE_EMBED_URL = 'https://www.youtube.com/embed/';
+        const MAX_SEARCH_RESULTS = 5;
+    
+        // ======================= Utility Functions =======================
+    
+        /**
+         * Shuffles an array using the Fisher-Yates algorithm.
+         * @param {Array} array - The array to shuffle.
+         * @returns {Array} - The shuffled array.
+         */
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        /**
+         * Debounces a function by the specified delay.
+         * @param {Function} func - The function to debounce.
+         * @param {number} delay - The debounce delay in milliseconds.
+         * @returns {Function} - The debounced function.
+         */
+        function debounce(func, delay) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), delay);
+            };
+        }
+    
+        /**
+         * Displays a temporary notification to the user.
+         * @param {string} message - The message to display.
+         */
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            if (!notification) return; // Ensure the element exists
+    
+            notification.textContent = message;
+            notification.classList.add('visible');
+            notification.classList.remove('hidden');
+            setTimeout(() => {
+                notification.classList.remove('visible');
+                notification.classList.add('hidden');
+            }, 3000); // Hide after 3 seconds
+        }
+    
+        /**
+         * Retrieves an icon's HTML based on the action.
+         * @param {string} action - The action ('add' or 'check').
+         * @returns {string} - The HTML string for the icon.
+         */
+        function getIcon(action) {
+            const icons = {
+                add: `<img src="icons/add-list.svg" alt="Add to List Icon" />`,
+                check: `<img src="icons/check-circle.svg" alt="Added to List Icon" />`
+            };
+            return icons[action] || '';
+        }
+    
+        // ======================= Local Storage Management =======================
+    
+        /**
+         * Retrieves an item from localStorage and parses it as JSON.
+         * @param {string} key - The key to retrieve.
+         * @param {any} defaultValue - The default value if the key doesn't exist.
+         * @returns {any} - The parsed JSON data or the default value.
+         */
+        function getLocalStorageItem(key, defaultValue = []) {
+            const item = localStorage.getItem(key);
+            try {
+                return item ? JSON.parse(item) : defaultValue;
+            } catch (error) {
+                console.error(`Error parsing localStorage key "${key}":`, error);
+                return defaultValue;
+            }
+        }
+    
+        /**
+         * Saves an item to localStorage as a JSON string.
+         * @param {string} key - The key to save.
+         * @param {any} value - The value to save.
+         */
+        function setLocalStorageItem(key, value) {
+            localStorage.setItem(key, JSON.stringify(value));
+        }
+    
+
+// ======================= Centralized API Functions =======================
+
+/**
+ * Helper function to send GraphQL queries to AniList
+ * @param {string} query - The GraphQL query string.
+ * @param {Object} variables - The variables for the GraphQL query.
+ * @returns {Promise<Object|null>} - The fetched data or null if an error occurs.
+ */
+async function fetchFromAniList(query, variables = {}) {
+    try {
+        const response = await fetch(ANILIST_API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ query, variables }),
+        });
+        const result = await response.json();
+        return result.data;
+    } catch (error) {
+        console.error("Error fetching from AniList API:", error);
+        return null;
+    }
+}
+
+/**
+ * Fetches data from the TMDB API.
+ * @param {string} endpoint - The API endpoint (e.g., 'trending/all/day').
+ * @param {Object} params - Additional query parameters as key-value pairs.
+ * @returns {Promise<Object|null>} - The fetched JSON data or null if an error occurs.
+ */
+async function fetchFromTMDB(endpoint, params = {}) {
+    const url = new URL(`https://api.themoviedb.org/3/${endpoint}`);
+    url.searchParams.append('api_key', TMDB_API_KEY);
+    
+    // Append additional parameters
+    for (const key in params) {
+        url.searchParams.append(key, params[key]);
+    }
+    
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            console.error(`TMDB API error: ${response.status} ${response.statusText}`);
+            return null;
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching from TMDB API:', error);
+        return null;
+    }
+}
+
+// ======================= GraphQL Queries =======================
+
+const TRENDING_QUERY = `
+    query {
+        Page(page: 1, perPage: 10) {
+            media(sort: TRENDING_DESC, type: ANIME) {
+                id
+                title {
+                    romaji
+                }
+                coverImage {
+                    extraLarge
+                }
+                trailer {
+                    site
+                    id
+                }
+                description(asHtml: false)
+                averageScore
+                genres
+                seasonYear
+            }
+        }
+    }
+`;
+
+const POPULAR_QUERY = `
+    query {
+        Page(page: 1, perPage: 10) {
+            media(sort: POPULARITY_DESC, type: ANIME) {
+                id
+                title {
+                    romaji
+                }
+                coverImage {
+                    extraLarge
+                }
+                description(asHtml: false)
+                averageScore
+                genres
+                seasonYear
+            }
+        }
+    }
+`;
+
+const TOP_RATED_QUERY = `
+    query {
+        Page(page: 1, perPage: 10) {
+            media(sort: SCORE_DESC, type: ANIME) {
+                id
+                title {
+                    romaji
+                }
+                coverImage {
+                    extraLarge
+                }
+                description(asHtml: false)
+                averageScore
+                genres
+                seasonYear
+            }
+        }
+    }
+`;
+
+// ======================= DOM Manipulation Functions =======================
+
+/**
+ * Creates a slider item element.
+ * @param {Object} item - The media item data.
+ * @param {string} type - The type of media ('anime', 'movie', or 'tv').
+ * @param {string|null} rank - The rank badge text.
+ * @returns {HTMLElement} - The slider item element.
+ */
+function createSliderItem(item, type = 'anime', rank = null) {
+    const sliderItem = document.createElement('div');
+    sliderItem.classList.add('trending-item');
+
+    // Image
+    const img = document.createElement('img');
+    img.src = item.poster_path || PLACEHOLDER_IMAGE; // Use poster_path from mapped data
+    img.alt = item.title || 'No Title'; // Use title directly from mapped data
+
+    // Rank Badge (optional)
+    if (rank) {
+        const rankBadge = document.createElement('div');
+        rankBadge.classList.add('rank-badge');
+        rankBadge.textContent = rank;
+        sliderItem.appendChild(rankBadge);
+    }
+
+    // Type-Year Container
+    const typeYearContainer = document.createElement('div');
+    typeYearContainer.classList.add('type-year');
+    typeYearContainer.textContent = type === 'anime' ? 'Anime' : 'Other'; // Default type is anime
+    if (item.seasonYear) {
+        typeYearContainer.textContent += ` · ${item.seasonYear}`; // Append the season year if available
+    }
+
+    // Add to My List Button
+    const addToListButton = document.createElement('button');
+    addToListButton.classList.add('add-to-list');
+    const myList = getLocalStorageItem('myList') || [];
+    const isAdded = myList.some(savedItem => savedItem.id === item.id && savedItem.type === type);
+    addToListButton.innerHTML = isAdded ? getIcon('check') : getIcon('add');
+    addToListButton.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent triggering click on parent
+        toggleMyList(item, addToListButton, type);
+    });
+
+    // Assemble Slider Item
+    sliderItem.appendChild(img);
+    sliderItem.appendChild(typeYearContainer);
+    sliderItem.appendChild(addToListButton);
+    sliderItem.addEventListener('click', () => {
+        window.location.href = `details.html?id=${item.id}&type=${type}`;
+    });
+
+    return sliderItem;
+}
+
+/**
+ * Updates the banner with the selected media item.
+ * Displays genres and handles trailer availability.
+ * @param {Object} item - The media item data.
+ * @param {string} rank - The rank badge text.
+ */
+function updateBanner(item, rank = "#1") {
+    const bannerImage = document.getElementById('bannerImage');
+    const bannerTrailer = document.getElementById('bannerTrailer');
+    const bannerTitle = document.getElementById('bannerTitle');
+    const bannerDescription = document.getElementById('bannerDescription');
+
+    if (!bannerImage || !bannerTrailer || !bannerTitle || !bannerDescription) {
+        console.error('One or more banner elements are missing.');
+        return;
+    }
+
+    // Generate the trailer URL if available (only for Trending)
+    let trailerUrl = null;
+    if (item.trailer && item.trailer.site === "youtube") {
+        trailerUrl = `${YOUTUBE_EMBED_URL}${item.trailer.id}?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&playlist=${item.trailer.id}`;
+    }
+
+    const genres = (item.genres || []).join(', ') || 'N/A';
+    const type = "Anime";
+    const title = item.title || "No Title";
+    const description = item.description || "No description available.";
+
+    // Update banner title and description with genres
+    bannerTitle.innerHTML = `
+        <div class="banner-rank">${rank}</div>
+        <div class="banner-main-title">${title}</div>
+        <div class="banner-type">${type} · ${genres}</div>
+    `;
+    bannerDescription.textContent = description;
+
+    // Handle trailer embedding
+    if (trailerUrl) {
+        bannerTrailer.src = trailerUrl;
+        bannerTrailer.style.display = 'block';
+        bannerImage.style.display = 'none';
+
+        // Handle trailer load error by falling back to image
+        bannerTrailer.onerror = () => {
+            console.warn('Trailer failed to load. Falling back to image.');
+            bannerTrailer.style.display = 'none';
+            bannerImage.src = item.poster_path || PLACEHOLDER_IMAGE;
+            bannerImage.style.display = 'block';
+        };
+    } else {
+        // Fallback to cover image
+        bannerImage.src = item.poster_path || PLACEHOLDER_IMAGE;
+        bannerImage.style.display = 'block';
+        bannerTrailer.style.display = 'none';
+    }
+}
+
+// ======================= Specific Section Loaders =======================
+
+/**
+ * Loads and displays the trending banner.
+ */
+async function loadTrendingBanner() {
+    const data = await fetchFromTMDB('trending/all/day');
+    if (!data || !data.results.length) {
+        console.error('No trending data available to display in banner.');
+        return;
+    }
+
+    const rankedItems = data.results.map((item, index) => ({ ...item, rank: `#${index + 1}` }));
+    const randomItem = rankedItems[Math.floor(Math.random() * rankedItems.length)];
+    updateBanner(randomItem, randomItem.rank);
+}
+
+/**
+ * Loads and displays the trending slider.
+ */
+async function loadTrendingSlider() {
+    const spinner = document.getElementById('trendingLoading'); // Spinner element
+    const sliderContainer = document.getElementById('trending'); // Slider container
+    if (!spinner || !sliderContainer) {
+        console.error('Trending elements are missing.');
+        return;
+    }
+
+    // Show spinner
+    spinner.style.display = 'block';
+
+    // Fetch data from AniList
+    const data = await fetchFromAniList(TRENDING_QUERY);
+
+    // Hide spinner
+    spinner.style.display = 'none';
+
+    if (!data || !data.Page || !data.Page.media.length) {
+        console.error('No trending data available to display.');
+        return;
+    }
+
+    // Clear existing slider content
+    sliderContainer.innerHTML = '';
+
+    const fragment = document.createDocumentFragment();
+
+    data.Page.media.forEach((item, index) => {
+        // Map AniList data to the expected structure, including trailer
+        const mappedItem = {
+            id: item.id,
+            title: item.title.romaji || "Unknown Title",
+            poster_path: item.coverImage.extraLarge,
+            trailer: item.trailer, // Include trailer information
+            media_type: "anime", // AniList items are anime by default
+            description: item.description || "No description available",
+            seasonYear: item.seasonYear || "Unknown Year",
+            averageScore: item.averageScore || 0,
+            genres: item.genres || []
+        };
+
+        // Create slider item with trailer
+        const sliderItem = createSliderItem(mappedItem, "anime", `#${index + 1}`);
+
+        // Event: Update banner on mouseover
+        sliderItem.addEventListener('mouseover', () => updateBanner(mappedItem, `#${index + 1}`));
+
+        fragment.appendChild(sliderItem);
+    });
+
+    sliderContainer.appendChild(fragment);
+}
+
+/**
+ * Loads and displays the popular slider (AniList: Popular Anime).
+ */
+async function loadPopularSlider() {
+    const spinner = document.getElementById('popularLoading'); // Spinner element
+    const sliderContainer = document.getElementById('popular'); // Slider container
+    if (!spinner || !sliderContainer) {
+        console.error('Popular elements are missing.');
+        return;
+    }
+
+    // Show spinner
+    spinner.style.display = 'block';
+
+    // Fetch data from AniList
+    const data = await fetchFromAniList(POPULAR_QUERY);
+
+    // Hide spinner
+    spinner.style.display = 'none';
+
+    if (!data || !data.Page || !data.Page.media.length) {
+        console.error('No popular data available to display.');
+        return;
+    }
+
+    // Clear existing slider content
+    sliderContainer.innerHTML = '';
+
+    const fragment = document.createDocumentFragment();
+
+    data.Page.media.forEach((item, index) => {
+        // Map AniList data to the expected structure, excluding trailer
+        const mappedItem = {
+            id: item.id,
+            title: item.title.romaji || "Unknown Title",
+            poster_path: item.coverImage.extraLarge,
+            media_type: "anime", // AniList items are anime by default
+            description: item.description || "No description available",
+            seasonYear: item.seasonYear || "Unknown Year",
+            averageScore: item.averageScore || 0,
+            genres: item.genres || []
+        };
+
+        // Create slider item without trailer
+        const sliderItem = createSliderItem(mappedItem, "anime", `#${index + 1}`);
+
+        // No banner update on hover for Popular and Top Rated
+
+        fragment.appendChild(sliderItem);
+    });
+
+    sliderContainer.appendChild(fragment);
+}
+
+/**
+ * Loads and displays the top-rated slider (AniList: Top Rated Anime).
+ */
+async function loadTopRatedSlider() {
+    const spinner = document.getElementById('topRatedLoading'); // Spinner element
+    const sliderContainer = document.getElementById('topRated'); // Slider container
+    if (!spinner || !sliderContainer) {
+        console.error('Top Rated elements are missing.');
+        return;
+    }
+
+    // Show spinner
+    spinner.style.display = 'block';
+
+    // Fetch data from AniList
+    const data = await fetchFromAniList(TOP_RATED_QUERY);
+
+    // Hide spinner
+    spinner.style.display = 'none';
+
+    if (!data || !data.Page || !data.Page.media.length) {
+        console.error('No top-rated data available to display.');
+        return;
+    }
+
+    // Clear existing slider content
+    sliderContainer.innerHTML = '';
+
+    const fragment = document.createDocumentFragment();
+
+    data.Page.media.forEach((item, index) => {
+        // Map AniList data to the expected structure, excluding trailer
+        const mappedItem = {
+            id: item.id,
+            title: item.title.romaji || "Unknown Title",
+            poster_path: item.coverImage.extraLarge,
+            media_type: "anime", // AniList items are anime by default
+            description: item.description || "No description available",
+            seasonYear: item.seasonYear || "Unknown Year",
+            averageScore: item.averageScore || 0,
+            genres: item.genres || []
+        };
+
+        // Create slider item without trailer
+        const sliderItem = createSliderItem(mappedItem, "anime", `#${index + 1}`);
+
+        // No banner update on hover for Popular and Top Rated
+
+        fragment.appendChild(sliderItem);
+    });
+
+    sliderContainer.appendChild(fragment);
+}
+
+
+/**
+ * Updates the banner with the selected media item (AniList).
+ * @param {Object} item - The media item data.
+ * @param {string} rank - The rank badge text.
+ */
+ async function updateBanner(item, rank = "#1") {
+    const bannerImage = document.getElementById('bannerImage');
+    const bannerTrailer = document.getElementById('bannerTrailer');
+    const bannerTitle = document.getElementById('bannerTitle');
+    const bannerDescription = document.getElementById('bannerDescription');
+
+    if (!bannerImage || !bannerTrailer || !bannerTitle || !bannerDescription) {
+        console.error('One or more banner elements are missing.');
+        return;
+    }
+
+    // Generate the trailer URL if available
+    let trailerUrl = null;
+    if (item.trailer && item.trailer.site === "youtube") {
+        trailerUrl = `${YOUTUBE_EMBED_URL}${item.trailer.id}?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&playlist=${item.trailer.id}`;
+    }
+
+    const genres = (item.genres || []).join(', ') || 'N/A';
+    const type = "Anime";
+    const title = item.title || "No Title";
+    const description = item.description || "No description available.";
+
+    // Update banner title and description
+    bannerTitle.innerHTML = `
+        <div class="banner-rank">${rank}</div>
+        <div class="banner-main-title">${title}</div>
+        <div class="banner-type">${type} · ${genres}</div>
+    `;
+    bannerDescription.textContent = description;
+
+    // Handle trailer embedding
+    if (trailerUrl) {
+        bannerTrailer.src = trailerUrl;
+        bannerTrailer.style.display = 'block';
+        bannerImage.style.display = 'none';
+    } else {
+        // Fallback to cover image
+        bannerImage.src = item.poster_path || PLACEHOLDER_IMAGE; // Use poster_path from mapped data
+        bannerImage.style.display = 'block';
+        bannerTrailer.style.display = 'none';
+    }
+}
+
+    
+        // ======================= Slider Navigation Setup =======================
+    
+        /**
+         * Sets up arrow navigation for a specific slider section.
+         * @param {string} sliderId - The ID of the slider container.
+         * @param {string} prevArrowId - The ID of the previous arrow button.
+         * @param {string} nextArrowId - The ID of the next arrow button.
+         */
+        function setupArrowNavigation(sliderId, prevArrowId, nextArrowId) {
+            const slider = document.getElementById(sliderId);
+            const prevArrow = document.getElementById(prevArrowId);
+            const nextArrow = document.getElementById(nextArrowId);
+    
+            if (!slider || !prevArrow || !nextArrow) {
+                console.error(`One or more arrow elements for slider "${sliderId}" are missing.`);
+                return;
+            }
+    
+            prevArrow.addEventListener('click', () => {
+                slider.scrollBy({ left: -300, behavior: 'smooth' });
+            });
+    
+            nextArrow.addEventListener('click', () => {
+                slider.scrollBy({ left: 300, behavior: 'smooth' });
+            });
+        }
+    
+        /**
+         * Sets up arrow navigation for all slider sections.
+         */
+        function setupArrows() {
+            // Setup for trending slider
+            setupArrowNavigation('trending', 'prevArrow', 'nextArrow');
+    
+            // Setup for popular and topRated sliders
+            setupArrowNavigation('popular', 'prevPopularArrow', 'nextPopularArrow');
+            setupArrowNavigation('topRated', 'prevTopRatedArrow', 'nextTopRatedArrow');
+    
+            // Setup for continueWatching slider
+            setupArrowNavigation('continueWatching', 'prevContinueWatchingArrow', 'nextContinueWatchingArrow');
+        }
+    
+        // ======================= My List Management =======================
+    
+        /**
+         * Toggles an item in the user's "My List".
+         * @param {Object} item - The media item data.
+         * @param {HTMLElement} button - The button element to update.
+         * @param {string} type - The type of media ('movie' or 'tv').
+         */
+        function toggleMyList(item, button, type) {
+            const myList = getLocalStorageItem('myList');
+            const itemIndex = myList.findIndex(existingItem => existingItem.id === item.id && existingItem.type === type);
+    
+            if (itemIndex === -1) {
+                // Add item to the list
+                myList.push({
+                    id: item.id,
+                    title: item.title || item.name || 'No Title',
+                    poster_path: item.poster_path,
+                    backdrop_path: item.backdrop_path,
+                    overview: item.overview,
+                    type: type
+                });
+                setLocalStorageItem('myList', myList);
+                button.innerHTML = getIcon('check');
+                showNotification(`${item.title || item.name} has been added to your list.`);
+            } else {
+                // Remove item from the list
+                myList.splice(itemIndex, 1);
+                setLocalStorageItem('myList', myList);
+                button.innerHTML = getIcon('add');
+                showNotification(`${item.title || item.name} has been removed from your list.`);
+            }
+        }
+    
+        // ======================= Continue Watching =======================
+    
+        /**
+         * Loads and displays the "Continue Watching" section.
+         */
+        async function loadContinueWatching() {
+            const continueWatchingContainer = document.getElementById('continueWatching');
+            if (!continueWatchingContainer) {
+                console.error('Continue Watching container not found.');
+                return;
+            }
+            continueWatchingContainer.innerHTML = ''; // Clear existing content
+    
+            // Retrieve watched movies and current watching TV shows from localStorage
+            const watchedMovies = getLocalStorageItem('watchedMovies');
+            const currentWatchingList = getLocalStorageItem('currentWatchingList');
+            const nonAiredEpisodes = getLocalStorageItem('nonAiredEpisodes');
+    
+            // Collect all items to display
+            const itemsToDisplay = [];
+    
+            // Add watched movies
+            watchedMovies.forEach(movieId => {
+                itemsToDisplay.push({ id: movieId.toString(), type: 'movie' });
+            });
+    
+            // Add current watching TV shows
+            currentWatchingList.forEach(item => {
+                itemsToDisplay.push({
+                    id: item.tvId.toString(),
+                    type: 'tv',
+                    season: item.season,
+                    episode: item.episode
+                });
+            });
+    
+            // Reverse the array to show the most recent items first
+            itemsToDisplay.reverse();
+    
+            // If there are no items, hide the section
+            if (itemsToDisplay.length === 0) {
+                const section = document.querySelector('.continue-watching-section');
+                if (section) section.style.display = 'none';
+                return;
+            }
+    
+            // Show the section if hidden
+            const section = document.querySelector('.continue-watching-section');
+            if (section) section.style.display = 'block';
+    
+            const fragment = document.createDocumentFragment();
+    
+            // Fetch details for each item
+            for (const item of itemsToDisplay) {
+                const data = await fetchFromTMDB(`${item.type}/${item.id}`);
+                if (!data) continue; // Skip if fetch failed
+    
+                // Create the card
+                const sliderItem = document.createElement('div');
+                sliderItem.classList.add('trending-item'); // Reusing existing styles
+    
+                const img = document.createElement('img');
+                img.src = data.poster_path
+                    ? `${BASE_IMAGE_URL}w500${data.poster_path}`
+                    : PLACEHOLDER_IMAGE;
+                img.alt = data.title || data.name || 'No Title';
+    
+                // Create an overlay for TV shows to display season and episode
+                const overlayContainer = document.createElement('div');
+                overlayContainer.classList.add('type-year');
+    
+                if (item.type === 'tv') {
+                    overlayContainer.textContent = `S${item.season} · E${item.episode}`;
+                    sliderItem.appendChild(overlayContainer);
+    
+                    // Check for non-aired episode details and add a release status line
+                    const newEpisode = nonAiredEpisodes.find(
+                        (ep) =>
+                            ep.tvId.toString() === item.id &&
+                            ep.season === item.season &&
+                            new Date(ep.airDate) > new Date()
+                    );
+                    if (newEpisode) {
+                        const airDate = new Date(newEpisode.airDate);
+                        const currentDate = new Date();
+                        const daysUntilAiring = Math.ceil((airDate - currentDate) / (1000 * 60 * 60 * 24));
+                        
+                        const releaseStatus = document.createElement('div');
+                        releaseStatus.classList.add('release-status');
+                        releaseStatus.textContent = daysUntilAiring === 1
+                            ? 'New EP Tomorrow'
+                            : `New EP in ${daysUntilAiring} days`;
+    
+                        // Append the release status below the card
+                        sliderItem.appendChild(releaseStatus);
+                    }
+                }
+    
+                // Add image
+                sliderItem.appendChild(img);
+    
+                // Add click event to go to the details page
+                sliderItem.addEventListener('click', () => {
+                    window.location.href = `details.html?id=${item.id}&type=${item.type}`;
+                });
+    
+                fragment.appendChild(sliderItem);
+            }
+    
+            continueWatchingContainer.appendChild(fragment);
+    
+            // Setup arrow navigation for continueWatching
+            setupArrowNavigation('continueWatching', 'prevContinueWatchingArrow', 'nextContinueWatchingArrow');
+        }
+    
+        // ======================= Search Functionality =======================
+    
+        /**
+         * Sets up the search functionality, including event listeners and UI interactions.
+         */
+        function setupSearch() {
+            const searchButton = document.getElementById('searchButton');
+            const searchInput = document.querySelector('.search-input');
+            const searchResults = document.getElementById('searchResults');
+            const searchIcon = document.getElementById('searchIcon');
+            const closeIcon = document.getElementById('closeIcon');
+    
+            if (!searchButton || !searchInput || !searchResults || !searchIcon || !closeIcon) {
+                console.error('One or more search elements are missing.');
+                return;
+            }
+    
+            // Toggle search input visibility
+            searchButton.addEventListener('click', () => {
+                if (!searchInput.classList.contains('show')) {
+                    searchInput.classList.add('show');
+                    searchInput.focus();
+                    searchIcon.style.display = 'none';
+                    closeIcon.style.display = 'inline';
+                } else {
+                    searchInput.value = ''; // Clear input
+                    searchInput.classList.remove('show');
+                    searchResults.style.display = 'none'; // Hide results
+                    searchIcon.style.display = 'inline';
+                    closeIcon.style.display = 'none';
+                }
+            });
+            
+            // Add the "Enter" key event to redirect to search.html
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    const query = searchInput.value.trim();
+                    if (query) {
+                        window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+                    }
+                }
+            });
+            /**
+             * Searches for media items based on the query.
+             * @param {string} query - The search query.
+             * @returns {Promise<Array>} - The array of search results.
+             */
+            async function searchMovies(query) {
+                const data = await fetchFromTMDB('search/multi', { query: encodeURIComponent(query) });
+                return data?.results || [];
+            }
+    
+            /**
+             * Displays search results in the UI.
+             * @param {Array} results - The array of search results.
+             */
+            function displaySearchResults(results) {
+                searchResults.innerHTML = '';
+                const displayedResults = results.slice(0, MAX_SEARCH_RESULTS);
+    
+                if (displayedResults.length > 0) {
+                    searchResults.style.display = 'block';
+                    displayedResults.forEach(result => {
+                        const resultItem = document.createElement('div');
+                        resultItem.classList.add('result-item');
+    
+                        const img = document.createElement('img');
+                        img.src = result.poster_path
+                            ? `${BASE_IMAGE_URL}w500${result.poster_path}`
+                            : 'https://via.placeholder.com/50x75?text=No+Image';
+                        img.alt = result.title || result.name || 'No Title';
+    
+                        const details = document.createElement('div');
+                        details.classList.add('result-details');
+    
+                        const title = document.createElement('div');
+                        title.classList.add('result-title');
+                        title.textContent = result.title || result.name || 'No Title';
+    
+                        const meta = document.createElement('div');
+                        meta.classList.add('result-meta');
+    
+                        const year = result.media_type === 'tv'
+                            ? result.first_air_date
+                                ? result.first_air_date.split('-')[0]
+                                : 'N/A'
+                            : result.release_date
+                            ? result.release_date.split('-')[0]
+                            : 'N/A';
+                        const type = result.media_type === 'tv' ? 'TV Show' : 'Movie';
+    
+                        meta.textContent = `${year} · ${type}`;
+    
+                        details.appendChild(title);
+                        details.appendChild(meta);
+                        resultItem.appendChild(img);
+                        resultItem.appendChild(details);
+    
+                        resultItem.addEventListener('click', () => {
+                            window.location.href = `details.html?id=${result.id}&type=${result.media_type}`;
+                        });
+    
+                        searchResults.appendChild(resultItem);
+                    });
+                } else {
+                    searchResults.innerHTML = '<div class="result-item">No results found.</div>';
+                    searchResults.style.display = 'block';
+                }
+            }
+    
+            // Debounced search handler to optimize API calls
+            const debouncedSearch = debounce(async (event) => {
+                const query = event.target.value.trim();
+                if (query.length > 2) {
+                    const results = await searchMovies(query);
+                    displaySearchResults(results);
+                } else {
+                    searchResults.style.display = 'none';
+                }
+            }, 300); // 300ms debounce delay
+    
+            searchInput.addEventListener('input', debouncedSearch);
+        }
+    
+        // ======================= Popups and Modals =======================
+    
+        /**
+         * Sets up and manages the display logic for various popups.
+         */
+        function setupPopups() {
+            const popupOverlay = document.getElementById('popupOverlay'); // Disclaimer popup
+            const discordPopup = document.getElementById('discordPopup');
+            const bookmarkPopup = document.getElementById('bookmarkPopup'); // Bookmark popup
+            const supPopup = document.getElementById('supPopup'); // Ad popup
+            const popupNextBtn = document.getElementById('popupNextBtn');
+            const popupCloseBtn = document.getElementById('popupCloseBtn');
+            const bookmarkBtn = document.getElementById('bookmarkBtn');
+            const adCloseBtn = document.getElementById('adCloseBtn');
+            const redirectBtn = document.getElementById('redirectBtn');
+    
+            if (!popupOverlay || !discordPopup || !bookmarkPopup || !supPopup ||
+                !popupNextBtn || !popupCloseBtn || !bookmarkBtn || !adCloseBtn || !redirectBtn) {
+                console.error('One or more popup elements are missing.');
+                return;
+            }
+    
+            // Check if the pop-ups have been shown today
+            const lastPopupDate = localStorage.getItem('lastPopupDate');
+            const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    
+            if (lastPopupDate !== today) {
+                // Show the bookmark pop-up first
+                bookmarkPopup.style.display = 'flex';
+            }
+    
+            // Show the disclaimer pop-up after the bookmark pop-up
+            bookmarkBtn.addEventListener('click', () => {
+                bookmarkPopup.style.display = 'none';
+                popupOverlay.style.display = 'flex'; // Show the disclaimer popup
+            });
+    
+            // Show the ad pop-up after the disclaimer pop-up
+            popupNextBtn.addEventListener('click', () => {
+                popupOverlay.style.display = 'none';
+                supPopup.style.display = 'flex';
+    
+                // Disable the close button initially and show a countdown timer
+                adCloseBtn.disabled = true;
+                adCloseBtn.classList.add('disabled'); // Add grey styling
+                let countdown = 10; // Timer duration in seconds
+                adCloseBtn.textContent = `Next in ${countdown}s`; // Initial timer text
+    
+                const timerInterval = setInterval(() => {
+                    countdown--;
+                    if (countdown > 0) {
+                        adCloseBtn.textContent = `Next in ${countdown}s`;
+                    } else {
+                        adCloseBtn.textContent = 'Next';
+                        adCloseBtn.disabled = false;
+                        adCloseBtn.classList.remove('disabled'); // Remove grey styling
+                        adCloseBtn.classList.add('enabled'); // Add enabled styling
+                        clearInterval(timerInterval); // Stop the timer
+                    }
+                }, 1000); // Update every second
+            });
+    
+            // Show the Discord pop-up after the ad pop-up
+            adCloseBtn.addEventListener('click', () => {
+                supPopup.style.display = 'none';
+                discordPopup.style.display = 'flex'; // Show the Discord popup
+            });
+    
+            // Close the Discord pop-up and mark all pop-ups as shown for today
+            popupCloseBtn.addEventListener('click', () => {
+                discordPopup.style.display = 'none';
+                localStorage.setItem('lastPopupDate', today); // Mark the pop-ups as shown today
+            });
+    
+            // Redirect button in Discord popup (if applicable)
+            redirectBtn.addEventListener('click', () => {
+                // Implement redirection logic if needed
+                discordPopup.style.display = 'none';
+                localStorage.setItem('lastPopupDate', today);
+            });
+        }
+    
+        // ======================= Notifications =======================
+    
+        /**
+         * Sets up the notification center, including rendering and interaction logic.
+         */
+        function setupNotifications() {
+            const bellIcon = document.getElementById('bellIcon');
+            const notificationCount = document.getElementById('notificationCount');
+            const notificationCenter = document.getElementById('notificationCenter');
+            const closeNotifications = document.getElementById('closeNotifications');
+            const notificationList = document.querySelector('.notifications');
+    
+            if (!bellIcon || !notificationCount || !notificationCenter || !closeNotifications || !notificationList) {
+                console.error('One or more notification elements are missing.');
+                return;
+            }
+    
+            let notifications = getLocalStorageItem('notifications');
+    
+            // Filter out unreleased movies or TV shows
+            const currentDate = new Date();
+            notifications = notifications.filter(notification => {
+                const releaseDate = new Date(notification.releaseDate);
+                return releaseDate <= currentDate; // Keep only released items
+            });
+    
+            // Sort notifications by release date (latest first)
+            notifications.sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate));
+    
+            /**
+             * Updates the notification count badge.
+             */
+            function updateNotificationCount() {
+                const unreadCount = notifications.length;
+                if (unreadCount > 0) {
+                    notificationCount.textContent = unreadCount;
+                    notificationCount.style.display = 'flex';
+                } else {
+                    notificationCount.style.display = 'none';
+                }
+            }
+    
+            /**
+             * Renders the notifications in the UI.
+             */
+            function renderNotifications() {
+                notificationList.innerHTML = ''; // Clear previous notifications
+    
+                if (notifications.length === 0) {
+                    const emptyMessage = document.createElement('li');
+                    emptyMessage.textContent = 'No notifications available.';
+                    emptyMessage.style.textAlign = 'center';
+                    notificationList.appendChild(emptyMessage);
+                    return;
+                }
+    
+                const fragment = document.createDocumentFragment();
+    
+                notifications.forEach((notification, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('notification-item');
+                    listItem.style.cursor = 'pointer';
+    
+                    const img = document.createElement('img');
+                    img.src = notification.poster_path
+                        ? `${BASE_IMAGE_URL}w500${notification.poster_path}`
+                        : 'https://via.placeholder.com/50x75?text=No+Image';
+                    img.alt = notification.title || notification.name || 'No Title';
+    
+                    const details = document.createElement('div');
+                    details.innerHTML = `
+                        <h4>${notification.title || notification.name}</h4>
+                        <p>${notification.type === 'movie' ? 'Movie' : 'TV Show'}</p>
+                        <p>${getReleaseText(notification.releaseDate, notification.type)}</p>
+                    `;
+    
+                    const dismissButton = document.createElement('button');
+                    dismissButton.textContent = '✕';
+                    dismissButton.classList.add('dismiss-button');
+                    dismissButton.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Prevent parent click
+                        dismissNotification(index);
+                    });
+    
+                    listItem.appendChild(img);
+                    listItem.appendChild(details);
+                    listItem.appendChild(dismissButton);
+    
+                    // Add click event for navigation and deletion
+                    listItem.addEventListener('click', () => {
+                        navigateToDetails(notification, index);
+                    });
+    
+                    fragment.appendChild(listItem);
+                });
+    
+                notificationList.appendChild(fragment);
+            }
+    
+            /**
+             * Generates release text based on the number of days ago.
+             * @param {string} releaseDate - The release date of the media.
+             * @param {string} type - The type of media ('movie' or 'tv').
+             * @returns {string} - The formatted release text.
+             */
+            function getReleaseText(releaseDate, type) {
+                const release = new Date(releaseDate);
+                const currentDate = new Date();
+                const daysAgo = Math.floor((currentDate - release) / (1000 * 60 * 60 * 24));
+    
+                if (daysAgo === 0) {
+                    return type === 'tv' ? 'Aired Today' : 'Released Today';
+                } else if (daysAgo === 1) {
+                    return type === 'tv' ? 'Aired 1 day ago' : 'Released 1 day ago';
+                } else {
+                    return type === 'tv'
+                        ? `Aired ${daysAgo} days ago`
+                        : `Released ${daysAgo} days ago`;
+                }
+            }
+    
+            /**
+             * Dismisses a notification by its index.
+             * @param {number} index - The index of the notification to dismiss.
+             */
+            function dismissNotification(index) {
+                notifications.splice(index, 1); // Remove from array
+                setLocalStorageItem('notifications', notifications); // Update localStorage
+                renderNotifications(); // Re-render the list
+                updateNotificationCount(); // Update count
+            }
+    
+            /**
+             * Navigates to the details page of a notification and dismisses it.
+             * @param {Object} notification - The notification data.
+             * @param {number} index - The index of the notification.
+             */
+            function navigateToDetails(notification, index) {
+                const route = `details.html?id=${notification.id}&type=${notification.type}`;
+                dismissNotification(index); // Remove the notification
+                window.location.href = route; // Navigate to the route
+            }
+    
+            /**
+             * Toggles the visibility of the notification center.
+             */
+            function toggleNotificationCenter() {
+                const isVisible = notificationCenter.style.display === 'flex';
+                notificationCenter.style.display = isVisible ? 'none' : 'flex';
+                if (!isVisible) renderNotifications(); // Render only when opening
+            }
+    
+            // Close notification center when clicking outside
+            document.addEventListener('click', (event) => {
+                if (!notificationCenter.contains(event.target) && !bellIcon.contains(event.target)) {
+                    notificationCenter.style.display = 'none';
+                }
+            });
+    
+            // Event listeners
+            bellIcon.addEventListener('click', toggleNotificationCenter);
+            closeNotifications.addEventListener('click', () => {
+                notificationCenter.style.display = 'none';
+            });
+    
+            // Initialize notification count
+            updateNotificationCount();
+        }
+    
+        // ======================= Popups and Modals =======================
+    
+        /**
+         * Sets up and manages the display logic for various popups.
+         */
+        function setupPopups() {
+            const popupOverlay = document.getElementById('popupOverlay'); // Disclaimer popup
+            const discordPopup = document.getElementById('discordPopup');
+            const bookmarkPopup = document.getElementById('bookmarkPopup'); // Bookmark popup
+            const supPopup = document.getElementById('supPopup'); // Ad popup
+            const popupNextBtn = document.getElementById('popupNextBtn');
+            const popupCloseBtn = document.getElementById('popupCloseBtn');
+            const bookmarkBtn = document.getElementById('bookmarkBtn');
+            const adCloseBtn = document.getElementById('adCloseBtn');
+            const redirectBtn = document.getElementById('redirectBtn');
+    
+            if (!popupOverlay || !discordPopup || !bookmarkPopup || !supPopup ||
+                !popupNextBtn || !popupCloseBtn || !bookmarkBtn || !adCloseBtn || !redirectBtn) {
+                console.error('One or more popup elements are missing.');
+                return;
+            }
+    
+            // Check if the pop-ups have been shown today
+            const lastPopupDate = localStorage.getItem('lastPopupDate');
+            const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+    
+            if (lastPopupDate !== today) {
+                // Show the bookmark pop-up first
+                bookmarkPopup.style.display = 'flex';
+            }
+    
+            // Show the disclaimer pop-up after the bookmark pop-up
+            bookmarkBtn.addEventListener('click', () => {
+                bookmarkPopup.style.display = 'none';
+                popupOverlay.style.display = 'flex'; // Show the disclaimer popup
+            });
+    
+            // Show the ad pop-up after the disclaimer pop-up
+            popupNextBtn.addEventListener('click', () => {
+                popupOverlay.style.display = 'none';
+                supPopup.style.display = 'flex';
+    
+                // Disable the close button initially and show a countdown timer
+                adCloseBtn.disabled = true;
+                adCloseBtn.classList.add('disabled'); // Add grey styling
+                let countdown = 10; // Timer duration in seconds
+                adCloseBtn.textContent = `Next in ${countdown}s`; // Initial timer text
+    
+                const timerInterval = setInterval(() => {
+                    countdown--;
+                    if (countdown > 0) {
+                        adCloseBtn.textContent = `Next in ${countdown}s`;
+                    } else {
+                        adCloseBtn.textContent = 'Next';
+                        adCloseBtn.disabled = false;
+                        adCloseBtn.classList.remove('disabled'); // Remove grey styling
+                        adCloseBtn.classList.add('enabled'); // Add enabled styling
+                        clearInterval(timerInterval); // Stop the timer
+                    }
+                }, 1000); // Update every second
+            });
+    
+            // Show the Discord pop-up after the ad pop-up
+            adCloseBtn.addEventListener('click', () => {
+                supPopup.style.display = 'none';
+                discordPopup.style.display = 'flex'; // Show the Discord popup
+            });
+    
+            // Close the Discord pop-up and mark all pop-ups as shown for today
+            popupCloseBtn.addEventListener('click', () => {
+                discordPopup.style.display = 'none';
+                localStorage.setItem('lastPopupDate', today); // Mark the pop-ups as shown today
+            });
+    
+            // Redirect button in Discord popup (if applicable)
+            redirectBtn.addEventListener('click', () => {
+                // Implement redirection logic if needed
+                discordPopup.style.display = 'none';
+                localStorage.setItem('lastPopupDate', today);
+            });
+        }
+    
+        // ======================= Notifications =======================
+    
+        /**
+         * Sets up the notification center, including rendering and interaction logic.
+         */
+        function setupNotifications() {
+            const bellIcon = document.getElementById('bellIcon');
+            const notificationCount = document.getElementById('notificationCount');
+            const notificationCenter = document.getElementById('notificationCenter');
+            const closeNotifications = document.getElementById('closeNotifications');
+            const notificationList = document.querySelector('.notifications');
+    
+            if (!bellIcon || !notificationCount || !notificationCenter || !closeNotifications || !notificationList) {
+                console.error('One or more notification elements are missing.');
+                return;
+            }
+    
+            let notifications = getLocalStorageItem('notifications');
+    
+            // Filter out unreleased movies or TV shows
+            const currentDate = new Date();
+            notifications = notifications.filter(notification => {
+                const releaseDate = new Date(notification.releaseDate);
+                return releaseDate <= currentDate; // Keep only released items
+            });
+    
+            // Sort notifications by release date (latest first)
+            notifications.sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate));
+    
+            /**
+             * Updates the notification count badge.
+             */
+            function updateNotificationCount() {
+                const unreadCount = notifications.length;
+                if (unreadCount > 0) {
+                    notificationCount.textContent = unreadCount;
+                    notificationCount.style.display = 'flex';
+                } else {
+                    notificationCount.style.display = 'none';
+                }
+            }
+    
+            /**
+             * Renders the notifications in the UI.
+             */
+            function renderNotifications() {
+                notificationList.innerHTML = ''; // Clear previous notifications
+    
+                if (notifications.length === 0) {
+                    const emptyMessage = document.createElement('li');
+                    emptyMessage.textContent = 'No notifications available.';
+                    emptyMessage.style.textAlign = 'center';
+                    notificationList.appendChild(emptyMessage);
+                    return;
+                }
+    
+                const fragment = document.createDocumentFragment();
+    
+                notifications.forEach((notification, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('notification-item');
+                    listItem.style.cursor = 'pointer';
+    
+                    const img = document.createElement('img');
+                    img.src = notification.poster_path
+                        ? `${BASE_IMAGE_URL}w500${notification.poster_path}`
+                        : 'https://via.placeholder.com/50x75?text=No+Image';
+                    img.alt = notification.title || notification.name || 'No Title';
+    
+                    const details = document.createElement('div');
+                    details.innerHTML = `
+                        <h4>${notification.title || notification.name}</h4>
+                        <p>${notification.type === 'movie' ? 'Movie' : 'TV Show'}</p>
+                        <p>${getReleaseText(notification.releaseDate, notification.type)}</p>
+                    `;
+    
+                    const dismissButton = document.createElement('button');
+                    dismissButton.textContent = '✕';
+                    dismissButton.classList.add('dismiss-button');
+                    dismissButton.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Prevent parent click
+                        dismissNotification(index);
+                    });
+    
+                    listItem.appendChild(img);
+                    listItem.appendChild(details);
+                    listItem.appendChild(dismissButton);
+    
+                    // Add click event for navigation and deletion
+                    listItem.addEventListener('click', () => {
+                        navigateToDetails(notification, index);
+                    });
+    
+                    fragment.appendChild(listItem);
+                });
+    
+                notificationList.appendChild(fragment);
+            }
+    
+            /**
+             * Generates release text based on the number of days ago.
+             * @param {string} releaseDate - The release date of the media.
+             * @param {string} type - The type of media ('movie' or 'tv').
+             * @returns {string} - The formatted release text.
+             */
+            function getReleaseText(releaseDate, type) {
+                const release = new Date(releaseDate);
+                const currentDate = new Date();
+                const daysAgo = Math.floor((currentDate - release) / (1000 * 60 * 60 * 24));
+    
+                if (daysAgo === 0) {
+                    return type === 'tv' ? 'Aired Today' : 'Released Today';
+                } else if (daysAgo === 1) {
+                    return type === 'tv' ? 'Aired 1 day ago' : 'Released 1 day ago';
+                } else {
+                    return type === 'tv'
+                        ? `Aired ${daysAgo} days ago`
+                        : `Released ${daysAgo} days ago`;
+                }
+            }
+    
+            /**
+             * Dismisses a notification by its index.
+             * @param {number} index - The index of the notification to dismiss.
+             */
+            function dismissNotification(index) {
+                notifications.splice(index, 1); // Remove from array
+                setLocalStorageItem('notifications', notifications); // Update localStorage
+                renderNotifications(); // Re-render the list
+                updateNotificationCount(); // Update count
+            }
+    
+            /**
+             * Navigates to the details page of a notification and dismisses it.
+             * @param {Object} notification - The notification data.
+             * @param {number} index - The index of the notification.
+             */
+            function navigateToDetails(notification, index) {
+                const route = `details.html?id=${notification.id}&type=${notification.type}`;
+                dismissNotification(index); // Remove the notification
+                window.location.href = route; // Navigate to the route
+            }
+    
+            /**
+             * Toggles the visibility of the notification center.
+             */
+            function toggleNotificationCenter() {
+                const isVisible = notificationCenter.style.display === 'flex';
+                notificationCenter.style.display = isVisible ? 'none' : 'flex';
+                if (!isVisible) renderNotifications(); // Render only when opening
+            }
+    
+            // Close notification center when clicking outside
+            document.addEventListener('click', (event) => {
+                if (!notificationCenter.contains(event.target) && !bellIcon.contains(event.target)) {
+                    notificationCenter.style.display = 'none';
+                }
+            });
+    
+            // Event listeners
+            bellIcon.addEventListener('click', toggleNotificationCenter);
+            closeNotifications.addEventListener('click', () => {
+                notificationCenter.style.display = 'none';
+            });
+    
+            // Initialize notification count
+            updateNotificationCount();
+        }
+    
+        // ======================= Popups and Modals =======================
+    
+        /**
+         * Sets up and manages the display logic for various popups.
+         */
+        function setupPopups() {
+            const popupOverlay = document.getElementById('popupOverlay'); // Disclaimer popup
+            const discordPopup = document.getElementById('discordPopup');
+            const bookmarkPopup = document.getElementById('bookmarkPopup'); // Bookmark popup
+            const supPopup = document.getElementById('supPopup'); // Ad popup
+            const popupNextBtn = document.getElementById('popupNextBtn');
+            const popupCloseBtn = document.getElementById('popupCloseBtn');
+            const bookmarkBtn = document.getElementById('bookmarkBtn');
+            const adCloseBtn = document.getElementById('adCloseBtn');
+            const redirectBtn = document.getElementById('redirectBtn');
+            
+            // Check if the pop-ups have been shown today
+            const lastPopupDate = localStorage.getItem('lastPopupDate');
+            const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+        
+            if (lastPopupDate !== today) {
+                // Show the bookmark pop-up first
+                bookmarkPopup.style.display = 'flex';
+            }
+        
+            // Show the disclaimer pop-up after the bookmark pop-up
+            bookmarkBtn.addEventListener('click', () => {
+                bookmarkPopup.style.display = 'none';
+                popupOverlay.style.display = 'flex'; // Show the disclaimer popup
+            });
+        
+            // Show the ad pop-up after the disclaimer pop-up
+            popupNextBtn.addEventListener('click', () => {
+                popupOverlay.style.display = 'none';
+                supPopup.style.display = 'flex';
+            
+                // Disable the close button initially and show a countdown timer
+                adCloseBtn.disabled = true;
+                adCloseBtn.classList.add('disabled'); // Add grey styling
+                let countdown = 10; // Timer duration in seconds
+                adCloseBtn.textContent = `Next in ${countdown}s`; // Initial timer text
+            
+                const timerInterval = setInterval(() => {
+                    countdown--;
+                    if (countdown > 0) {
+                        adCloseBtn.textContent = `Next in ${countdown}s`;
+                    } else {
+                        adCloseBtn.textContent = 'Next';
+                        adCloseBtn.disabled = false;
+                        adCloseBtn.classList.remove('disabled'); // Remove grey styling
+                        adCloseBtn.classList.add('enabled'); // Add enabled styling
+                        clearInterval(timerInterval); // Stop the timer
+                    }
+                }, 1000); // Update every second
+            });
+        
+            // Show the Discord pop-up after the ad pop-up
+            adCloseBtn.addEventListener('click', () => {
+                supPopup.style.display = 'none';
+                discordPopup.style.display = 'flex'; // Show the Discord popup
+            });
+        
+            // Close the Discord pop-up and mark all pop-ups as shown for today
+            popupCloseBtn.addEventListener('click', () => {
+                discordPopup.style.display = 'none';
+                localStorage.setItem('lastPopupDate', today); // Mark the pop-ups as shown today
+            });
+        };
+
+        // ======================= Hamburger Menu =======================
+
+        function setupHamburgerMenu() {
+            const menuButton = document.getElementById('menuButton');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+        
+            // Toggle dropdown visibility
+            menuButton.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent click from propagating
+                dropdownMenu.classList.toggle('visible');
+            });
+        
+            // Close dropdown when clicking outside
+            window.addEventListener('click', () => {
+                if (dropdownMenu.classList.contains('visible')) {
+                    dropdownMenu.classList.remove('visible');
+                }
+            });
+        
+            // Prevent dropdown from closing when clicking inside
+            dropdownMenu.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        }
+
+        // ======================= Main Initialization =======================
+    
+        /**
+         * Initializes all functionalities once the DOM is fully loaded.
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize all sections
+            loadTrendingBanner();
+            loadTrendingSlider();
+            loadPopularSlider();
+            loadTopRatedSlider();
+            loadContinueWatching();
+    
+            // Setup slider arrow navigations
+            setupArrows();
+    
+            // Setup search functionality
+            setupSearch();
+    
+            // Setup popups and modals
+            setupPopups();
+    
+            // Setup notification center
+            setupNotifications();
+
+            // Setup hamburger menu
+            setupHamburgerMenu();
+        });
+    </script>
+    <!-- Footer -->
+    <footer class="footer">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '3f6aa652ee8cb72386ae1ff0cf7cf77c',
+                'format' : 'iframe',
+                'height' : 50,
+                'width' : 320,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//propertyswordmuttering.com/3f6aa652ee8cb72386ae1ff0cf7cf77c/invoke.js"></script>
+        <p>
+            Made with ♥ by <a href="https://github.com/junioralive">JuniorAlive, Xyra Stream © 2024</a>
+        </p>
+        <small>
+            <a href="about.html" class="disclaimer-link">Xyra does not host any files; it pulls streams from third-party services.</a>
+        </small>
+    </footer>
+</body>
+</html>
