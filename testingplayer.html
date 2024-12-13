@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fullscreen Video Player</title>
+    <!-- Plyr CSS -->
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+    <style>
+        /* Ensure the video covers the entire browser window */
+        body {
+            margin: 0;
+            background-color: black;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #player {
+            width: 100vw;
+            height: 100vh;
+            object-fit: contain; /* Ensures video scales appropriately without cropping */
+        }
+
+        .plyr__controls {
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent controls */
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Player -->
+    <video id="player" playsinline crossorigin="anonymous"></video>
+
+    <!-- Plyr and HLS.js Libraries -->
+    <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('player');
+            const videoSrc = 'https://0.cha10.workers.dev/8c65fc2f352fd5d268ee6897695bfb15/workerseed.dev/Dancing.Village.The.Curse.Begins.2024.1080p.10bit.WEBDL.Hindi.Indonesian.ESubs.MoviesMod.bot.mkv'; // Replace with your video URL
+
+            // Initialize HLS.js for non-Safari browsers
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(videoSrc);
+                hls.attachMedia(video);
+
+                hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                    console.log('HLS Manifest loaded');
+                });
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                // Safari native HLS support
+                video.src = videoSrc;
+            } else {
+                console.error('HLS is not supported on this browser.');
+            }
+
+            // Initialize Plyr
+            const player = new Plyr(video, {
+                captions: { active: true, update: true },
+                fullscreen: { enabled: true, fallback: true, iosNative: true },
+                controls: [
+                    'play-large', // The large play button in the center
+                    'play', // Play/Pause button
+                    'progress', // Progress bar
+                    'current-time', // Current time of playback
+                    'mute', // Mute button
+                    'volume', // Volume control
+                    'captions', // Captions button
+                    'settings', // Settings menu
+                    'fullscreen', // Fullscreen toggle
+                ],
+            });
+
+            player.on('ready', () => {
+                console.log('Plyr is ready');
+            });
+
+            player.on('languagechange', () => {
+                console.log('Caption language changed to:', player.language);
+            });
+        });
+    </script>
+</body>
+</html>
