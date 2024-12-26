@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <title>Xyra - Home</title>
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-32x32.png">
+    <link rel="manifest" href="../manifest.json">
+    <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-32x32.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Xyra - A place to discover movies and TV shows. Watch anytime, anywhere.">
     <meta name="keywords" content="Xyra streaming, Xyra movies, Xyra TV shows, free movie streaming, free TV shows online, watch movies online, stream TV shows, online movie streaming, HD movies free, TV series streaming, Xyra free movies, Xyra stream movies, watch TV shows online, popular movies 2024, trending TV shows, best streaming platform, free movie site, watch free movies, Xyra media streaming, high-quality movie streaming, movie library online, binge-watch movies, latest movie releases, HD streaming movies, free series streaming, full episodes online">
@@ -517,17 +517,19 @@
         }
 
         .trending-item {
-            position: relative; /* Necessary for positioning child elements */
+            position: relative;
             flex: 0 0 auto;
             width: 150px;
+            height: 225px; /* Added fixed height */
             background-color: #181818;
             border-radius: 10px;
             overflow: hidden;
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             z-index: 1;
-            transform-origin: center left; /* Added */
-        }     
+            transform-origin: center left;
+        }
+        
 
         .trending-item img {
             width: 100%;
@@ -536,10 +538,10 @@
         }
 
         .trending-item:hover {
-            transform: scale(1.1); /* Scale on hover */
+            transform: scale(1.05); /* Slightly reduced scale for minimal shift */
             box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
-            z-index: 2; /* Ensure the hovered item appears above its neighbors */
-        }
+            z-index: 2; /* Ensure hovered item is above others */
+        }      
 
         .type-year {
             position: absolute;
@@ -600,12 +602,12 @@
         }
         
         /* Popular and Top Rated Sections */
-        .popular-section, .top-rated-section {
+        .popular-section, .top-rated-section, .slider-section {
             position: relative;
             padding: 10px;
         }
 
-        .popular-title, .top-rated-title {
+        .popular-title, .top-rated-title, .slider-title{
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 5px;
@@ -1099,52 +1101,83 @@
             }
         }
 
+/* Wrapper for Slider Item and Title */
+.slider-item-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px; /* Match the width of .trending-item */
+    height: 265px; /* 225px for the card + 40px for the title */
+    margin: 0 5px; /* Adjust spacing between items */
+}
+
+
+/* Card Title Styling */
+.card-title {
+    margin-top: 8px; /* Space between card and title */
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #E0E0E0;
+    text-align: center;
+    width: 100%; /* Full width of the card */
+    height: 40px; /* Fixed height for consistency */
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+
         
-    </style>  
+    </style> 
 </head>
 <body>
     
     <!-- Header -->
         <div class="top-bar">
             <div class="menu-icon" id="menuButton">
-                <img src="icons/burger-menu.svg" alt="Menu" />
+                <img src="../icons/burger-menu.svg" alt="Menu" />
             </div>
             <div id="dropdownMenu" class="dropdown-menu">
+                <a href="index.html">Home</a>
                 <a href="discover.html">Discover</a>
                 <a href="topic.html">Topics</a>
                 <a href="mylist.html">My List</a>
-            </div>   
+            </div>
             <div class="title-container">
-                <a href="index.html" class="logo-link nav-link" id="homeLink">
-                    <img src="/icons/icon-192x192.png" alt="Xyra Logo" class="title-icon">
+                <a href="../index.html" class="logo-link nav-link" id="homeLink">
+                    <img src="../icons/icon-192x192.png" alt="Xyra Logo" class="title-icon">
                     <h1 class="title">yra</h1>
                 </a>
             </div>
          
             <div class="nav-links">
+                <a href="index.html" class="nav-link current" id="homeLink">
+                    <img src="../icons/home.svg" alt="Home">
+                    <span>Home</span>
+                </a>
                 <a href="discover.html" class="nav-link" id="discoverLink">
-                    <img src="icons/discover.svg" alt="Discover">
+                    <img src="../icons/discover.svg" alt="Discover">
                     <span>Discover</span>
                 </a>
                 <a href="topic.html" class="nav-link" id="topicLink">
-                    <img src="icons/topic.svg" alt="Topics">
+                    <img src="../icons/topic.svg" alt="Topics">
                     <span>Topics</span>
                 </a>
                 <a href="mylist.html" class="nav-link" id="mylistLink">
-                    <img src="icons/my-list.svg" alt="My List">
+                    <img src="../icons/my-list.svg" alt="My List">
                     <span>My List</span>
                 </a>
             </div>
              
             <div class="search-container">
                 <button class="search-icon" id="searchButton">
-                    <img id="searchIcon" src="icons/search.svg" alt="Search Icon"/>
-                    <img id="closeIcon" src="icons/close.svg" alt="Close Icon" />
+                    <img id="searchIcon" src="../icons/search.svg" alt="Search Icon"/>
+                    <img id="closeIcon" src="../icons/close.svg" alt="Close Icon" />
                 </button>                
                 <input type="text" class="search-input" placeholder="Search...">
                 <div id="searchResults" class="search-results"></div>
                 <div class="bell-icon" id="bellIcon">
-                    <img src="icons/bell-icon.svg" alt="Notification Bell Icon" />
+                    <img src="../icons/bell-icon.svg" alt="Notification Bell Icon" />
                     <span id="notificationCount" class="notification-count" style="display: none;">0</span>
                 </div>                
             </div>
@@ -1171,7 +1204,17 @@
             <div id="trending" class="trending-slider"></div>
             <button class="arrow-button arrow-right" id="nextArrow">&#8250;</button>
         </div>
-    </div>    
+    </div>  
+
+    <!-- Spotlight Section -->
+    <div class="slider-section">
+        <h2 class="slider-title">| Spotlight</h2>
+        <div class="slider-container">
+            <button class="arrow-button arrow-left" id="prevSpotlightArrow">&#8249;</button>
+            <div id="spotlight" class="trending-slider"></div>
+            <button class="arrow-button arrow-right" id="nextSpotlightArrow">&#8250;</button>
+        </div>
+    </div>
 
     <!-- Continue Watching Section -->
     <div class="continue-watching-section">
@@ -1183,30 +1226,66 @@
         </div>
     </div>
 
-
-    <!-- Popular Movies and TV Shows -->
-    <div class="popular-section">
-        <h2 class="popular-title">| Popular</h2>
-        <div class="popular-slider-container">
-            <div id="popularLoading" class="spinner"></div> <!-- Spinner for Popular -->
-            <button class="arrow-button arrow-left" id="prevPopularArrow">&#8249;</button>
-            <div id="popular" class="trending-slider"></div>
-            <button class="arrow-button arrow-right" id="nextPopularArrow">&#8250;</button>
+    <!-- Top Airing Section -->
+    <div class="slider-section">
+        <h2 class="slider-title">| Top Airing</h2>
+        <div class="slider-container">
+            <button class="arrow-button arrow-left" id="prevTopAiringArrow">&#8249;</button>
+            <div id="topAiring" class="trending-slider"></div>
+            <button class="arrow-button arrow-right" id="nextTopAiringArrow">&#8250;</button>
         </div>
     </div>
 
-    <!-- Top Rated Movies and TV Shows -->
-<!-- Top Rated Movies and TV Shows -->
-<div class="top-rated-section">
-    <h2 class="top-rated-title">| Top Rated</h2>
-    <div class="top-rated-slider-container">
-        <div id="topRatedLoading" class="spinner"></div> <!-- Spinner for Top Rated -->
-        <button class="arrow-button arrow-left" id="prevTopRatedArrow">&#8249;</button>
-        <div id="topRated" class="trending-slider"></div>
-        <button class="arrow-button arrow-right" id="nextTopRatedArrow">&#8250;</button>
+    <!-- Most Popular Section -->
+    <div class="slider-section">
+        <h2 class="slider-title">| Most Popular</h2>
+        <div class="slider-container">
+            <button class="arrow-button arrow-left" id="prevMostPopularArrow">&#8249;</button>
+            <div id="mostPopular" class="trending-slider"></div>
+            <button class="arrow-button arrow-right" id="nextMostPopularArrow">&#8250;</button>
+        </div>
     </div>
-</div>
-        
+
+    <!-- Most Favorite Section -->
+    <div class="slider-section">
+        <h2 class="slider-title">| Most Favorite</h2>
+        <div class="slider-container">
+            <button class="arrow-button arrow-left" id="prevMostFavoriteArrow">&#8249;</button>
+            <div id="mostFavorite" class="trending-slider"></div>
+            <button class="arrow-button arrow-right" id="nextMostFavoriteArrow">&#8250;</button>
+        </div>
+    </div>
+
+    <!-- Latest Completed Section -->
+    <div class="slider-section">
+        <h2 class="slider-title">| Latest Completed</h2>
+        <div class="slider-container">
+            <button class="arrow-button arrow-left" id="prevLatestCompletedArrow">&#8249;</button>
+            <div id="latestCompleted" class="trending-slider"></div>
+            <button class="arrow-button arrow-right" id="nextLatestCompletedArrow">&#8250;</button>
+        </div>
+    </div>
+
+    <!-- Latest Episode Section -->
+    <div class="slider-section">
+        <h2 class="slider-title">| Latest Episode</h2>
+        <div class="slider-container">
+            <button class="arrow-button arrow-left" id="prevLatestEpisodeArrow">&#8249;</button>
+            <div id="latestEpisode" class="trending-slider"></div>
+            <button class="arrow-button arrow-right" id="nextLatestEpisodeArrow">&#8250;</button>
+        </div>
+    </div>
+
+    <!-- New On Xyra Section -->
+    <div class="slider-section">
+        <h2 class="slider-title">| New On Xyra</h2>
+        <div class="slider-container">
+            <button class="arrow-button arrow-left" id="prevNewOnXyraArrow">&#8249;</button>
+            <div id="newOnXyra" class="trending-slider"></div>
+            <button class="arrow-button arrow-right" id="nextNewOnXyraArrow">&#8250;</button>
+        </div>
+    </div>
+
     <div id="bookmarkPopup" class="popup-overlay" style="display: none;">
         <div class="popup-card">
             <h2>Bookmark Xyra Stream</h2>
@@ -1337,8 +1416,8 @@
          */
         function getIcon(action) {
             const icons = {
-                add: `<img src="icons/add-list.svg" alt="Add to List Icon" />`,
-                check: `<img src="icons/check-circle.svg" alt="Added to List Icon" />`
+                add: `<img src="../icons/add-list.svg" alt="Add to List Icon" />`,
+                check: `<img src="../icons/check-circle.svg" alt="Added to List Icon" />`
             };
             return icons[action] || '';
         }
@@ -1370,7 +1449,6 @@
             localStorage.setItem(key, JSON.stringify(value));
         }
     
-
 // ======================= Centralized API Functions =======================
 
 /**
@@ -1379,7 +1457,7 @@
  * @param {Object} variables - The variables for the GraphQL query.
  * @returns {Promise<Object|null>} - The fetched data or null if an error occurs.
  */
-async function fetchFromAniList(query, variables = {}) {
+ async function fetchFromAniList(query, variables = {}) {
     try {
         const response = await fetch(ANILIST_API_URL, {
             method: "POST",
@@ -1392,35 +1470,6 @@ async function fetchFromAniList(query, variables = {}) {
         return result.data;
     } catch (error) {
         console.error("Error fetching from AniList API:", error);
-        return null;
-    }
-}
-
-/**
- * Fetches data from the TMDB API.
- * @param {string} endpoint - The API endpoint (e.g., 'trending/all/day').
- * @param {Object} params - Additional query parameters as key-value pairs.
- * @returns {Promise<Object|null>} - The fetched JSON data or null if an error occurs.
- */
-async function fetchFromTMDB(endpoint, params = {}) {
-    const url = new URL(`https://api.themoviedb.org/3/${endpoint}`);
-    url.searchParams.append('api_key', TMDB_API_KEY);
-    
-    // Append additional parameters
-    for (const key in params) {
-        url.searchParams.append(key, params[key]);
-    }
-    
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            console.error(`TMDB API error: ${response.status} ${response.statusText}`);
-            return null;
-        }
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error fetching from TMDB API:', error);
         return null;
     }
 }
@@ -1451,63 +1500,199 @@ const TRENDING_QUERY = `
     }
 `;
 
-const POPULAR_QUERY = `
-    query {
-        Page(page: 1, perPage: 10) {
-            media(sort: POPULARITY_DESC, type: ANIME) {
-                id
-                title {
-                    romaji
+       // Define GraphQL Queries for Each Category
+        const SPOTLIGHT_QUERY = `
+            query {
+                Page(page: 1, perPage: 20) {
+                    media(sort: POPULARITY_DESC, type: ANIME) {
+                        id
+                        title {
+                            romaji
+                        }
+                        coverImage {
+                            extraLarge
+                        }
+                        trailer {
+                            site
+                            id
+                        }
+                        description(asHtml: false)
+                        averageScore
+                        genres
+                        seasonYear
+                    }
                 }
-                coverImage {
-                    extraLarge
-                }
-                description(asHtml: false)
-                averageScore
-                genres
-                seasonYear
             }
-        }
-    }
-`;
+        `;
 
-const TOP_RATED_QUERY = `
-    query {
-        Page(page: 1, perPage: 10) {
-            media(sort: SCORE_DESC, type: ANIME) {
-                id
-                title {
-                    romaji
+        const TOP_AIRING_QUERY = `
+            query {
+                Page(page: 1, perPage: 20) {
+                    media(type: ANIME, sort: POPULARITY_DESC, status: RELEASING) {
+                        id
+                        title {
+                            romaji
+                        }
+                        coverImage {
+                            extraLarge
+                        }
+                        trailer {
+                            site
+                            id
+                        }
+                        description(asHtml: false)
+                        averageScore
+                        genres
+                        seasonYear
+                    }
                 }
-                coverImage {
-                    extraLarge
-                }
-                description(asHtml: false)
-                averageScore
-                genres
-                seasonYear
             }
-        }
-    }
-`;
+        `;
+
+        const MOST_POPULAR_QUERY = `
+            query {
+                Page(page: 1, perPage: 20) {
+                    media(sort: POPULARITY_DESC, type: ANIME) {
+                        id
+                        title {
+                            romaji
+                        }
+                        coverImage {
+                            extraLarge
+                        }
+                        trailer {
+                            site
+                            id
+                        }
+                        description(asHtml: false)
+                        averageScore
+                        genres
+                        seasonYear
+                    }
+                }
+            }
+        `;
+
+        const MOST_FAVORITE_QUERY = `
+            query {
+                Page(page: 1, perPage: 20) {
+                    media(sort: [FAVOURITES_DESC], type: ANIME) {
+                        id
+                        title {
+                            romaji
+                        }
+                        coverImage {
+                            extraLarge
+                        }
+                        trailer {
+                            site
+                            id
+                        }
+                        description(asHtml: false)
+                        averageScore
+                        genres
+                        seasonYear
+                    }
+                }
+            }
+        `;
+    
+
+        const LATEST_COMPLETED_QUERY = `
+            query {
+                Page(page: 1, perPage: 20) {
+                    media(sort: END_DATE_DESC, type: ANIME, status: FINISHED) {
+                        id
+                        title {
+                            romaji
+                        }
+                        coverImage {
+                            extraLarge
+                        }
+                        trailer {
+                            site
+                            id
+                        }
+                        description(asHtml: false)
+                        averageScore
+                        genres
+                        seasonYear
+                    }
+                }
+            }
+        `;
+
+        const LATEST_EPISODE_QUERY = `
+            query {
+                Page(page: 1, perPage: 20) {
+                    media(type: ANIME, sort: [UPDATED_TIME_DESC]) {
+                        id
+                        title {
+                            romaji
+                        }
+                        coverImage {
+                            extraLarge
+                        }
+                        trailer {
+                            site
+                            id
+                        }
+                        description(asHtml: false)
+                        averageScore
+                        genres
+                        seasonYear
+                        nextAiringEpisode {
+                            episode
+                            airingAt
+                        }
+                    }
+                }
+            }
+        `;
+    
+
+        const NEW_ON_XYRA_QUERY = `
+            query {
+                Page(page: 1, perPage: 20) {
+                    media(sort: START_DATE_DESC, type: ANIME) {
+                        id
+                        title {
+                            romaji
+                        }
+                        coverImage {
+                            extraLarge
+                        }
+                        trailer {
+                            site
+                            id
+                        }
+                        description(asHtml: false)
+                        averageScore
+                        genres
+                        seasonYear
+                    }
+                }
+            }
+        `;
+
 
 // ======================= DOM Manipulation Functions =======================
-
 /**
  * Creates a slider item element.
  * @param {Object} item - The media item data.
  * @param {string} type - The type of media ('anime', 'movie', or 'tv').
- * @param {string|null} rank - The rank badge text.
+ * @param {string|null} rank - The rank badge text (optional).
  * @returns {HTMLElement} - The slider item element.
  */
-function createSliderItem(item, type = 'anime', rank = null) {
+ function createSliderItem(item, type = 'anime', rank = null) {
     const sliderItem = document.createElement('div');
     sliderItem.classList.add('trending-item');
 
     // Image
     const img = document.createElement('img');
-    img.src = item.poster_path || PLACEHOLDER_IMAGE; // Use poster_path from mapped data
-    img.alt = item.title || 'No Title'; // Use title directly from mapped data
+    // Use coverImage.extraLarge if available, else poster_path, else placeholder
+    img.src = item.coverImage?.extraLarge || item.poster_path || PLACEHOLDER_IMAGE;
+    img.alt = item.title || item.name || 'No Title';
 
     // Rank Badge (optional)
     if (rank) {
@@ -1517,13 +1702,10 @@ function createSliderItem(item, type = 'anime', rank = null) {
         sliderItem.appendChild(rankBadge);
     }
 
-    // Type-Year Container
-    const typeYearContainer = document.createElement('div');
-    typeYearContainer.classList.add('type-year');
-    typeYearContainer.textContent = type === 'anime' ? 'Anime' : 'Other'; // Default type is anime
-    if (item.seasonYear) {
-        typeYearContainer.textContent += ` · ${item.seasonYear}`; // Append the season year if available
-    }
+    // Title Container
+    const titleContainer = document.createElement('div');
+    titleContainer.classList.add('type-year'); // New CSS class for styling
+    titleContainer.textContent = item.title || item.name || 'No Title';
 
     // Add to My List Button
     const addToListButton = document.createElement('button');
@@ -1538,7 +1720,7 @@ function createSliderItem(item, type = 'anime', rank = null) {
 
     // Assemble Slider Item
     sliderItem.appendChild(img);
-    sliderItem.appendChild(typeYearContainer);
+    sliderItem.appendChild(titleContainer); // Append the new title container
     sliderItem.appendChild(addToListButton);
     sliderItem.addEventListener('click', () => {
         window.location.href = `details.html?id=${item.id}&type=${type}`;
@@ -1546,85 +1728,52 @@ function createSliderItem(item, type = 'anime', rank = null) {
 
     return sliderItem;
 }
+    
+        /**
+         * Displays items in a specified slider section.
+         * @param {Array} results - The array of media items.
+         * @param {string} sectionId - The ID of the slider container.
+         */
+         function displaySliderItems(results, sectionId) {
+            const sliderContainer = document.getElementById(sectionId);
+            if (!sliderContainer) {
+                console.error(`Slider container with ID "${sectionId}" not found.`);
+                return;
+            }
+            sliderContainer.innerHTML = ''; // Clear existing content
 
-/**
- * Updates the banner with the selected media item.
- * Displays genres and handles trailer availability.
- * @param {Object} item - The media item data.
- * @param {string} rank - The rank badge text.
- */
-function updateBanner(item, rank = "#1") {
-    const bannerImage = document.getElementById('bannerImage');
-    const bannerTrailer = document.getElementById('bannerTrailer');
-    const bannerTitle = document.getElementById('bannerTitle');
-    const bannerDescription = document.getElementById('bannerDescription');
+            const fragment = document.createDocumentFragment();
 
-    if (!bannerImage || !bannerTrailer || !bannerTitle || !bannerDescription) {
-        console.error('One or more banner elements are missing.');
-        return;
-    }
+            results.forEach(item => {
+                const mediaType = item.media_type || 'anime'; // Default to 'anime' if not specified
+                const sliderItem = createSliderItem(item, mediaType); // Pass correct media type
+                fragment.appendChild(sliderItem);
+            });
 
-    // Generate the trailer URL if available (only for Trending)
-    let trailerUrl = null;
-    if (item.trailer && item.trailer.site === "youtube") {
-        trailerUrl = `${YOUTUBE_EMBED_URL}${item.trailer.id}?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&playlist=${item.trailer.id}`;
-    }
+            sliderContainer.appendChild(fragment);
+        }
 
-    const genres = (item.genres || []).join(', ') || 'N/A';
-    const type = "Anime";
-    const title = item.title || "No Title";
-    const description = item.description || "No description available.";
+        // ======================= Specific Section Loaders =======================
+    
+        /**
+         * Loads and displays the trending banner.
+         */
+         async function loadTrendingBanner() {
+            const data = await fetchFromTMDB('trending/all/day');
+            if (!data || !data.results.length) {
+                console.error('No trending data available to display in banner.');
+                return;
+            }
 
-    // Update banner title and description with genres
-    bannerTitle.innerHTML = `
-        <div class="banner-rank">${rank}</div>
-        <div class="banner-main-title">${title}</div>
-        <div class="banner-type">${type} · ${genres}</div>
-    `;
-    bannerDescription.textContent = description;
-
-    // Handle trailer embedding
-    if (trailerUrl) {
-        bannerTrailer.src = trailerUrl;
-        bannerTrailer.style.display = 'block';
-        bannerImage.style.display = 'none';
-
-        // Handle trailer load error by falling back to image
-        bannerTrailer.onerror = () => {
-            console.warn('Trailer failed to load. Falling back to image.');
-            bannerTrailer.style.display = 'none';
-            bannerImage.src = item.poster_path || PLACEHOLDER_IMAGE;
-            bannerImage.style.display = 'block';
-        };
-    } else {
-        // Fallback to cover image
-        bannerImage.src = item.poster_path || PLACEHOLDER_IMAGE;
-        bannerImage.style.display = 'block';
-        bannerTrailer.style.display = 'none';
-    }
-}
-
-// ======================= Specific Section Loaders =======================
-
-/**
- * Loads and displays the trending banner.
- */
-async function loadTrendingBanner() {
-    const data = await fetchFromTMDB('trending/all/day');
-    if (!data || !data.results.length) {
-        console.error('No trending data available to display in banner.');
-        return;
-    }
-
-    const rankedItems = data.results.map((item, index) => ({ ...item, rank: `#${index + 1}` }));
-    const randomItem = rankedItems[Math.floor(Math.random() * rankedItems.length)];
-    updateBanner(randomItem, randomItem.rank);
-}
-
+            const rankedItems = data.results.map((item, index) => ({ ...item, rank: `#${index + 1}` }));
+            const randomItem = rankedItems[Math.floor(Math.random() * rankedItems.length)];
+            updateBanner(randomItem, randomItem.rank);
+        }
+    
 /**
  * Loads and displays the trending slider.
  */
-async function loadTrendingSlider() {
+ async function loadTrendingSlider() {
     const spinner = document.getElementById('trendingLoading'); // Spinner element
     const sliderContainer = document.getElementById('trending'); // Slider container
     if (!spinner || !sliderContainer) {
@@ -1676,115 +1825,130 @@ async function loadTrendingSlider() {
 
     sliderContainer.appendChild(fragment);
 }
-
+    
 /**
- * Loads and displays the popular slider (AniList: Popular Anime).
+ * Loads and displays the popular slider with anime data from AniList.
  */
-async function loadPopularSlider() {
-    const spinner = document.getElementById('popularLoading'); // Spinner element
-    const sliderContainer = document.getElementById('popular'); // Slider container
-    if (!spinner || !sliderContainer) {
-        console.error('Popular elements are missing.');
+ async function loadSpotLightSlider() {
+    // Fetch popular anime data from AniList
+    const popularAnimeData = await fetchFromAniList(SPOTLIGHT_QUERY);
+
+    if (!popularAnimeData || !popularAnimeData.Page || !popularAnimeData.Page.media.length) {
+        console.error('No popular anime data available to display in the slider.');
         return;
     }
 
-    // Show spinner
-    spinner.style.display = 'block';
+    // Correctly map AniList data to retain the coverImage object
+    const animeWithMediaType = popularAnimeData.Page.media.map(anime => ({
+        id: anime.id,
+        title: anime.title.romaji,
+        coverImage: anime.coverImage, // Retain the entire coverImage object
+        description: anime.description,
+        averageScore: anime.averageScore,
+        genres: anime.genres,
+        seasonYear: anime.seasonYear,
+        media_type: 'anime', // Add media_type for consistency
+    }));
 
-    // Fetch data from AniList
-    const data = await fetchFromAniList(POPULAR_QUERY);
+    // Shuffle the results for a varied display
+    const shuffledAnime = shuffleArray(animeWithMediaType);
 
-    // Hide spinner
-    spinner.style.display = 'none';
-
-    if (!data || !data.Page || !data.Page.media.length) {
-        console.error('No popular data available to display.');
-        return;
-    }
-
-    // Clear existing slider content
-    sliderContainer.innerHTML = '';
-
-    const fragment = document.createDocumentFragment();
-
-    data.Page.media.forEach((item, index) => {
-        // Map AniList data to the expected structure, excluding trailer
-        const mappedItem = {
-            id: item.id,
-            title: item.title.romaji || "Unknown Title",
-            poster_path: item.coverImage.extraLarge,
-            media_type: "anime", // AniList items are anime by default
-            description: item.description || "No description available",
-            seasonYear: item.seasonYear || "Unknown Year",
-            averageScore: item.averageScore || 0,
-            genres: item.genres || []
-        };
-
-        // Create slider item without trailer
-        const sliderItem = createSliderItem(mappedItem, "anime", `#${index + 1}`);
-
-        // No banner update on hover for Popular and Top Rated
-
-        fragment.appendChild(sliderItem);
-    });
-
-    sliderContainer.appendChild(fragment);
+    // Display the anime slider items
+    displaySliderItems(shuffledAnime, 'spotlight');
 }
 
 /**
- * Loads and displays the top-rated slider (AniList: Top Rated Anime).
+ * Loads and displays the popular slider with anime data from AniList.
  */
-async function loadTopRatedSlider() {
-    const spinner = document.getElementById('topRatedLoading'); // Spinner element
-    const sliderContainer = document.getElementById('topRated'); // Slider container
-    if (!spinner || !sliderContainer) {
-        console.error('Top Rated elements are missing.');
+ async function loadTopAiringSlider() {
+    // Fetch popular anime data from AniList
+    const popularAnimeData = await fetchFromAniList(TOP_AIRING_QUERY);
+
+    if (!popularAnimeData || !popularAnimeData.Page || !popularAnimeData.Page.media.length) {
+        console.error('No popular anime data available to display in the slider.');
         return;
     }
 
-    // Show spinner
-    spinner.style.display = 'block';
+    // Correctly map AniList data to retain the coverImage object
+    const animeWithMediaType = popularAnimeData.Page.media.map(anime => ({
+        id: anime.id,
+        title: anime.title.romaji,
+        coverImage: anime.coverImage, // Retain the entire coverImage object
+        description: anime.description,
+        averageScore: anime.averageScore,
+        genres: anime.genres,
+        seasonYear: anime.seasonYear,
+        media_type: 'anime', // Add media_type for consistency
+    }));
 
-    // Fetch data from AniList
-    const data = await fetchFromAniList(TOP_RATED_QUERY);
+    // Shuffle the results for a varied display
+    const shuffledAnime = shuffleArray(animeWithMediaType);
 
-    // Hide spinner
-    spinner.style.display = 'none';
-
-    if (!data || !data.Page || !data.Page.media.length) {
-        console.error('No top-rated data available to display.');
-        return;
-    }
-
-    // Clear existing slider content
-    sliderContainer.innerHTML = '';
-
-    const fragment = document.createDocumentFragment();
-
-    data.Page.media.forEach((item, index) => {
-        // Map AniList data to the expected structure, excluding trailer
-        const mappedItem = {
-            id: item.id,
-            title: item.title.romaji || "Unknown Title",
-            poster_path: item.coverImage.extraLarge,
-            media_type: "anime", // AniList items are anime by default
-            description: item.description || "No description available",
-            seasonYear: item.seasonYear || "Unknown Year",
-            averageScore: item.averageScore || 0,
-            genres: item.genres || []
-        };
-
-        // Create slider item without trailer
-        const sliderItem = createSliderItem(mappedItem, "anime", `#${index + 1}`);
-
-        // No banner update on hover for Popular and Top Rated
-
-        fragment.appendChild(sliderItem);
-    });
-
-    sliderContainer.appendChild(fragment);
+    // Display the anime slider items
+    displaySliderItems(shuffledAnime, 'topAiring');
 }
 
+/**
+ * Loads and displays the Recommended slider.
+ */
+ async function loadMostPopularSlider() {
+    // Fetch popular anime data from AniList
+    const recommendAnimeData = await fetchFromAniList(MOST_POPULAR_QUERY);
+
+    if (!recommendAnimeData || !recommendAnimeData.Page || !recommendAnimeData.Page.media.length) {
+        console.error('No popular anime data available to display in the slider.');
+        return;
+    }
+
+    // Correctly map AniList data to retain the coverImage object
+    const animeWithMediaType = recommendAnimeData.Page.media.map(anime => ({
+        id: anime.id,
+        title: anime.title.romaji,
+        coverImage: anime.coverImage, // Retain the entire coverImage object
+        description: anime.description,
+        averageScore: anime.averageScore,
+        genres: anime.genres,
+        seasonYear: anime.seasonYear,
+        media_type: 'anime', // Add media_type for consistency
+    }));
+
+    // Shuffle the results for a varied display
+    const shuffledAnime = shuffleArray(animeWithMediaType);
+
+    // Display the anime slider items
+    displaySliderItems(shuffledAnime, 'mostPopular');
+}
+
+/**
+ * Loads and displays the Recommended slider.
+ */
+ async function loadMostFavoriteSlider() {
+    // Fetch popular anime data from AniList
+    const recommendAnimeData = await fetchFromAniList(MOST_POPULAR_QUERY);
+
+    if (!recommendAnimeData || !recommendAnimeData.Page || !recommendAnimeData.Page.media.length) {
+        console.error('No popular anime data available to display in the slider.');
+        return;
+    }
+
+    // Correctly map AniList data to retain the coverImage object
+    const animeWithMediaType = recommendAnimeData.Page.media.map(anime => ({
+        id: anime.id,
+        title: anime.title.romaji,
+        coverImage: anime.coverImage, // Retain the entire coverImage object
+        description: anime.description,
+        averageScore: anime.averageScore,
+        genres: anime.genres,
+        seasonYear: anime.seasonYear,
+        media_type: 'anime', // Add media_type for consistency
+    }));
+
+    // Shuffle the results for a varied display
+    const shuffledAnime = shuffleArray(animeWithMediaType);
+
+    // Display the anime slider items
+    displaySliderItems(shuffledAnime, 'mostPopular');
+}
 
 /**
  * Updates the banner with the selected media item (AniList).
@@ -1833,7 +1997,6 @@ async function loadTopRatedSlider() {
         bannerTrailer.style.display = 'none';
     }
 }
-
     
         // ======================= Slider Navigation Setup =======================
     
@@ -1870,13 +2033,156 @@ async function loadTopRatedSlider() {
             setupArrowNavigation('trending', 'prevArrow', 'nextArrow');
     
             // Setup for popular and topRated sliders
-            setupArrowNavigation('popular', 'prevPopularArrow', 'nextPopularArrow');
+            setupArrowNavigation('spotlight', 'prevSpotlightArrow', 'nextSpotlightArrow');
             setupArrowNavigation('topRated', 'prevTopRatedArrow', 'nextTopRatedArrow');
     
             // Setup for continueWatching slider
             setupArrowNavigation('continueWatching', 'prevContinueWatchingArrow', 'nextContinueWatchingArrow');
         }
     
+
+
+        // ======================= Data Fetching and Rendering Functions =======================
+
+        /**
+         * Generic function to load and display a slider based on the query and section ID.
+         * @param {string} query - The GraphQL query string.
+         * @param {string} sectionId - The ID of the slider container.
+         */
+         async function loadSlider(query, sectionId) {
+            const spinner = document.getElementById(`${sectionId}Loading`);
+            const sliderContainer = document.getElementById(sectionId);
+            if (!sliderContainer) {
+                console.error(`Slider container with ID "${sectionId}" not found.`);
+                return;
+            }
+
+            // Optionally show a spinner
+            if (spinner) spinner.style.display = 'block';
+
+            // Fetch data
+            const data = await fetchFromAniList(query);
+
+            // Hide spinner
+            if (spinner) spinner.style.display = 'none';
+
+            if (!data || !data.Page || !data.Page.media.length) {
+                console.error(`No data available to display in "${sectionId}" slider.`);
+                return;
+            }
+
+            // Clear existing content
+            sliderContainer.innerHTML = '';
+
+            const fragment = document.createDocumentFragment();
+
+            data.Page.media.forEach((item, index) => {
+                const mappedItem = {
+                    id: item.id,
+                    title: item.title.romaji || "Unknown Title",
+                    poster_path: item.coverImage.extraLarge,
+                    trailer: item.trailer, // Include trailer information
+                    media_type: "anime", // Assuming all are anime
+                    description: item.description || "No description available",
+                    seasonYear: item.seasonYear || "Unknown Year",
+                    averageScore: item.averageScore || 0,
+                    genres: item.genres || []
+                };
+
+                const sliderItem = createSliderItem(mappedItem, "anime");
+                fragment.appendChild(sliderItem);
+            });
+
+            sliderContainer.appendChild(fragment);
+        }
+
+        // ======================= Individual Slider Loaders =======================
+
+        /**
+         * Loads all new slider sections with their respective data.
+         */
+        async function loadAllSliders() {
+            await loadTrendingSlider();          // Existing
+
+            // New Sliders
+            await loadSlider(SPOTLIGHT_QUERY, 'spotlight');
+            await loadSlider(TOP_AIRING_QUERY, 'topAiring');
+            await loadSlider(MOST_POPULAR_QUERY, 'mostPopular');
+            await loadSlider(MOST_FAVORITE_QUERY, 'mostFavorite');
+            await loadSlider(LATEST_COMPLETED_QUERY, 'latestCompleted');
+            await loadSlider(LATEST_EPISODE_QUERY, 'latestEpisode');
+            await loadSlider(NEW_ON_XYRA_QUERY, 'newOnXyra');
+        }
+
+        // ======================= Slider Navigation Setup =======================
+
+        /**
+         * Sets up arrow navigation for a specific slider section.
+         * @param {string} sliderId - The ID of the slider container.
+         * @param {string} prevArrowId - The ID of the previous arrow button.
+         * @param {string} nextArrowId - The ID of the next arrow button.
+         */
+        function setupArrowNavigation(sliderId, prevArrowId, nextArrowId) {
+            const slider = document.getElementById(sliderId);
+            const prevArrow = document.getElementById(prevArrowId);
+            const nextArrow = document.getElementById(nextArrowId);
+
+            if (!slider || !prevArrow || !nextArrow) {
+                console.error(`One or more arrow elements for slider "${sliderId}" are missing.`);
+                return;
+            }
+
+            prevArrow.addEventListener('click', () => {
+                slider.scrollBy({ left: -300, behavior: 'smooth' });
+            });
+
+            nextArrow.addEventListener('click', () => {
+                slider.scrollBy({ left: 300, behavior: 'smooth' });
+            });
+        }
+
+        /**
+         * Sets up arrow navigation for all slider sections.
+         */
+        function setupArrows() {
+            // Existing Sliders
+            setupArrowNavigation('trending', 'prevArrow', 'nextArrow');
+            setupArrowNavigation('popular', 'prevPopularArrow', 'nextPopularArrow');
+            setupArrowNavigation('topRated', 'prevTopRatedArrow', 'nextTopRatedArrow');
+            setupArrowNavigation('recommended', 'prevRecommendedArrow', 'nextRecommendedArrow');
+
+            // New Sliders
+            setupArrowNavigation('spotlight', 'prevSpotlightArrow', 'nextSpotlightArrow');
+            setupArrowNavigation('topAiring', 'prevTopAiringArrow', 'nextTopAiringArrow');
+            setupArrowNavigation('mostPopular', 'prevMostPopularArrow', 'nextMostPopularArrow');
+            setupArrowNavigation('mostFavorite', 'prevMostFavoriteArrow', 'nextMostFavoriteArrow');
+            setupArrowNavigation('latestCompleted', 'prevLatestCompletedArrow', 'nextLatestCompletedArrow');
+            setupArrowNavigation('latestEpisode', 'prevLatestEpisodeArrow', 'nextLatestEpisodeArrow');
+            setupArrowNavigation('newOnXyra', 'prevNewOnXyraArrow', 'nextNewOnXyraArrow');
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // ======================= My List Management =======================
     
         /**
@@ -2150,86 +2456,173 @@ async function loadTopRatedSlider() {
             searchInput.addEventListener('input', debouncedSearch);
         }
     
-        // ======================= Popups and Modals =======================
+        // ======================= Notifications =======================
     
         /**
-         * Sets up and manages the display logic for various popups.
+         * Sets up the notification center, including rendering and interaction logic.
          */
-        function setupPopups() {
-            const popupOverlay = document.getElementById('popupOverlay'); // Disclaimer popup
-            const discordPopup = document.getElementById('discordPopup');
-            const bookmarkPopup = document.getElementById('bookmarkPopup'); // Bookmark popup
-            const supPopup = document.getElementById('supPopup'); // Ad popup
-            const popupNextBtn = document.getElementById('popupNextBtn');
-            const popupCloseBtn = document.getElementById('popupCloseBtn');
-            const bookmarkBtn = document.getElementById('bookmarkBtn');
-            const adCloseBtn = document.getElementById('adCloseBtn');
-            const redirectBtn = document.getElementById('redirectBtn');
+        function setupNotifications() {
+            const bellIcon = document.getElementById('bellIcon');
+            const notificationCount = document.getElementById('notificationCount');
+            const notificationCenter = document.getElementById('notificationCenter');
+            const closeNotifications = document.getElementById('closeNotifications');
+            const notificationList = document.querySelector('.notifications');
     
-            if (!popupOverlay || !discordPopup || !bookmarkPopup || !supPopup ||
-                !popupNextBtn || !popupCloseBtn || !bookmarkBtn || !adCloseBtn || !redirectBtn) {
-                console.error('One or more popup elements are missing.');
+            if (!bellIcon || !notificationCount || !notificationCenter || !closeNotifications || !notificationList) {
+                console.error('One or more notification elements are missing.');
                 return;
             }
     
-            // Check if the pop-ups have been shown today
-            const lastPopupDate = localStorage.getItem('lastPopupDate');
-            const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+            let notifications = getLocalStorageItem('notifications');
     
-            if (lastPopupDate !== today) {
-                // Show the bookmark pop-up first
-                bookmarkPopup.style.display = 'flex';
+            // Filter out unreleased movies or TV shows
+            const currentDate = new Date();
+            notifications = notifications.filter(notification => {
+                const releaseDate = new Date(notification.releaseDate);
+                return releaseDate <= currentDate; // Keep only released items
+            });
+    
+            // Sort notifications by release date (latest first)
+            notifications.sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate));
+    
+            /**
+             * Updates the notification count badge.
+             */
+            function updateNotificationCount() {
+                const unreadCount = notifications.length;
+                if (unreadCount > 0) {
+                    notificationCount.textContent = unreadCount;
+                    notificationCount.style.display = 'flex';
+                } else {
+                    notificationCount.style.display = 'none';
+                }
             }
     
-            // Show the disclaimer pop-up after the bookmark pop-up
-            bookmarkBtn.addEventListener('click', () => {
-                bookmarkPopup.style.display = 'none';
-                popupOverlay.style.display = 'flex'; // Show the disclaimer popup
+            /**
+             * Renders the notifications in the UI.
+             */
+            function renderNotifications() {
+                notificationList.innerHTML = ''; // Clear previous notifications
+    
+                if (notifications.length === 0) {
+                    const emptyMessage = document.createElement('li');
+                    emptyMessage.textContent = 'No notifications available.';
+                    emptyMessage.style.textAlign = 'center';
+                    notificationList.appendChild(emptyMessage);
+                    return;
+                }
+    
+                const fragment = document.createDocumentFragment();
+    
+                notifications.forEach((notification, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('notification-item');
+                    listItem.style.cursor = 'pointer';
+    
+                    const img = document.createElement('img');
+                    img.src = notification.poster_path
+                        ? `${BASE_IMAGE_URL}w500${notification.poster_path}`
+                        : 'https://via.placeholder.com/50x75?text=No+Image';
+                    img.alt = notification.title || notification.name || 'No Title';
+    
+                    const details = document.createElement('div');
+                    details.innerHTML = `
+                        <h4>${notification.title || notification.name}</h4>
+                        <p>${notification.type === 'movie' ? 'Movie' : 'TV Show'}</p>
+                        <p>${getReleaseText(notification.releaseDate, notification.type)}</p>
+                    `;
+    
+                    const dismissButton = document.createElement('button');
+                    dismissButton.textContent = '✕';
+                    dismissButton.classList.add('dismiss-button');
+                    dismissButton.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Prevent parent click
+                        dismissNotification(index);
+                    });
+    
+                    listItem.appendChild(img);
+                    listItem.appendChild(details);
+                    listItem.appendChild(dismissButton);
+    
+                    // Add click event for navigation and deletion
+                    listItem.addEventListener('click', () => {
+                        navigateToDetails(notification, index);
+                    });
+    
+                    fragment.appendChild(listItem);
+                });
+    
+                notificationList.appendChild(fragment);
+            }
+    
+            /**
+             * Generates release text based on the number of days ago.
+             * @param {string} releaseDate - The release date of the media.
+             * @param {string} type - The type of media ('movie' or 'tv').
+             * @returns {string} - The formatted release text.
+             */
+            function getReleaseText(releaseDate, type) {
+                const release = new Date(releaseDate);
+                const currentDate = new Date();
+                const daysAgo = Math.floor((currentDate - release) / (1000 * 60 * 60 * 24));
+    
+                if (daysAgo === 0) {
+                    return type === 'tv' ? 'Aired Today' : 'Released Today';
+                } else if (daysAgo === 1) {
+                    return type === 'tv' ? 'Aired 1 day ago' : 'Released 1 day ago';
+                } else {
+                    return type === 'tv'
+                        ? `Aired ${daysAgo} days ago`
+                        : `Released ${daysAgo} days ago`;
+                }
+            }
+    
+            /**
+             * Dismisses a notification by its index.
+             * @param {number} index - The index of the notification to dismiss.
+             */
+            function dismissNotification(index) {
+                notifications.splice(index, 1); // Remove from array
+                setLocalStorageItem('notifications', notifications); // Update localStorage
+                renderNotifications(); // Re-render the list
+                updateNotificationCount(); // Update count
+            }
+    
+            /**
+             * Navigates to the details page of a notification and dismisses it.
+             * @param {Object} notification - The notification data.
+             * @param {number} index - The index of the notification.
+             */
+            function navigateToDetails(notification, index) {
+                const route = `details.html?id=${notification.id}&type=${notification.type}`;
+                dismissNotification(index); // Remove the notification
+                window.location.href = route; // Navigate to the route
+            }
+    
+            /**
+             * Toggles the visibility of the notification center.
+             */
+            function toggleNotificationCenter() {
+                const isVisible = notificationCenter.style.display === 'flex';
+                notificationCenter.style.display = isVisible ? 'none' : 'flex';
+                if (!isVisible) renderNotifications(); // Render only when opening
+            }
+    
+            // Close notification center when clicking outside
+            document.addEventListener('click', (event) => {
+                if (!notificationCenter.contains(event.target) && !bellIcon.contains(event.target)) {
+                    notificationCenter.style.display = 'none';
+                }
             });
     
-            // Show the ad pop-up after the disclaimer pop-up
-            popupNextBtn.addEventListener('click', () => {
-                popupOverlay.style.display = 'none';
-                supPopup.style.display = 'flex';
-    
-                // Disable the close button initially and show a countdown timer
-                adCloseBtn.disabled = true;
-                adCloseBtn.classList.add('disabled'); // Add grey styling
-                let countdown = 10; // Timer duration in seconds
-                adCloseBtn.textContent = `Next in ${countdown}s`; // Initial timer text
-    
-                const timerInterval = setInterval(() => {
-                    countdown--;
-                    if (countdown > 0) {
-                        adCloseBtn.textContent = `Next in ${countdown}s`;
-                    } else {
-                        adCloseBtn.textContent = 'Next';
-                        adCloseBtn.disabled = false;
-                        adCloseBtn.classList.remove('disabled'); // Remove grey styling
-                        adCloseBtn.classList.add('enabled'); // Add enabled styling
-                        clearInterval(timerInterval); // Stop the timer
-                    }
-                }, 1000); // Update every second
+            // Event listeners
+            bellIcon.addEventListener('click', toggleNotificationCenter);
+            closeNotifications.addEventListener('click', () => {
+                notificationCenter.style.display = 'none';
             });
     
-            // Show the Discord pop-up after the ad pop-up
-            adCloseBtn.addEventListener('click', () => {
-                supPopup.style.display = 'none';
-                discordPopup.style.display = 'flex'; // Show the Discord popup
-            });
-    
-            // Close the Discord pop-up and mark all pop-ups as shown for today
-            popupCloseBtn.addEventListener('click', () => {
-                discordPopup.style.display = 'none';
-                localStorage.setItem('lastPopupDate', today); // Mark the pop-ups as shown today
-            });
-    
-            // Redirect button in Discord popup (if applicable)
-            redirectBtn.addEventListener('click', () => {
-                // Implement redirection logic if needed
-                discordPopup.style.display = 'none';
-                localStorage.setItem('lastPopupDate', today);
-            });
+            // Initialize notification count
+            updateNotificationCount();
         }
     
         // ======================= Notifications =======================
@@ -2406,7 +2799,7 @@ async function loadTopRatedSlider() {
         /**
          * Sets up and manages the display logic for various popups.
          */
-        function setupPopups() {
+         function setupPopups() {
             const popupOverlay = document.getElementById('popupOverlay'); // Disclaimer popup
             const discordPopup = document.getElementById('discordPopup');
             const bookmarkPopup = document.getElementById('bookmarkPopup'); // Bookmark popup
@@ -2415,17 +2808,17 @@ async function loadTopRatedSlider() {
             const popupCloseBtn = document.getElementById('popupCloseBtn');
             const bookmarkBtn = document.getElementById('bookmarkBtn');
             const adCloseBtn = document.getElementById('adCloseBtn');
-            const redirectBtn = document.getElementById('redirectBtn');
+            // Removed redirectBtn since it does not exist in the HTML
     
             if (!popupOverlay || !discordPopup || !bookmarkPopup || !supPopup ||
-                !popupNextBtn || !popupCloseBtn || !bookmarkBtn || !adCloseBtn || !redirectBtn) {
+                !popupNextBtn || !popupCloseBtn || !bookmarkBtn || !adCloseBtn) {
                 console.error('One or more popup elements are missing.');
                 return;
             }
     
             // Check if the pop-ups have been shown today
             const lastPopupDate = localStorage.getItem('lastPopupDate');
-            const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+            const today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
     
             if (lastPopupDate !== today) {
                 // Show the bookmark pop-up first
@@ -2438,35 +2831,36 @@ async function loadTopRatedSlider() {
                 popupOverlay.style.display = 'flex'; // Show the disclaimer popup
             });
     
+            // Variable to track if the ad button has been clicked
+            let adButtonClicked = false;
+    
             // Show the ad pop-up after the disclaimer pop-up
             popupNextBtn.addEventListener('click', () => {
                 popupOverlay.style.display = 'none';
                 supPopup.style.display = 'flex';
     
-                // Disable the close button initially and show a countdown timer
-                adCloseBtn.disabled = true;
-                adCloseBtn.classList.add('disabled'); // Add grey styling
-                let countdown = 10; // Timer duration in seconds
-                adCloseBtn.textContent = `Next in ${countdown}s`; // Initial timer text
+                // Update the ad button to prompt for visiting the site
+                adCloseBtn.textContent = 'Continue';
+                adCloseBtn.disabled = false;
+                adCloseBtn.classList.remove('disabled'); // Remove any disabled styling
+                adCloseBtn.classList.add('enabled'); // Add enabled styling
     
-                const timerInterval = setInterval(() => {
-                    countdown--;
-                    if (countdown > 0) {
-                        adCloseBtn.textContent = `Next in ${countdown}s`;
-                    } else {
-                        adCloseBtn.textContent = 'Next';
-                        adCloseBtn.disabled = false;
-                        adCloseBtn.classList.remove('disabled'); // Remove grey styling
-                        adCloseBtn.classList.add('enabled'); // Add enabled styling
-                        clearInterval(timerInterval); // Stop the timer
-                    }
-                }, 1000); // Update every second
+                // Reset the click tracker
+                adButtonClicked = false;
             });
     
-            // Show the Discord pop-up after the ad pop-up
+            // Handle adCloseBtn clicks
             adCloseBtn.addEventListener('click', () => {
-                supPopup.style.display = 'none';
-                discordPopup.style.display = 'flex'; // Show the Discord popup
+                if (!adButtonClicked) {
+                    // First click: Open the specified link in a new tab
+                    window.open('https://propertyswordmuttering.com/tm87gtn94e?key=c19f44e28e45c5c6dbfc4c70551054aa', '_blank');
+                    adButtonClicked = true; // Update the tracker
+                    adCloseBtn.textContent = 'Next'; // Change button text to 'Next'
+                } else {
+                    // Second click: Proceed to the Discord popup
+                    supPopup.style.display = 'none';
+                    discordPopup.style.display = 'flex';
+                }
             });
     
             // Close the Discord pop-up and mark all pop-ups as shown for today
@@ -2475,252 +2869,34 @@ async function loadTopRatedSlider() {
                 localStorage.setItem('lastPopupDate', today); // Mark the pop-ups as shown today
             });
     
-            // Redirect button in Discord popup (if applicable)
-            redirectBtn.addEventListener('click', () => {
-                // Implement redirection logic if needed
-                discordPopup.style.display = 'none';
-                localStorage.setItem('lastPopupDate', today);
-            });
-        }
-    
-        // ======================= Notifications =======================
-    
-        /**
-         * Sets up the notification center, including rendering and interaction logic.
-         */
-        function setupNotifications() {
-            const bellIcon = document.getElementById('bellIcon');
-            const notificationCount = document.getElementById('notificationCount');
-            const notificationCenter = document.getElementById('notificationCenter');
-            const closeNotifications = document.getElementById('closeNotifications');
-            const notificationList = document.querySelector('.notifications');
-    
-            if (!bellIcon || !notificationCount || !notificationCenter || !closeNotifications || !notificationList) {
-                console.error('One or more notification elements are missing.');
-                return;
-            }
-    
-            let notifications = getLocalStorageItem('notifications');
-    
-            // Filter out unreleased movies or TV shows
-            const currentDate = new Date();
-            notifications = notifications.filter(notification => {
-                const releaseDate = new Date(notification.releaseDate);
-                return releaseDate <= currentDate; // Keep only released items
-            });
-    
-            // Sort notifications by release date (latest first)
-            notifications.sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate));
-    
-            /**
-             * Updates the notification count badge.
-             */
-            function updateNotificationCount() {
-                const unreadCount = notifications.length;
-                if (unreadCount > 0) {
-                    notificationCount.textContent = unreadCount;
-                    notificationCount.style.display = 'flex';
-                } else {
-                    notificationCount.style.display = 'none';
-                }
-            }
-    
-            /**
-             * Renders the notifications in the UI.
-             */
-            function renderNotifications() {
-                notificationList.innerHTML = ''; // Clear previous notifications
-    
-                if (notifications.length === 0) {
-                    const emptyMessage = document.createElement('li');
-                    emptyMessage.textContent = 'No notifications available.';
-                    emptyMessage.style.textAlign = 'center';
-                    notificationList.appendChild(emptyMessage);
-                    return;
-                }
-    
-                const fragment = document.createDocumentFragment();
-    
-                notifications.forEach((notification, index) => {
-                    const listItem = document.createElement('li');
-                    listItem.classList.add('notification-item');
-                    listItem.style.cursor = 'pointer';
-    
-                    const img = document.createElement('img');
-                    img.src = notification.poster_path
-                        ? `${BASE_IMAGE_URL}w500${notification.poster_path}`
-                        : 'https://via.placeholder.com/50x75?text=No+Image';
-                    img.alt = notification.title || notification.name || 'No Title';
-    
-                    const details = document.createElement('div');
-                    details.innerHTML = `
-                        <h4>${notification.title || notification.name}</h4>
-                        <p>${notification.type === 'movie' ? 'Movie' : 'TV Show'}</p>
-                        <p>${getReleaseText(notification.releaseDate, notification.type)}</p>
-                    `;
-    
-                    const dismissButton = document.createElement('button');
-                    dismissButton.textContent = '✕';
-                    dismissButton.classList.add('dismiss-button');
-                    dismissButton.addEventListener('click', (e) => {
-                        e.stopPropagation(); // Prevent parent click
-                        dismissNotification(index);
-                    });
-    
-                    listItem.appendChild(img);
-                    listItem.appendChild(details);
-                    listItem.appendChild(dismissButton);
-    
-                    // Add click event for navigation and deletion
-                    listItem.addEventListener('click', () => {
-                        navigateToDetails(notification, index);
-                    });
-    
-                    fragment.appendChild(listItem);
-                });
-    
-                notificationList.appendChild(fragment);
-            }
-    
-            /**
-             * Generates release text based on the number of days ago.
-             * @param {string} releaseDate - The release date of the media.
-             * @param {string} type - The type of media ('movie' or 'tv').
-             * @returns {string} - The formatted release text.
-             */
-            function getReleaseText(releaseDate, type) {
-                const release = new Date(releaseDate);
-                const currentDate = new Date();
-                const daysAgo = Math.floor((currentDate - release) / (1000 * 60 * 60 * 24));
-    
-                if (daysAgo === 0) {
-                    return type === 'tv' ? 'Aired Today' : 'Released Today';
-                } else if (daysAgo === 1) {
-                    return type === 'tv' ? 'Aired 1 day ago' : 'Released 1 day ago';
-                } else {
-                    return type === 'tv'
-                        ? `Aired ${daysAgo} days ago`
-                        : `Released ${daysAgo} days ago`;
-                }
-            }
-    
-            /**
-             * Dismisses a notification by its index.
-             * @param {number} index - The index of the notification to dismiss.
-             */
-            function dismissNotification(index) {
-                notifications.splice(index, 1); // Remove from array
-                setLocalStorageItem('notifications', notifications); // Update localStorage
-                renderNotifications(); // Re-render the list
-                updateNotificationCount(); // Update count
-            }
-    
-            /**
-             * Navigates to the details page of a notification and dismisses it.
-             * @param {Object} notification - The notification data.
-             * @param {number} index - The index of the notification.
-             */
-            function navigateToDetails(notification, index) {
-                const route = `details.html?id=${notification.id}&type=${notification.type}`;
-                dismissNotification(index); // Remove the notification
-                window.location.href = route; // Navigate to the route
-            }
-    
-            /**
-             * Toggles the visibility of the notification center.
-             */
-            function toggleNotificationCenter() {
-                const isVisible = notificationCenter.style.display === 'flex';
-                notificationCenter.style.display = isVisible ? 'none' : 'flex';
-                if (!isVisible) renderNotifications(); // Render only when opening
-            }
-    
-            // Close notification center when clicking outside
-            document.addEventListener('click', (event) => {
-                if (!notificationCenter.contains(event.target) && !bellIcon.contains(event.target)) {
-                    notificationCenter.style.display = 'none';
-                }
-            });
-    
-            // Event listeners
-            bellIcon.addEventListener('click', toggleNotificationCenter);
-            closeNotifications.addEventListener('click', () => {
-                notificationCenter.style.display = 'none';
-            });
-    
-            // Initialize notification count
-            updateNotificationCount();
-        }
-    
-        // ======================= Popups and Modals =======================
-    
-        /**
-         * Sets up and manages the display logic for various popups.
-         */
-        function setupPopups() {
-            const popupOverlay = document.getElementById('popupOverlay'); // Disclaimer popup
-            const discordPopup = document.getElementById('discordPopup');
-            const bookmarkPopup = document.getElementById('bookmarkPopup'); // Bookmark popup
-            const supPopup = document.getElementById('supPopup'); // Ad popup
-            const popupNextBtn = document.getElementById('popupNextBtn');
-            const popupCloseBtn = document.getElementById('popupCloseBtn');
-            const bookmarkBtn = document.getElementById('bookmarkBtn');
-            const adCloseBtn = document.getElementById('adCloseBtn');
-            const redirectBtn = document.getElementById('redirectBtn');
-            
-            // Check if the pop-ups have been shown today
-            const lastPopupDate = localStorage.getItem('lastPopupDate');
-            const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
-        
-            if (lastPopupDate !== today) {
-                // Show the bookmark pop-up first
-                bookmarkPopup.style.display = 'flex';
-            }
-        
-            // Show the disclaimer pop-up after the bookmark pop-up
-            bookmarkBtn.addEventListener('click', () => {
-                bookmarkPopup.style.display = 'none';
-                popupOverlay.style.display = 'flex'; // Show the disclaimer popup
-            });
-        
-            // Show the ad pop-up after the disclaimer pop-up
-            popupNextBtn.addEventListener('click', () => {
-                popupOverlay.style.display = 'none';
-                supPopup.style.display = 'flex';
-            
-                // Disable the close button initially and show a countdown timer
-                adCloseBtn.disabled = true;
-                adCloseBtn.classList.add('disabled'); // Add grey styling
-                let countdown = 10; // Timer duration in seconds
-                adCloseBtn.textContent = `Next in ${countdown}s`; // Initial timer text
-            
-                const timerInterval = setInterval(() => {
-                    countdown--;
-                    if (countdown > 0) {
-                        adCloseBtn.textContent = `Next in ${countdown}s`;
-                    } else {
-                        adCloseBtn.textContent = 'Next';
-                        adCloseBtn.disabled = false;
-                        adCloseBtn.classList.remove('disabled'); // Remove grey styling
-                        adCloseBtn.classList.add('enabled'); // Add enabled styling
-                        clearInterval(timerInterval); // Stop the timer
-                    }
-                }, 1000); // Update every second
-            });
-        
-            // Show the Discord pop-up after the ad pop-up
-            adCloseBtn.addEventListener('click', () => {
-                supPopup.style.display = 'none';
-                discordPopup.style.display = 'flex'; // Show the Discord popup
-            });
-        
-            // Close the Discord pop-up and mark all pop-ups as shown for today
-            popupCloseBtn.addEventListener('click', () => {
-                discordPopup.style.display = 'none';
-                localStorage.setItem('lastPopupDate', today); // Mark the pop-ups as shown today
-            });
-        };
+            // Note: Removed the redirectBtn event listener since it doesn't exist
+        }      
 
+        function setupPopups() {
+            const discordPopup = document.getElementById('discordPopup');
+            const popupCloseBtn = document.getElementById('popupCloseBtn');
+        
+            if (!discordPopup || !popupCloseBtn) {
+                console.error('One or more popup elements are missing.');
+                return;
+            }
+        
+            // Check if the pop-ups have been shown today
+            const lastPopupDate = localStorage.getItem('lastPopupDate');
+            const today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+        
+            if (lastPopupDate !== today) {
+                // Show the Discord pop-up
+                discordPopup.style.display = 'flex';
+            }
+        
+            // Close the Discord pop-up and mark it as shown for today
+            popupCloseBtn.addEventListener('click', () => {
+                discordPopup.style.display = 'none';
+                localStorage.setItem('lastPopupDate', today); // Mark the pop-ups as shown today
+            });
+        }
+        
         // ======================= Hamburger Menu =======================
 
         function setupHamburgerMenu() {
@@ -2755,10 +2931,16 @@ async function loadTopRatedSlider() {
             // Initialize all sections
             loadTrendingBanner();
             loadTrendingSlider();
-            loadPopularSlider();
-            loadTopRatedSlider();
-            loadContinueWatching();
-    
+
+            loadAllSliders();
+            // loadSpotLightSlider();
+            // loadTopAiringSlider();
+            // loadMostPopularSlider();
+            // loadMostFavoriteSlider();
+
+            // loadTopRatedSlider();
+           //  loadContinueWatching();
+            // loadRecommendedSlider();
             // Setup slider arrow navigations
             setupArrows();
     
@@ -2775,9 +2957,10 @@ async function loadTopRatedSlider() {
             setupHamburgerMenu();
         });
     </script>
+
     <!-- Footer -->
     <footer class="footer">
-        <script type="text/javascript">
+        <!-- <script type="text/javascript">
             atOptions = {
                 'key' : '3f6aa652ee8cb72386ae1ff0cf7cf77c',
                 'format' : 'iframe',
@@ -2786,7 +2969,7 @@ async function loadTopRatedSlider() {
                 'params' : {}
             };
         </script>
-        <script type="text/javascript" src="//propertyswordmuttering.com/3f6aa652ee8cb72386ae1ff0cf7cf77c/invoke.js"></script>
+        <script type="text/javascript" src="//propertyswordmuttering.com/3f6aa652ee8cb72386ae1ff0cf7cf77c/invoke.js"></script> -->
         <p>
             Made with ♥ by <a href="https://github.com/junioralive">JuniorAlive, Xyra Stream © 2024</a>
         </p>
