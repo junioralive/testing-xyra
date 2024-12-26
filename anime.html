@@ -1625,7 +1625,7 @@ const TRENDING_QUERY = `
         const LATEST_EPISODE_QUERY = `
             query {
                 Page(page: 1, perPage: 20) {
-                    media(type: ANIME, sort: [UPDATED_TIME_DESC]) {
+                    media(type: ANIME, sort: [UPDATED_AT_DESC]) {
                         id
                         title {
                             romaji
@@ -1649,6 +1649,7 @@ const TRENDING_QUERY = `
                 }
             }
         `;
+    
     
 
         const NEW_ON_XYRA_QUERY = `
