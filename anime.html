@@ -1357,7 +1357,7 @@
     </div>
     <script>
         // ======================= Configuration =======================
-        const NEW_API_URL = "https://aniwatch-api-vmcl.onrender.com/api/v2/hianime/home"; // New API URL
+        const NEW_API_URL = "https://aniwatch-api-net.vercel.app/api/v2/hianime/home"; // New API URL
         const BASE_IMAGE_URL = 'https://image.tmdb.org/t/p/';
         const PLACEHOLDER_IMAGE = 'https://via.placeholder.com/150x225?text=No+Image';
         const YOUTUBE_EMBED_URL = 'https://www.youtube.com/embed/';
@@ -1554,7 +1554,7 @@
          * Loads and displays the trending banner.
          * Note: Adjust this function based on available data in the new API.
          */
-        async function loadTrendingBanner(data) {
+        function loadTrendingBanner(data) {
             if (!data || !data.trendingAnimes.length) {
                 console.error('No trending data available to display in banner.');
                 return;
@@ -1568,7 +1568,7 @@
         /**
          * Loads and displays the trending slider.
          */
-        async function loadTrendingSlider(data) {
+        function loadTrendingSlider(data) {
             const spinner = document.getElementById('trendingLoading'); // Spinner element
             const sliderContainer = document.getElementById('trending'); // Slider container
             if (!spinner || !sliderContainer) {
@@ -1621,7 +1621,7 @@
         /**
          * Loads and displays the Spotlight slider.
          */
-        async function loadSpotLightSlider(data) {
+        function loadSpotLightSlider(data) {
             if (!data || !data.spotlightAnimes.length) {
                 console.error('No spotlight anime data available to display in the slider.');
                 return;
@@ -1637,7 +1637,7 @@
         /**
          * Loads and displays the Top Airing slider.
          */
-        async function loadTopAiringSlider(data) {
+        function loadTopAiringSlider(data) {
             if (!data || !data.topAiringAnimes.length) {
                 console.error('No top airing anime data available to display in the slider.');
                 return;
@@ -1653,7 +1653,7 @@
         /**
          * Loads and displays the Most Popular slider.
          */
-        async function loadMostPopularSlider(data) {
+        function loadMostPopularSlider(data) {
             if (!data || !data.mostPopularAnimes.length) {
                 console.error('No most popular anime data available to display in the slider.');
                 return;
@@ -1669,7 +1669,7 @@
         /**
          * Loads and displays the Most Favorite slider.
          */
-        async function loadMostFavoriteSlider(data) {
+        function loadMostFavoriteSlider(data) {
             if (!data || !data.mostFavoriteAnimes.length) {
                 console.error('No most favorite anime data available to display in the slider.');
                 return;
@@ -1685,7 +1685,7 @@
         /**
          * Loads and displays the Latest Completed slider.
          */
-        async function loadLatestCompletedSlider(data) {
+        function loadLatestCompletedSlider(data) {
             if (!data || !data.latestCompletedAnimes.length) {
                 console.error('No latest completed anime data available to display in the slider.');
                 return;
@@ -1701,7 +1701,7 @@
         /**
          * Loads and displays the Latest Episode slider.
          */
-        async function loadLatestEpisodeSlider(data) {
+        function loadLatestEpisodeSlider(data) {
             if (!data || !data.latestEpisodeAnimes.length) {
                 console.error('No latest episode anime data available to display in the slider.');
                 return;
@@ -1717,7 +1717,7 @@
         /**
          * Loads and displays the New on Xyra slider.
          */
-        async function loadNewOnXyraSlider(data) {
+        function loadNewOnXyraSlider(data) {
             if (!data || !data.topUpcomingAnimes.length) {
                 console.error('No new on Xyra anime data available to display in the slider.');
                 return;
@@ -1827,6 +1827,9 @@
     
             // Setup for new on Xyra slider
             setupArrowNavigation('newOnXyra', 'prevNewOnXyraArrow', 'nextNewOnXyraArrow');
+    
+            // Setup for Continue Watching slider
+            setupArrowNavigation('continueWatching', 'prevContinueWatchingArrow', 'nextContinueWatchingArrow');
         }
     
         // ======================= Data Fetching and Rendering Functions =======================
@@ -1835,35 +1838,35 @@
          * Loads all slider sections with their respective data from AniWatch API.
          * @param {Object} data - The data object fetched from AniWatch API.
          */
-        async function loadAllSliders(data) {
+        function loadAllSliders(data) {
             if (!data) {
                 console.error('No data available to load sliders.');
                 return;
             }
     
             // Load Trending Slider
-            await loadTrendingSlider(data);
+            loadTrendingSlider(data);
     
             // Load Spotlight Slider
-            await loadSpotLightSlider(data);
+            loadSpotLightSlider(data);
     
             // Load Top Airing Slider
-            await loadTopAiringSlider(data);
+            loadTopAiringSlider(data);
     
             // Load Most Popular Slider
-            await loadMostPopularSlider(data);
+            loadMostPopularSlider(data);
     
             // Load Most Favorite Slider
-            await loadMostFavoriteSlider(data);
+            loadMostFavoriteSlider(data);
     
             // Load Latest Completed Slider
-            await loadLatestCompletedSlider(data);
+            loadLatestCompletedSlider(data);
     
             // Load Latest Episode Slider
-            await loadLatestEpisodeSlider(data);
+            loadLatestEpisodeSlider(data);
     
             // Load New on Xyra Slider
-            await loadNewOnXyraSlider(data);
+            loadNewOnXyraSlider(data);
         }
     
         // ======================= My List Management =======================
@@ -1904,7 +1907,7 @@
          * Loads and displays the "Continue Watching" section.
          * @param {Object} data - The data object fetched from AniWatch API.
          */
-        async function loadContinueWatching(data) {
+        function loadContinueWatching(data) {
             const continueWatchingContainer = document.getElementById('continueWatching');
             if (!continueWatchingContainer) {
                 console.error('Continue Watching container not found.');
@@ -2028,7 +2031,7 @@
     
         // ======================= Search Functionality =======================
     
-        const SEARCH_API_URL = "https://aniwatch-api-vmcl.onrender.com/api/v2/hianime/search"; // Assuming a search endpoint
+        const SEARCH_API_URL = "https://aniwatch-api-net.vercel.app/api/v2/hianime/search"; // Assuming a search endpoint
     
         /**
          * Sets up the search functionality, including event listeners and UI interactions.
@@ -2422,6 +2425,105 @@
             });
         }
     
+        // ======================= Slider Initialization =======================
+    
+        let slideIndex = 0;
+        const mainSliderContainer = document.getElementById("slider-container");
+    
+        /**
+         * Fetches and displays spotlight animes in the main slider.
+         * @param {Array} spotlightAnimes - Array of spotlight anime objects.
+         */
+        function setupMainSlider(spotlightAnimes) {
+            if (!mainSliderContainer) {
+                console.error('Main slider container not found.');
+                return;
+            }
+    
+            spotlightAnimes.forEach(anime => {
+                const slide = document.createElement("div");
+                slide.classList.add("slide");
+    
+                // Create overlay
+                const overlay = document.createElement("div");
+                overlay.classList.add("img-overlay");
+    
+                // Create image
+                const img = document.createElement("img");
+                img.src = anime.poster || PLACEHOLDER_IMAGE; // Use placeholder if poster is missing
+                img.classList.add("slider-image");
+                img.alt = anime.name || 'No Title';
+    
+                // Create content
+                const content = document.createElement("div");
+                content.classList.add("content");
+                
+                const title = document.createElement("h1");
+                title.classList.add("title");
+                title.textContent = anime.name || 'No Title';
+    
+                const description = document.createElement("p");
+                description.classList.add("description");
+                description.textContent = anime.description 
+                    ? truncateText(anime.description, 10) 
+                    : 'No description available.'; // Truncate to 10 words
+    
+                const buttons = document.createElement("div");
+                buttons.classList.add("buttons");
+    
+                const watchButton = document.createElement("a");
+                watchButton.href = `details.html?id=${anime.id}&type=${anime.type || 'anime'}`;
+                watchButton.classList.add("watch-button");
+                watchButton.textContent = "Watch Now";
+    
+                const detailsButton = document.createElement("a");
+                detailsButton.href = `details.html?id=${anime.id}&type=${anime.type || 'anime'}`; 
+                detailsButton.classList.add("details-button");
+                detailsButton.textContent = "Details";
+    
+                // Append all elements
+                buttons.appendChild(watchButton);
+                buttons.appendChild(detailsButton);
+                content.appendChild(title);
+                content.appendChild(description);
+                content.appendChild(buttons);
+                slide.appendChild(overlay);
+                slide.appendChild(img);
+                slide.appendChild(content);
+                mainSliderContainer.appendChild(slide);
+            });
+    
+            showMainSlides(); // Start the slider
+        }
+    
+        /**
+         * Truncates text to a specified number of words.
+         * @param {string} text - The text to truncate.
+         * @param {number} wordLimit - The number of words to keep.
+         * @returns {string} - The truncated text.
+         */
+        function truncateText(text, wordLimit) {
+            const words = text.split(" ");
+            if (words.length <= wordLimit) return text;
+            return words.slice(0, wordLimit).join(" ") + '...';
+        }
+    
+        /**
+         * Displays slides in the main slider.
+         */
+        function showMainSlides() {
+            const slides = mainSliderContainer.getElementsByClassName("slide");
+            if (slides.length === 0) return; // No slides to show
+    
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.opacity = 0; // Reset opacity
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].style.opacity = 1; // Show current slide
+            setTimeout(showMainSlides, 5000); // Change slide every 5 seconds
+        }
+    
         // ======================= Main Initialization =======================
     
         /**
@@ -2431,11 +2533,19 @@
             // Fetch all data from AniWatch API
             const data = await fetchFromAniWatchAPI();
     
+            if (!data) {
+                console.error('Failed to fetch data from AniWatch API.');
+                return;
+            }
+    
             // Initialize all sections
             loadTrendingBanner(data);
             loadTrendingSlider(data);
             loadAllSliders(data);
             loadContinueWatching(data);
+    
+            // Initialize Main Slider with Spotlight Animes
+            setupMainSlider(data.spotlightAnimes);
     
             // Setup slider arrow navigations
             setupArrows();
@@ -2453,6 +2563,7 @@
             setupHamburgerMenu();
         });
     </script>
+    
     
     
 
