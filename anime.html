@@ -602,12 +602,12 @@
         }
         
         /* Popular and Top Rated Sections */
-        .popular-section, .top-rated-section, .slider-section {
+        .popular-section, .top-rated-section {
             position: relative;
             padding: 10px;
         }
 
-        .popular-title, .top-rated-title, .slider-title{
+        .popular-title, .top-rated-title {
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 5px;
@@ -1128,7 +1128,7 @@
 
 
         
-    </style> 
+    </style>  
 </head>
 <body>
     
@@ -1204,17 +1204,7 @@
             <div id="trending" class="trending-slider"></div>
             <button class="arrow-button arrow-right" id="nextArrow">&#8250;</button>
         </div>
-    </div>  
-
-    <!-- Spotlight Section -->
-    <div class="slider-section">
-        <h2 class="slider-title">| Spotlight</h2>
-        <div class="slider-container">
-            <button class="arrow-button arrow-left" id="prevSpotlightArrow">&#8249;</button>
-            <div id="spotlight" class="trending-slider"></div>
-            <button class="arrow-button arrow-right" id="nextSpotlightArrow">&#8250;</button>
-        </div>
-    </div>
+    </div>    
 
     <!-- Continue Watching Section -->
     <div class="continue-watching-section">
@@ -1226,66 +1216,27 @@
         </div>
     </div>
 
-    <!-- Top Airing Section -->
-    <div class="slider-section">
-        <h2 class="slider-title">| Top Airing</h2>
-        <div class="slider-container">
-            <button class="arrow-button arrow-left" id="prevTopAiringArrow">&#8249;</button>
-            <div id="topAiring" class="trending-slider"></div>
-            <button class="arrow-button arrow-right" id="nextTopAiringArrow">&#8250;</button>
+
+    <!-- Popular Movies and TV Shows -->
+    <div class="popular-section">
+        <h2 class="popular-title">| Popular</h2>
+        <div class="popular-slider-container">
+            <button class="arrow-button arrow-left" id="prevPopularArrow">&#8249;</button>
+            <div id="popular" class="trending-slider"></div>
+            <button class="arrow-button arrow-right" id="nextPopularArrow">&#8250;</button>
         </div>
     </div>
 
-    <!-- Most Popular Section -->
-    <div class="slider-section">
-        <h2 class="slider-title">| Most Popular</h2>
-        <div class="slider-container">
-            <button class="arrow-button arrow-left" id="prevMostPopularArrow">&#8249;</button>
-            <div id="mostPopular" class="trending-slider"></div>
-            <button class="arrow-button arrow-right" id="nextMostPopularArrow">&#8250;</button>
+    <!-- Top Rated Movies and TV Shows -->
+    <div class="top-rated-section">
+        <h2 class="top-rated-title">| Top Rated</h2>
+        <div class="top-rated-slider-container">
+            <button class="arrow-button arrow-left" id="prevTopRatedArrow">&#8249;</button>
+            <div id="topRated" class="trending-slider"></div>
+            <button class="arrow-button arrow-right" id="nextTopRatedArrow">&#8250;</button>
         </div>
     </div>
-
-    <!-- Most Favorite Section -->
-    <div class="slider-section">
-        <h2 class="slider-title">| Most Favorite</h2>
-        <div class="slider-container">
-            <button class="arrow-button arrow-left" id="prevMostFavoriteArrow">&#8249;</button>
-            <div id="mostFavorite" class="trending-slider"></div>
-            <button class="arrow-button arrow-right" id="nextMostFavoriteArrow">&#8250;</button>
-        </div>
-    </div>
-
-    <!-- Latest Completed Section -->
-    <div class="slider-section">
-        <h2 class="slider-title">| Latest Completed</h2>
-        <div class="slider-container">
-            <button class="arrow-button arrow-left" id="prevLatestCompletedArrow">&#8249;</button>
-            <div id="latestCompleted" class="trending-slider"></div>
-            <button class="arrow-button arrow-right" id="nextLatestCompletedArrow">&#8250;</button>
-        </div>
-    </div>
-
-    <!-- Latest Episode Section -->
-    <div class="slider-section">
-        <h2 class="slider-title">| Latest Episode</h2>
-        <div class="slider-container">
-            <button class="arrow-button arrow-left" id="prevLatestEpisodeArrow">&#8249;</button>
-            <div id="latestEpisode" class="trending-slider"></div>
-            <button class="arrow-button arrow-right" id="nextLatestEpisodeArrow">&#8250;</button>
-        </div>
-    </div>
-
-    <!-- New On Xyra Section -->
-    <div class="slider-section">
-        <h2 class="slider-title">| New On Xyra</h2>
-        <div class="slider-container">
-            <button class="arrow-button arrow-left" id="prevNewOnXyraArrow">&#8249;</button>
-            <div id="newOnXyra" class="trending-slider"></div>
-            <button class="arrow-button arrow-right" id="nextNewOnXyraArrow">&#8250;</button>
-        </div>
-    </div>
-
+        
     <div id="bookmarkPopup" class="popup-overlay" style="display: none;">
         <div class="popup-card">
             <h2>Bookmark Xyra Stream</h2>
@@ -1356,27 +1307,7 @@
         <ul id="notifications" class="notifications"></ul>
     </div>
     <script>
-        // ======================= Configuration =======================
-        const NEW_API_URL = "https://aniwatch-api-net.vercel.app/api/v2/hianime/home"; // New API URL
-        const BASE_IMAGE_URL = 'https://image.tmdb.org/t/p/';
-        const PLACEHOLDER_IMAGE = 'https://via.placeholder.com/150x225?text=No+Image';
-        const YOUTUBE_EMBED_URL = 'https://www.youtube.com/embed/';
-        const MAX_SEARCH_RESULTS = 5;
-    
         // ======================= Utility Functions =======================
-    
-        /**
-         * Shuffles an array using the Fisher-Yates algorithm.
-         * @param {Array} array - The array to shuffle.
-         * @returns {Array} - The shuffled array.
-         */
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
     
         /**
          * Debounces a function by the specified delay.
@@ -1449,87 +1380,115 @@
             localStorage.setItem(key, JSON.stringify(value));
         }
     
-        // ======================= Centralized API Functions =======================
+        // ======================= Centralized Anime API Function =======================
     
         /**
-         * Fetches data from the AniWatch API.
-         * @returns {Promise<Object|null>} - The data object if successful, or null if an error occurs.
+         * Fetches data from the Anime API.
+         * @param {string} endpoint - The API endpoint (e.g., '/api/v2/hianime/home').
+         * @returns {Promise<Object|null>} - The fetched JSON data or null if an error occurs.
          */
-        async function fetchFromAniWatchAPI() {
-            try {
-                const response = await fetch(NEW_API_URL);
-                const result = await response.json();
-                if (result.success) {
-                    return result.data;
-                } else {
-                    console.error("AniWatch API returned an unsuccessful response.");
-                    return null;
-                }
-            } catch (error) {
-                console.error("Error fetching from AniWatch API:", error);
-                return null;
-            }
+/**
+ * Fetches data from the Anime API with a timeout.
+ * @param {string} endpoint - The API endpoint (e.g., '/api/v2/hianime/home').
+ * @param {number} timeout - The timeout duration in milliseconds.
+ * @returns {Promise<Object|null>} - The fetched JSON data or null if an error occurs or timeout is reached.
+ */
+ async function fetchFromAnimeAPI(endpoint, timeout = 99999) {
+    const BASE_API_URL = 'https://aniwatch-api-vmcl.onrender.com';
+    const url = `${BASE_API_URL}${endpoint}`;
+    
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    // Set up the timeout
+    const timeoutId = setTimeout(() => {
+        controller.abort();
+    }, timeout);
+
+    try {
+        const response = await fetch(url, { signal });
+        clearTimeout(timeoutId); // Clear the timeout since fetch completed
+
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+        const data = await response.json();
+        if (!data.success) throw new Error('API response unsuccessful');
+        return data.data;
+    } catch (error) {
+        if (error.name === 'AbortError') {
+            console.error(`Request to "${endpoint}" timed out after ${timeout} ms.`);
+            showNotification('The request timed out. Please try again later.');
+        } else {
+            console.error(`Error fetching from Anime API at "${endpoint}":`, error);
+            showNotification('Failed to load data. Please check your connection and try again.');
         }
+        return null;
+    }
+}
+
     
         // ======================= DOM Manipulation Functions =======================
     
         /**
-         * Creates a slider item element.
-         * @param {Object} item - The anime item data.
-         * @param {string} type - The type of media ('anime', 'movie', or 'tv').
-         * @param {string|null} rank - The rank badge text (optional).
+         * Creates a slider item element for anime data.
+         * @param {Object} anime - The anime data object.
          * @returns {HTMLElement} - The slider item element.
          */
-        function createSliderItem(item, type = 'anime', rank = null) {
+        function createAnimeSliderItem(anime) {
+            const sliderItemWrapper = document.createElement('div');
+            sliderItemWrapper.classList.add('slider-item-wrapper'); // New wrapper
+    
             const sliderItem = document.createElement('div');
-            sliderItem.classList.add('trending-item');
+            sliderItem.classList.add('trending-item'); // Reusing existing styles
     
             // Image
             const img = document.createElement('img');
-            img.src = item.poster || PLACEHOLDER_IMAGE;
-            img.alt = item.name || 'No Title';
+            img.src = anime.poster || 'https://via.placeholder.com/150x225?text=No+Image';
+            img.alt = anime.name || 'No Title';
     
-            // Rank Badge (optional)
-            if (rank) {
-                const rankBadge = document.createElement('div');
-                rankBadge.classList.add('rank-badge');
-                rankBadge.textContent = rank;
-                sliderItem.appendChild(rankBadge);
-            }
-    
-            // Title Container
-            const titleContainer = document.createElement('div');
-            titleContainer.classList.add('type-year'); // New CSS class for styling
-            titleContainer.textContent = item.name || 'No Title';
+            // Type-Episodes Container (e.g., Type and Episodes)
+            const typeEpisodesContainer = document.createElement('div');
+            typeEpisodesContainer.classList.add('type-year');
+            typeEpisodesContainer.textContent = `${anime.type || 'N/A'} · Sub: ${anime.episodes?.sub || 0} Dub: ${anime.episodes?.dub || 0}`;
     
             // Add to My List Button
             const addToListButton = document.createElement('button');
             addToListButton.classList.add('add-to-list');
-            const myList = getLocalStorageItem('myList') || [];
-            const isAdded = myList.some(savedItem => savedItem.id === item.id && savedItem.type === type);
+            const myList = getLocalStorageItem('myList');
+            const isAdded = myList.some(
+                (savedItem) => savedItem.id === anime.id && savedItem.type === anime.type
+            );
             addToListButton.innerHTML = isAdded ? getIcon('check') : getIcon('add');
             addToListButton.addEventListener('click', (e) => {
                 e.stopPropagation(); // Prevent triggering click on parent
-                toggleMyList(item, addToListButton, type);
+                toggleMyList(anime, addToListButton, anime.type);
             });
     
             // Assemble Slider Item
             sliderItem.appendChild(img);
-            sliderItem.appendChild(titleContainer); // Append the new title container
+            sliderItem.appendChild(typeEpisodesContainer);
             sliderItem.appendChild(addToListButton);
             sliderItem.addEventListener('click', () => {
-                window.location.href = `details.html?id=${item.id}&type=${type}`;
+                window.location.href = `details.html?id=${anime.id}&type=${anime.type}`;
             });
     
-            return sliderItem;
+            // Title Element
+            const titleElement = document.createElement('div');
+            titleElement.classList.add('card-title');
+            titleElement.textContent = anime.name || 'No Title';
+    
+            // Append to Wrapper
+            sliderItemWrapper.appendChild(sliderItem);
+            sliderItemWrapper.appendChild(titleElement); // Add title below the card
+    
+            return sliderItemWrapper;
         }
     
         /**
-         * Displays items in a specified slider section.
-         * @param {Array} results - The array of anime items.
+         * Displays anime items in a specified slider section.
+         * @param {Array} animes - The array of anime items.
          * @param {string} sectionId - The ID of the slider container.
          */
-        function displaySliderItems(results, sectionId) {
+        function displaySliderItemsFromAnime(animes, sectionId) {
             const sliderContainer = document.getElementById(sectionId);
             if (!sliderContainer) {
                 console.error(`Slider container with ID "${sectionId}" not found.`);
@@ -1539,238 +1498,112 @@
     
             const fragment = document.createDocumentFragment();
     
-            results.forEach(item => {
-                const mediaType = item.type || 'anime'; // Default to 'anime' if not specified
-                const sliderItem = createSliderItem(item, mediaType); // Pass correct media type
+            animes.forEach(anime => {
+                const sliderItem = createAnimeSliderItem(anime);
                 fragment.appendChild(sliderItem);
             });
     
             sliderContainer.appendChild(fragment);
         }
     
-        // ======================= Specific Section Loaders =======================
-    
         /**
-         * Loads and displays the trending banner.
-         * Note: Adjust this function based on available data in the new API.
+         * Displays Top 10 Animes in a specified slider section.
+         * @param {Array} top10Animes - The array of top 10 anime items.
+         * @param {string} sectionId - The ID of the slider container.
          */
-        function loadTrendingBanner(data) {
-            if (!data || !data.trendingAnimes.length) {
-                console.error('No trending data available to display in banner.');
+        function displayTop10Animes(top10Animes, sectionId) {
+            const sliderContainer = document.getElementById(sectionId);
+            if (!sliderContainer) {
+                console.error(`Slider container with ID "${sectionId}" not found.`);
                 return;
             }
-    
-            const rankedItems = data.trendingAnimes.map((item, index) => ({ ...item, rank: `#${index + 1}` }));
-            const randomItem = rankedItems[Math.floor(Math.random() * rankedItems.length)];
-            updateBanner(randomItem, randomItem.rank);
-        }
-    
-        /**
-         * Loads and displays the trending slider.
-         */
-        function loadTrendingSlider(data) {
-            const spinner = document.getElementById('trendingLoading'); // Spinner element
-            const sliderContainer = document.getElementById('trending'); // Slider container
-            if (!spinner || !sliderContainer) {
-                console.error('Trending elements are missing.');
-                return;
-            }
-    
-            // Show spinner
-            spinner.style.display = 'block';
-    
-            if (!data || !data.trendingAnimes.length) {
-                console.error('No trending data available to display.');
-                spinner.style.display = 'none';
-                return;
-            }
-    
-            // Clear existing slider content
-            sliderContainer.innerHTML = '';
+            sliderContainer.innerHTML = ''; // Clear existing content
     
             const fragment = document.createDocumentFragment();
     
-            data.trendingAnimes.forEach((item, index) => {
-                // Map the API data to match your existing structure
-                const mappedItem = {
-                    id: item.id,
-                    name: item.name || "Unknown Title",
-                    poster: item.poster || PLACEHOLDER_IMAGE,
-                    type: item.type || "anime",
-                    episodes: {
-                        sub: item.episodes?.sub || 0,
-                        dub: item.episodes?.dub || 0,
-                    },
-                    rank: item.rank || index + 1,
-                };
+            top10Animes.forEach(anime => {
+                const sliderItem = createAnimeSliderItem(anime);
     
-                const sliderItem = createSliderItem(mappedItem, "anime", `#${mappedItem.rank}`);
-    
-                // Event: Update banner on mouseover
-                sliderItem.addEventListener('mouseover', () => updateBanner(mappedItem, `#${mappedItem.rank}`));
+                // Optionally, add rank badge
+                if (anime.rank) {
+                    const rankBadge = document.createElement('div');
+                    rankBadge.classList.add('rank-badge');
+                    rankBadge.textContent = `#${anime.rank}`;
+                    sliderItem.querySelector('.trending-item').appendChild(rankBadge);
+                }
     
                 fragment.appendChild(sliderItem);
             });
     
             sliderContainer.appendChild(fragment);
-    
-            // Hide spinner after loading
-            spinner.style.display = 'none';
         }
     
         /**
-         * Loads and displays the Spotlight slider.
+         * Loads and displays all home data from the Anime API.
          */
-        function loadSpotLightSlider(data) {
-            if (!data || !data.spotlightAnimes.length) {
-                console.error('No spotlight anime data available to display in the slider.');
+        async function loadHomeData() {
+            const homeData = await fetchFromAnimeAPI('/api/v2/hianime/home');
+            if (!homeData) {
+                showNotification('Failed to load anime data.');
                 return;
             }
     
-            // Shuffle the results for a varied display
-            const shuffledAnime = shuffleArray(data.spotlightAnimes);
+            // Populate Genres (if applicable)
+            // populateGenres(homeData.genres);
     
-            // Display the anime slider items
-            displaySliderItems(shuffledAnime, 'spotlight');
-        }
-    
-        /**
-         * Loads and displays the Top Airing slider.
-         */
-        function loadTopAiringSlider(data) {
-            if (!data || !data.topAiringAnimes.length) {
-                console.error('No top airing anime data available to display in the slider.');
-                return;
+            // Populate Banner with Spotlight Animes
+            if (homeData.spotlightAnimes && homeData.spotlightAnimes.length > 0) {
+                const spotlightAnime = homeData.spotlightAnimes[Math.floor(Math.random() * homeData.spotlightAnimes.length)];
+                updateBannerFromAnime(spotlightAnime);
             }
     
-            // Shuffle the results for a varied display
-            const shuffledAnime = shuffleArray(data.topAiringAnimes);
-    
-            // Display the anime slider items
-            displaySliderItems(shuffledAnime, 'topAiring');
-        }
-    
-        /**
-         * Loads and displays the Most Popular slider.
-         */
-        function loadMostPopularSlider(data) {
-            if (!data || !data.mostPopularAnimes.length) {
-                console.error('No most popular anime data available to display in the slider.');
-                return;
+            // Populate Trending Section
+            if (homeData.trendingAnimes && homeData.trendingAnimes.length > 0) {
+                displaySliderItemsFromAnime(homeData.trendingAnimes, 'trending');
             }
     
-            // Shuffle the results for a varied display
-            const shuffledAnime = shuffleArray(data.mostPopularAnimes);
-    
-            // Display the anime slider items
-            displaySliderItems(shuffledAnime, 'mostPopular');
-        }
-    
-        /**
-         * Loads and displays the Most Favorite slider.
-         */
-        function loadMostFavoriteSlider(data) {
-            if (!data || !data.mostFavoriteAnimes.length) {
-                console.error('No most favorite anime data available to display in the slider.');
-                return;
+            // Populate Popular Section
+            if (homeData.mostPopularAnimes && homeData.mostPopularAnimes.length > 0) {
+                displaySliderItemsFromAnime(homeData.mostPopularAnimes, 'popular');
             }
     
-            // Shuffle the results for a varied display
-            const shuffledAnime = shuffleArray(data.mostFavoriteAnimes);
-    
-            // Display the anime slider items
-            displaySliderItems(shuffledAnime, 'mostFavorite');
-        }
-    
-        /**
-         * Loads and displays the Latest Completed slider.
-         */
-        function loadLatestCompletedSlider(data) {
-            if (!data || !data.latestCompletedAnimes.length) {
-                console.error('No latest completed anime data available to display in the slider.');
-                return;
+            // Populate Top Rated Section
+            if (homeData.top10Animes && homeData.top10Animes.today && homeData.top10Animes.today.length > 0) {
+                displayTop10Animes(homeData.top10Animes.today, 'topRated'); // Adjust as needed
             }
     
-            // Shuffle the results for a varied display
-            const shuffledAnime = shuffleArray(data.latestCompletedAnimes);
-    
-            // Display the anime slider items
-            displaySliderItems(shuffledAnime, 'latestCompleted');
+            // Populate Other Sections Similarly...
+            // Example:
+            // if (homeData.latestEpisodeAnimes && homeData.latestEpisodeAnimes.length > 0) { ... }
         }
     
         /**
-         * Loads and displays the Latest Episode slider.
+         * Updates the banner with a spotlight anime.
+         * @param {Object} anime - The spotlight anime data.
          */
-        function loadLatestEpisodeSlider(data) {
-            if (!data || !data.latestEpisodeAnimes.length) {
-                console.error('No latest episode anime data available to display in the slider.');
-                return;
-            }
-    
-            // Shuffle the results for a varied display
-            const shuffledAnime = shuffleArray(data.latestEpisodeAnimes);
-    
-            // Display the anime slider items
-            displaySliderItems(shuffledAnime, 'latestEpisode');
-        }
-    
-        /**
-         * Loads and displays the New on Xyra slider.
-         */
-        function loadNewOnXyraSlider(data) {
-            if (!data || !data.topUpcomingAnimes.length) {
-                console.error('No new on Xyra anime data available to display in the slider.');
-                return;
-            }
-    
-            // Shuffle the results for a varied display
-            const shuffledAnime = shuffleArray(data.topUpcomingAnimes);
-    
-            // Display the anime slider items
-            displaySliderItems(shuffledAnime, 'newOnXyra');
-        }
-    
-        /**
-         * Updates the banner with the selected media item.
-         * @param {Object} item - The anime item data.
-         * @param {string} rank - The rank badge text.
-         */
-        function updateBanner(item, rank = "#1") {
+        function updateBannerFromAnime(anime) {
             const bannerImage = document.getElementById('bannerImage');
-            const bannerTrailer = document.getElementById('bannerTrailer');
+            const bannerTrailer = document.getElementById('bannerTrailer'); // If you have trailers
             const bannerTitle = document.getElementById('bannerTitle');
             const bannerDescription = document.getElementById('bannerDescription');
-          
-            if (!bannerImage || !bannerTrailer || !bannerTitle || !bannerDescription) {
-              console.error('One or more banner elements are missing.');
-              return;
+    
+            if (!bannerImage || !bannerTitle || !bannerDescription) {
+                console.error('One or more banner elements are missing.');
+                return;
             }
-          
-            // Since the new API does not provide trailer information, fallback to cover image
-            bannerImage.src = item.poster || PLACEHOLDER_IMAGE;
+    
+            // Update banner image
+            bannerImage.src = anime.poster || 'https://via.placeholder.com/150x225?text=No+Image';
             bannerImage.style.display = 'block';
-            bannerTrailer.style.display = 'none';
-          
-            const genres = (item.otherInfo || []).join(', ') || 'N/A';
-            const type = item.type || "Anime";
-            const title = item.name || "No Title";
-          
-            // Truncate description to ~250 characters
-            let description = item.description || "No description available.";
-            description = description.replace(/<[^>]*>?/gm, '').trim(); // Remove HTML tags
-          
-            const MAX_LENGTH = 250;
-            if (description.length > MAX_LENGTH) {
-              description = description.slice(0, MAX_LENGTH).trim() + '...';
-            }
-          
-            // Update banner title and truncated description
+            bannerTrailer.style.display = 'none'; // Hide trailer if not used
+    
+            // Update banner details
             bannerTitle.innerHTML = `
-              <div class="banner-rank">${rank}</div>
-              <div class="banner-main-title">${title}</div>
-              <div class="banner-type">${genres}</div>
+                <div class="banner-rank">#${anime.rank || 'N/A'}</div>
+                <div class="banner-main-title">${anime.name}</div>
+                <div class="banner-type">${anime.type || 'N/A'}</div>
             `;
-            bannerDescription.textContent = description;
+            bannerDescription.textContent = anime.description || 'No description available.';
         }
     
         // ======================= Slider Navigation Setup =======================
@@ -1807,236 +1640,117 @@
             // Setup for trending slider
             setupArrowNavigation('trending', 'prevArrow', 'nextArrow');
     
-            // Setup for spotlight slider
-            setupArrowNavigation('spotlight', 'prevSpotlightArrow', 'nextSpotlightArrow');
+            // Setup for popular slider
+            setupArrowNavigation('popular', 'prevPopularArrow', 'nextPopularArrow');
     
-            // Setup for top airing slider
-            setupArrowNavigation('topAiring', 'prevTopAiringArrow', 'nextTopAiringArrow');
+            // Setup for top-rated slider
+            setupArrowNavigation('topRated', 'prevTopRatedArrow', 'nextTopRatedArrow');
     
-            // Setup for most popular slider
-            setupArrowNavigation('mostPopular', 'prevMostPopularArrow', 'nextMostPopularArrow');
-    
-            // Setup for most favorite slider
-            setupArrowNavigation('mostFavorite', 'prevMostFavoriteArrow', 'nextMostFavoriteArrow');
-    
-            // Setup for latest completed slider
-            setupArrowNavigation('latestCompleted', 'prevLatestCompletedArrow', 'nextLatestCompletedArrow');
-    
-            // Setup for latest episode slider
-            setupArrowNavigation('latestEpisode', 'prevLatestEpisodeArrow', 'nextLatestEpisodeArrow');
-    
-            // Setup for new on Xyra slider
-            setupArrowNavigation('newOnXyra', 'prevNewOnXyraArrow', 'nextNewOnXyraArrow');
-    
-            // Setup for Continue Watching slider
+            // Setup for continueWatching slider
             setupArrowNavigation('continueWatching', 'prevContinueWatchingArrow', 'nextContinueWatchingArrow');
-        }
-    
-        // ======================= Data Fetching and Rendering Functions =======================
-    
-        /**
-         * Loads all slider sections with their respective data from AniWatch API.
-         * @param {Object} data - The data object fetched from AniWatch API.
-         */
-        function loadAllSliders(data) {
-            if (!data) {
-                console.error('No data available to load sliders.');
-                return;
-            }
-    
-            // Load Trending Slider
-            loadTrendingSlider(data);
-    
-            // Load Spotlight Slider
-            loadSpotLightSlider(data);
-    
-            // Load Top Airing Slider
-            loadTopAiringSlider(data);
-    
-            // Load Most Popular Slider
-            loadMostPopularSlider(data);
-    
-            // Load Most Favorite Slider
-            loadMostFavoriteSlider(data);
-    
-            // Load Latest Completed Slider
-            loadLatestCompletedSlider(data);
-    
-            // Load Latest Episode Slider
-            loadLatestEpisodeSlider(data);
-    
-            // Load New on Xyra Slider
-            loadNewOnXyraSlider(data);
         }
     
         // ======================= My List Management =======================
     
         /**
          * Toggles an item in the user's "My List".
-         * @param {Object} item - The anime item data.
+         * @param {Object} anime - The anime data object.
          * @param {HTMLElement} button - The button element to update.
          * @param {string} type - The type of media ('movie' or 'tv').
          */
-        function toggleMyList(item, button, type) {
+        function toggleMyList(anime, button, type) {
             const myList = getLocalStorageItem('myList');
-            const itemIndex = myList.findIndex(existingItem => existingItem.id === item.id && existingItem.type === type);
+            const itemIndex = myList.findIndex(existingItem => existingItem.id === anime.id && existingItem.type === type);
     
             if (itemIndex === -1) {
                 // Add item to the list
                 myList.push({
-                    id: item.id,
-                    name: item.name || 'No Title',
-                    poster: item.poster,
+                    id: anime.id,
+                    name: anime.name || 'No Title',
+                    poster: anime.poster,
                     type: type
                 });
                 setLocalStorageItem('myList', myList);
                 button.innerHTML = getIcon('check');
-                showNotification(`${item.name} has been added to your list.`);
+                showNotification(`${anime.name} has been added to your list.`);
             } else {
                 // Remove item from the list
                 myList.splice(itemIndex, 1);
                 setLocalStorageItem('myList', myList);
                 button.innerHTML = getIcon('add');
-                showNotification(`${item.name} has been removed from your list.`);
+                showNotification(`${anime.name} has been removed from your list.`);
             }
-        }
-    
-        // ======================= Continue Watching =======================
-    
-        /**
-         * Loads and displays the "Continue Watching" section.
-         * @param {Object} data - The data object fetched from AniWatch API.
-         */
-        function loadContinueWatching(data) {
-            const continueWatchingContainer = document.getElementById('continueWatching');
-            if (!continueWatchingContainer) {
-                console.error('Continue Watching container not found.');
-                return;
-            }
-            continueWatchingContainer.innerHTML = ''; // Clear existing content
-    
-            // Retrieve watched movies and current watching TV shows from localStorage
-            const watchedMovies = getLocalStorageItem('watchedMovies');
-            const currentWatchingList = getLocalStorageItem('currentWatchingList');
-            const nonAiredEpisodes = getLocalStorageItem('nonAiredEpisodes');
-    
-            // Collect all items to display
-            const itemsToDisplay = [];
-    
-            // Add watched movies
-            watchedMovies.forEach(movieId => {
-                itemsToDisplay.push({ id: movieId.toString(), type: 'movie' });
-            });
-    
-            // Add current watching TV shows
-            currentWatchingList.forEach(item => {
-                itemsToDisplay.push({
-                    id: item.tvId.toString(),
-                    type: 'tv',
-                    season: item.season,
-                    episode: item.episode
-                });
-            });
-    
-            // Reverse the array to show the most recent items first
-            itemsToDisplay.reverse();
-    
-            // If there are no items, hide the section
-            if (itemsToDisplay.length === 0) {
-                const section = document.querySelector('.continue-watching-section');
-                if (section) section.style.display = 'none';
-                return;
-            }
-    
-            // Show the section if hidden
-            const section = document.querySelector('.continue-watching-section');
-            if (section) section.style.display = 'block';
-    
-            const fragment = document.createDocumentFragment();
-    
-            // Fetch details for each item
-            itemsToDisplay.forEach(item => {
-                // Find the anime by ID in all relevant categories
-                let anime = null;
-                for (const category in data) {
-                    if (Array.isArray(data[category])) {
-                        anime = data[category].find(a => a.id === item.id);
-                        if (anime) break;
-                    } else if (typeof data[category] === 'object') {
-                        // For nested categories like top10Animes
-                        for (const subCategory in data[category]) {
-                            anime = data[category][subCategory].find(a => a.id === item.id);
-                            if (anime) break;
-                        }
-                    }
-                    if (anime) break;
-                }
-    
-                if (!anime) return; // Skip if anime not found
-    
-                // Create the card
-                const sliderItem = document.createElement('div');
-                sliderItem.classList.add('trending-item'); // Reusing existing styles
-    
-                const img = document.createElement('img');
-                img.src = anime.poster || PLACEHOLDER_IMAGE;
-                img.alt = anime.name || 'No Title';
-    
-                // Create an overlay for TV shows to display season and episode
-                if (item.type === 'tv') {
-                    const overlayContainer = document.createElement('div');
-                    overlayContainer.classList.add('type-year');
-                    overlayContainer.textContent = `S${item.season} · E${item.episode}`;
-                    sliderItem.appendChild(overlayContainer);
-    
-                    // Check for non-aired episode details and add a release status line
-                    const newEpisode = nonAiredEpisodes.find(
-                        (ep) =>
-                            ep.tvId.toString() === item.id &&
-                            ep.season === item.season &&
-                            new Date(ep.airDate) > new Date()
-                    );
-                    if (newEpisode) {
-                        const airDate = new Date(newEpisode.airDate);
-                        const currentDate = new Date();
-                        const daysUntilAiring = Math.ceil((airDate - currentDate) / (1000 * 60 * 60 * 24));
-                        
-                        const releaseStatus = document.createElement('div');
-                        releaseStatus.classList.add('release-status');
-                        releaseStatus.textContent = daysUntilAiring === 1
-                            ? 'New EP Tomorrow'
-                            : `New EP in ${daysUntilAiring} days`;
-    
-                        // Append the release status below the card
-                        sliderItem.appendChild(releaseStatus);
-                    }
-                }
-    
-                // Add image
-                sliderItem.appendChild(img);
-    
-                // Add click event to go to the details page
-                sliderItem.addEventListener('click', () => {
-                    window.location.href = `details.html?id=${anime.id}&type=${item.type}`;
-                });
-    
-                fragment.appendChild(sliderItem);
-            });
-    
-            continueWatchingContainer.appendChild(fragment);
-    
-            // Setup arrow navigation for continueWatching
-            setupArrowNavigation('continueWatching', 'prevContinueWatchingArrow', 'nextContinueWatchingArrow');
         }
     
         // ======================= Search Functionality =======================
     
-        const SEARCH_API_URL = "https://aniwatch-api-net.vercel.app/api/v2/hianime/search"; // Assuming a search endpoint
+        /**
+         * Searches for anime items based on the query.
+         * @param {string} query - The search query.
+         * @returns {Promise<Array>} - The array of search results.
+         */
+        async function searchAnimes(query) {
+            // Assuming the Anime API has a search endpoint like '/api/v2/hianime/search?query=...'
+            const data = await fetchFromAnimeAPI(`/api/v2/hianime/search?query=${encodeURIComponent(query)}`);
+            return data?.results || [];
+        }
     
         /**
-         * Sets up the search functionality, including event listeners and UI interactions.
+         * Displays search results in the UI.
+         * @param {Array} results - The array of search results.
          */
-        function setupSearch(data) {
+        function displayAnimeSearchResults(results) {
+            const searchResults = document.getElementById('searchResults');
+            if (!searchResults) {
+                console.error('Search results container not found.');
+                return;
+            }
+    
+            searchResults.innerHTML = '';
+            const displayedResults = results.slice(0, MAX_SEARCH_RESULTS);
+    
+            if (displayedResults.length > 0) {
+                searchResults.style.display = 'block';
+                displayedResults.forEach(anime => {
+                    const resultItem = document.createElement('div');
+                    resultItem.classList.add('result-item');
+    
+                    const img = document.createElement('img');
+                    img.src = anime.poster || 'https://via.placeholder.com/50x75?text=No+Image';
+                    img.alt = anime.name || 'No Title';
+    
+                    const details = document.createElement('div');
+                    details.classList.add('result-details');
+    
+                    const title = document.createElement('div');
+                    title.classList.add('result-title');
+                    title.textContent = anime.name || 'No Title';
+    
+                    const meta = document.createElement('div');
+                    meta.classList.add('result-meta');
+                    meta.textContent = `${anime.type || 'N/A'} · Episodes: Sub ${anime.episodes?.sub || 0} Dub ${anime.episodes?.dub || 0}`;
+    
+                    details.appendChild(title);
+                    details.appendChild(meta);
+                    resultItem.appendChild(img);
+                    resultItem.appendChild(details);
+    
+                    resultItem.addEventListener('click', () => {
+                        window.location.href = `details.html?id=${anime.id}&type=${anime.type}`;
+                    });
+    
+                    searchResults.appendChild(resultItem);
+                });
+            } else {
+                searchResults.innerHTML = '<div class="result-item">No results found.</div>';
+                searchResults.style.display = 'block';
+            }
+        }
+    
+        /**
+         * Sets up the search functionality for anime.
+         */
+        function setupSearch() {
             const searchButton = document.getElementById('searchButton');
             const searchInput = document.querySelector('.search-input');
             const searchResults = document.getElementById('searchResults');
@@ -2075,75 +1789,13 @@
             });
     
             /**
-             * Searches for anime based on the query using the new AniWatch API.
-             * @param {string} query - The search query.
-             * @returns {Promise<Array>} - The array of search results.
+             * Debounced search handler to optimize API calls
              */
-            async function searchAnime(query) {
-                try {
-                    const response = await fetch(`${SEARCH_API_URL}?query=${encodeURIComponent(query)}`);
-                    const result = await response.json();
-                    return result.data || [];
-                } catch (error) {
-                    console.error("Error searching anime:", error);
-                    return [];
-                }
-            }
-    
-            /**
-             * Displays search results in the UI.
-             * @param {Array} results - The array of search results.
-             */
-            function displaySearchResults(results) {
-                searchResults.innerHTML = '';
-                const displayedResults = results.slice(0, MAX_SEARCH_RESULTS);
-    
-                if (displayedResults.length > 0) {
-                    searchResults.style.display = 'block';
-                    displayedResults.forEach(result => {
-                        const resultItem = document.createElement('div');
-                        resultItem.classList.add('result-item');
-    
-                        const img = document.createElement('img');
-                        img.src = result.poster || 'https://via.placeholder.com/50x75?text=No+Image';
-                        img.alt = result.name || 'No Title';
-    
-                        const details = document.createElement('div');
-                        details.classList.add('result-details');
-    
-                        const title = document.createElement('div');
-                        title.classList.add('result-title');
-                        title.textContent = result.name || 'No Title';
-    
-                        const meta = document.createElement('div');
-                        meta.classList.add('result-meta');
-    
-                        const year = result.otherInfo && result.otherInfo.length > 0 ? result.otherInfo.join(', ') : 'N/A';
-                        meta.textContent = `${year}`;
-    
-                        details.appendChild(title);
-                        details.appendChild(meta);
-                        resultItem.appendChild(img);
-                        resultItem.appendChild(details);
-    
-                        resultItem.addEventListener('click', () => {
-                            window.location.href = `details.html?id=${result.id}&type=anime`;
-                        });
-    
-                        searchResults.appendChild(resultItem);
-                    });
-                } else {
-                    searchResults.innerHTML = '<div class="result-item">No results found.</div>';
-                    searchResults.style.display = 'block';
-                }
-            }
-    
-            // Debounced search handler to optimize API calls
             const debouncedSearch = debounce(async (event) => {
                 const query = event.target.value.trim();
                 if (query.length > 2) {
-                    const results = await searchAnime(query);
-                    displaySearchResults(results);
+                    const results = await searchAnimes(query);
+                    displayAnimeSearchResults(results);
                 } else {
                     searchResults.style.display = 'none';
                 }
@@ -2171,7 +1823,7 @@
     
             let notifications = getLocalStorageItem('notifications');
     
-            // Filter out unreleased movies or TV shows
+            // Filter out unreleased animes
             const currentDate = new Date();
             notifications = notifications.filter(notification => {
                 const releaseDate = new Date(notification.releaseDate);
@@ -2222,7 +1874,7 @@
                     const details = document.createElement('div');
                     details.innerHTML = `
                         <h4>${notification.name}</h4>
-                        <p>${notification.type === 'movie' ? 'Movie' : 'TV Show'}</p>
+                        <p>${notification.type || 'N/A'}</p>
                         <p>${getReleaseText(notification.releaseDate, notification.type)}</p>
                     `;
     
@@ -2251,7 +1903,7 @@
     
             /**
              * Generates release text based on the number of days ago.
-             * @param {string} releaseDate - The release date of the media.
+             * @param {string} releaseDate - The release date of the anime.
              * @param {string} type - The type of media ('movie' or 'tv').
              * @returns {string} - The formatted release text.
              */
@@ -2325,25 +1977,23 @@
          * Sets up and manages the display logic for various popups.
          */
         function setupPopups() {
+            const bookmarkPopup = document.getElementById('bookmarkPopup');
             const popupOverlay = document.getElementById('popupOverlay'); // Disclaimer popup
-            const discordPopup = document.getElementById('discordPopup');
-            const bookmarkPopup = document.getElementById('bookmarkPopup'); // Bookmark popup
             const supPopup = document.getElementById('supPopup'); // Ad popup
+            const discordPopup = document.getElementById('discordPopup'); // Discord popup
             const popupNextBtn = document.getElementById('popupNextBtn');
-            const popupCloseBtn = document.getElementById('popupCloseBtn');
             const bookmarkBtn = document.getElementById('bookmarkBtn');
             const adCloseBtn = document.getElementById('adCloseBtn');
-            // Removed redirectBtn since it does not exist in the HTML
+            const popupCloseBtn = document.getElementById('popupCloseBtn');
     
-            if (!popupOverlay || !discordPopup || !bookmarkPopup || !supPopup ||
-                !popupNextBtn || !popupCloseBtn || !bookmarkBtn || !adCloseBtn) {
+            if (!bookmarkPopup || !popupOverlay || !supPopup || !discordPopup ||
+                !popupNextBtn || !bookmarkBtn || !adCloseBtn || !popupCloseBtn) {
                 console.error('One or more popup elements are missing.');
                 return;
             }
     
-            // Check if the pop-ups have been shown today
-            const lastPopupDate = localStorage.getItem('lastPopupDate');
             const today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+            const lastPopupDate = localStorage.getItem('lastPopupDate');
     
             if (lastPopupDate !== today) {
                 // Show the bookmark pop-up first
@@ -2425,133 +2075,20 @@
             });
         }
     
-        // ======================= Slider Initialization =======================
-    
-        let slideIndex = 0;
-        const mainSliderContainer = document.getElementById("slider-container");
-    
-        /**
-         * Fetches and displays spotlight animes in the main slider.
-         * @param {Array} spotlightAnimes - Array of spotlight anime objects.
-         */
-        function setupMainSlider(spotlightAnimes) {
-            if (!mainSliderContainer) {
-                console.error('Main slider container not found.');
-                return;
-            }
-    
-            spotlightAnimes.forEach(anime => {
-                const slide = document.createElement("div");
-                slide.classList.add("slide");
-    
-                // Create overlay
-                const overlay = document.createElement("div");
-                overlay.classList.add("img-overlay");
-    
-                // Create image
-                const img = document.createElement("img");
-                img.src = anime.poster || PLACEHOLDER_IMAGE; // Use placeholder if poster is missing
-                img.classList.add("slider-image");
-                img.alt = anime.name || 'No Title';
-    
-                // Create content
-                const content = document.createElement("div");
-                content.classList.add("content");
-                
-                const title = document.createElement("h1");
-                title.classList.add("title");
-                title.textContent = anime.name || 'No Title';
-    
-                const description = document.createElement("p");
-                description.classList.add("description");
-                description.textContent = anime.description 
-                    ? truncateText(anime.description, 10) 
-                    : 'No description available.'; // Truncate to 10 words
-    
-                const buttons = document.createElement("div");
-                buttons.classList.add("buttons");
-    
-                const watchButton = document.createElement("a");
-                watchButton.href = `details.html?id=${anime.id}&type=${anime.type || 'anime'}`;
-                watchButton.classList.add("watch-button");
-                watchButton.textContent = "Watch Now";
-    
-                const detailsButton = document.createElement("a");
-                detailsButton.href = `details.html?id=${anime.id}&type=${anime.type || 'anime'}`; 
-                detailsButton.classList.add("details-button");
-                detailsButton.textContent = "Details";
-    
-                // Append all elements
-                buttons.appendChild(watchButton);
-                buttons.appendChild(detailsButton);
-                content.appendChild(title);
-                content.appendChild(description);
-                content.appendChild(buttons);
-                slide.appendChild(overlay);
-                slide.appendChild(img);
-                slide.appendChild(content);
-                mainSliderContainer.appendChild(slide);
-            });
-    
-            showMainSlides(); // Start the slider
-        }
-    
-        /**
-         * Truncates text to a specified number of words.
-         * @param {string} text - The text to truncate.
-         * @param {number} wordLimit - The number of words to keep.
-         * @returns {string} - The truncated text.
-         */
-        function truncateText(text, wordLimit) {
-            const words = text.split(" ");
-            if (words.length <= wordLimit) return text;
-            return words.slice(0, wordLimit).join(" ") + '...';
-        }
-    
-        /**
-         * Displays slides in the main slider.
-         */
-        function showMainSlides() {
-            const slides = mainSliderContainer.getElementsByClassName("slide");
-            if (slides.length === 0) return; // No slides to show
-    
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].style.opacity = 0; // Reset opacity
-            }
-            slideIndex++;
-            if (slideIndex > slides.length) { slideIndex = 1 }
-            slides[slideIndex - 1].style.opacity = 1; // Show current slide
-            setTimeout(showMainSlides, 5000); // Change slide every 5 seconds
-        }
-    
         // ======================= Main Initialization =======================
     
         /**
          * Initializes all functionalities once the DOM is fully loaded.
          */
-        document.addEventListener('DOMContentLoaded', async () => {
-            // Fetch all data from AniWatch API
-            const data = await fetchFromAniWatchAPI();
-    
-            if (!data) {
-                console.error('Failed to fetch data from AniWatch API.');
-                return;
-            }
-    
-            // Initialize all sections
-            loadTrendingBanner(data);
-            loadTrendingSlider(data);
-            loadAllSliders(data);
-            loadContinueWatching(data);
-    
-            // Initialize Main Slider with Spotlight Animes
-            setupMainSlider(data.spotlightAnimes);
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize all sections with Anime API data
+            loadHomeData();
     
             // Setup slider arrow navigations
             setupArrows();
     
             // Setup search functionality
-            setupSearch(data);
+            setupSearch();
     
             // Setup popups and modals
             setupPopups();
@@ -2564,9 +2101,6 @@
         });
     </script>
     
-    
-    
-
     <!-- Footer -->
     <footer class="footer">
         <!-- <script type="text/javascript">
